@@ -1,9 +1,10 @@
 export type InputPropTypes = {
-  type: string;
+  type?: string;
   placeholder: string;
-  className: string;
+  className?: string;
+  value?: string;
+  error?: string;
   id: string;
   name: string;
-  value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

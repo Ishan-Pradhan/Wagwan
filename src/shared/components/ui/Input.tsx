@@ -8,6 +8,7 @@ function Input({
   name,
 }: InputPropTypes) {
   const { register, control, setValue } = useFormContext();
+
   const { errors } = useFormState({ control, name });
   const error = errors[name]?.message as string | undefined;
 
