@@ -5,8 +5,10 @@
   --color-card: "#F7F8FA";
   --color-border: "#E5E7EB";
 
+  --font-inter: "Inter";
+
   /* primary color */
-  --color-primary-50: #EEF7FC;
+  --color-primary-50: #eef7fc;
   --color-primary-100: #ebf6fb;
   --color-primary-200: #d8edf7;
   --color-primary-300: #c4e4f3;
@@ -18,7 +20,7 @@
   --color-primary-900: #246382;
 
   /* warning color */
-   --color-warning-50: #fff9e5;
+  --color-warning-50: #fff9e5;
   --color-warning-100: #fff2b8;
   --color-warning-200: #ffe88a;
   --color-warning-300: #ffde5c;
@@ -30,9 +32,66 @@
   --color-warning-900: #998200;
 }
 
-@layer utilities {
+@layer base {
+  body {
+    @apply bg-primary-50 font-inter;
+  }
+}
+
+@layer components {
   .container {
     @apply max-w-100 xl:max-w-480 lg:max-w-270 md:max-w-180 mx-auto px-10;
   }
 }
 
+@layer utilities {
+  /* Display XL — 48px / 56px */
+  .display-xl-medium {
+    @apply text-5xl leading-14 font-medium;
+  }
+
+  /* Display L — 40px / 48px */
+  .display-l-medium {
+    @apply text-[2.5rem] leading-12 font-medium;
+  }
+
+  /* Heading 1 — 32px / 40px */
+  .heading-1-medium {
+    @apply text-[2] leading-10 font-medium;
+  }
+
+  /* Heading 2 — 24px / 32px */
+  .heading-2-medium {
+    @apply text-[1.5rem] leading-8 font-medium;
+  }
+
+  /* Heading 3 — 20px / 28px */
+  .heading-3-medium {
+    @apply text-[1.25rem] leading-7 font-medium;
+  }
+
+  /* Body L — 18px / 28px */
+  .body-l-regular {
+    @apply text-[1.125rem] leading-7 font-normal;
+  }
+
+  /* Body M — 16px / 24px */
+  .body-m-regular {
+    @apply text-[1rem] leading-6 font-normal;
+  }
+
+  /* Body S — 14px / 20px */
+  .body-s-regular {
+    @apply text-[0.875rem] leading-5 font-normal;
+  }
+
+  /* Caption — 12px / 16px */
+  .caption-regular {
+    @apply text-[0.75rem] leading-4 font-normal;
+  }
+
+  /* Micro — 11px / 14px */
+  .micro-regular {
+    @apply text-[0.6875rem] leading-4.5 font-normal;
+  }
+}
