@@ -1,10 +1,12 @@
 import z from "zod";
 
 export const LoginSchema = z.object({
-  username: z
+  usernameOrEmail: z
     .string()
-    .nonempty({ message: "username or email should not be empty" }),
-  password: z.string().nonempty({ message: "password should not be empty" }),
+    .min(3, "Username must be at least 3 characters")
+    .optional(),
+
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 export type LoginFormInput = z.infer<typeof LoginSchema>;
