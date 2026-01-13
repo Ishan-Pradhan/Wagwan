@@ -53,45 +53,57 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col mx-auto w-full max-w-xs gap-3 ">
+    <div className="flex flex-col mx-auto w-full max-w-xs gap-5 ">
       <h3 className="heading-3-semibold">Log into wagwan</h3>
+      <div className="flex flex-col gap-4">
+        {loginMutation.isError && (
+          <p className="text-red-500 text-sm">{loginMutation.error.message} </p>
+        )}
 
-      {loginMutation.isError && (
-        <p className="text-red-500 text-sm">{loginMutation.error.message} </p>
-      )}
+        <FormProvider {...methods}>
+          <form
+            action=""
+            onSubmit={methods.handleSubmit(onsubmit)}
+            className="flex flex-col gap-4"
+          >
+            <Input
+              id="usernameOrEmail"
+              name="usernameOrEmail"
+              type="text"
+              placeholder="username or email"
+            />
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
 
-      <FormProvider {...methods}>
-        <form
-          action=""
-          onSubmit={methods.handleSubmit(onsubmit)}
-          className="flex flex-col gap-4"
+            <Button type="submit" disabled={loginMutation.isPending}>
+              {loginMutation.isPending ? "Logging in..." : "Login"}{" "}
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
+      <div className="items-center h-full">
+        <Divider word="OR" />
+      </div>
+
+      <div className="flex flex-col gap-5 items-center justify-center">
+        <Link
+          to="/forgot-password"
+          className="body-m-medium hover:text-gray-700"
         >
-          <Input
-            id="usernameOrEmail"
-            name="usernameOrEmail"
-            type="text"
-            placeholder="username or email"
-          />
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-          />
-
-          <Button type="submit" disabled={loginMutation.isPending}>
-            {loginMutation.isPending ? "Logging in..." : "Login"}{" "}
-          </Button>
-        </form>
-      </FormProvider>
-      <Divider />
-
-      <p>
-        Don't have an Account?{" "}
-        <Link className="text-primary-900 cursor-pointer" to={"/signup"}>
-          Sign up
+          Forgot Password?
         </Link>
-      </p>
+
+        <p className="body-m-regular">
+          Don't have an Account?{" "}
+          <Link className="text-primary-900 cursor-pointer" to={"/signup"}>
+            Sign up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

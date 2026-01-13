@@ -59,67 +59,177 @@
 }
 
 @layer utilities {
+  /* ---------------------------
+   TYPOGRAPHY SYSTEM — COMBINED RESPONSIVE CLASSES
+--------------------------- */
+
   /* Display XL — 48px / 56px */
+  .display-xl-thin {
+    @apply lg:text-5xl md:text-4xl text-2xl lg:leading-14 md:leading-12 leading-8 font-thin;
+  }
+  .display-xl-regular {
+    @apply lg:text-5xl md:text-4xl text-2xl lg:leading-14 md:leading-12 leading-8 font-normal;
+  }
   .display-xl-medium {
-    @apply text-5xl leading-14 font-medium;
+    @apply lg:text-5xl md:text-4xl text-2xl lg:leading-14 md:leading-12 leading-8 font-medium;
+  }
+  .display-xl-semibold {
+    @apply lg:text-5xl md:text-4xl text-2xl lg:leading-14 md:leading-12 leading-8 font-semibold;
+  }
+  .display-xl-bold {
+    @apply lg:text-5xl md:text-4xl text-2xl lg:leading-14 md:leading-12 leading-8 font-bold;
   }
 
   /* Display L — 40px / 48px */
+  .display-l-thin {
+    @apply lg:text-4xl md:text-3xl text-xl lg:leading-12 md:leading-10 leading-6 font-thin;
+  }
+  .display-l-regular {
+    @apply lg:text-4xl md:text-3xl text-xl lg:leading-12 md:leading-10 leading-6 font-normal;
+  }
   .display-l-medium {
-    @apply text-[2.5rem] leading-12 font-medium;
+    @apply lg:text-4xl md:text-3xl text-xl lg:leading-12 md:leading-10 leading-6 font-medium;
+  }
+  .display-l-semibold {
+    @apply lg:text-4xl md:text-3xl text-xl lg:leading-12 md:leading-10 leading-6 font-semibold;
+  }
+  .display-l-bold {
+    @apply lg:text-4xl md:text-3xl text-xl lg:leading-12 md:leading-10 leading-6 font-bold;
   }
 
   /* Heading 1 — 32px / 40px */
+  .heading-1-thin {
+    @apply lg:text-3xl md:text-2xl text-xl lg:leading-10 md:leading-8 leading-6 font-thin;
+  }
+  .heading-1-regular {
+    @apply lg:text-3xl md:text-2xl text-xl lg:leading-10 md:leading-8 leading-6 font-normal;
+  }
   .heading-1-medium {
-    @apply text-[2] leading-10 font-medium;
+    @apply lg:text-3xl md:text-2xl text-xl lg:leading-10 md:leading-8 leading-6 font-medium;
   }
-
-  /* Heading 2 — 24px / 32px */
-  .heading-2-medium {
-    @apply text-[1.5rem] leading-8 font-medium;
-  }
-
-  /* Heading 3 — 20px / 28px */
-  .heading-3-medium {
-    @apply text-[1.25rem] leading-7 font-medium;
-  }
-  /* Heading 1 — 32px / 40px */
   .heading-1-semibold {
-    @apply text-[2] leading-10 font-semibold;
+    @apply lg:text-3xl md:text-2xl text-xl lg:leading-10 md:leading-8 leading-6 font-semibold;
+  }
+  .heading-1-bold {
+    @apply lg:text-3xl md:text-2xl text-xl lg:leading-10 md:leading-8 leading-6 font-bold;
   }
 
   /* Heading 2 — 24px / 32px */
+  .heading-2-thin {
+    @apply lg:text-2xl md:text-xl text-base lg:leading-8 md:leading-6 leading-5 font-thin;
+  }
+  .heading-2-regular {
+    @apply lg:text-2xl md:text-xl text-base lg:leading-8 md:leading-6 leading-5 font-normal;
+  }
+  .heading-2-medium {
+    @apply lg:text-2xl md:text-xl text-base lg:leading-8 md:leading-6 leading-5 font-medium;
+  }
   .heading-2-semibold {
-    @apply text-[1.5rem] leading-8 font-semibold;
+    @apply lg:text-2xl md:text-xl text-base lg:leading-8 md:leading-6 leading-5 font-semibold;
+  }
+  .heading-2-bold {
+    @apply lg:text-2xl md:text-xl text-base lg:leading-8 md:leading-6 leading-5 font-bold;
   }
 
   /* Heading 3 — 20px / 28px */
+  .heading-3-thin {
+    @apply lg:text-xl md:text-lg text-base lg:leading-7 md:leading-6 leading-5 font-thin;
+  }
+  .heading-3-regular {
+    @apply lg:text-xl md:text-lg text-base lg:leading-7 md:leading-6 leading-5 font-normal;
+  }
+  .heading-3-medium {
+    @apply lg:text-xl md:text-lg text-base lg:leading-7 md:leading-6 leading-5 font-medium;
+  }
   .heading-3-semibold {
-    @apply text-[1.25rem] leading-7 font-semibold;
+    @apply lg:text-xl md:text-lg text-base lg:leading-7 md:leading-6 leading-5 font-semibold;
+  }
+  .heading-3-bold {
+    @apply lg:text-xl md:text-lg text-base lg:leading-7 md:leading-6 leading-5 font-bold;
   }
 
   /* Body L — 18px / 28px */
+  .body-l-thin {
+    @apply lg:text-lg md:text-base text-sm lg:leading-7 md:leading-6 leading-5 font-thin;
+  }
   .body-l-regular {
-    @apply text-[1.125rem] leading-7 font-normal;
+    @apply lg:text-lg md:text-base text-sm lg:leading-7 md:leading-6 leading-5 font-normal;
+  }
+  .body-l-medium {
+    @apply lg:text-lg md:text-base text-sm lg:leading-7 md:leading-6 leading-5 font-medium;
+  }
+  .body-l-semibold {
+    @apply lg:text-lg md:text-base text-sm lg:leading-7 md:leading-6 leading-5 font-semibold;
+  }
+  .body-l-bold {
+    @apply lg:text-lg md:text-base text-sm lg:leading-7 md:leading-6 leading-5 font-bold;
   }
 
   /* Body M — 16px / 24px */
+  .body-m-thin {
+    @apply lg:text-base md:text-sm text-sm lg:leading-6 md:leading-5 leading-4 font-thin;
+  }
   .body-m-regular {
-    @apply text-[1rem] leading-6 font-normal;
+    @apply lg:text-base md:text-sm text-sm lg:leading-6 md:leading-5 leading-4 font-normal;
+  }
+  .body-m-medium {
+    @apply lg:text-base md:text-sm text-sm lg:leading-6 md:leading-5 leading-4 font-medium;
+  }
+  .body-m-semibold {
+    @apply lg:text-base md:text-sm text-sm lg:leading-6 md:leading-5 leading-4 font-semibold;
+  }
+  .body-m-bold {
+    @apply lg:text-base md:text-sm text-sm lg:leading-6 md:leading-5 leading-4 font-bold;
   }
 
   /* Body S — 14px / 20px */
+  .body-s-thin {
+    @apply lg:text-sm md:text-sm text-xs lg:leading-5 md:leading-5 leading-4 font-thin;
+  }
   .body-s-regular {
-    @apply text-[0.875rem] leading-5 font-normal;
+    @apply lg:text-sm md:text-sm text-xs lg:leading-5 md:leading-5 leading-4 font-normal;
+  }
+  .body-s-medium {
+    @apply lg:text-sm md:text-sm text-xs lg:leading-5 md:leading-5 leading-4 font-medium;
+  }
+  .body-s-semibold {
+    @apply lg:text-sm md:text-sm text-xs lg:leading-5 md:leading-5 leading-4 font-semibold;
+  }
+  .body-s-bold {
+    @apply lg:text-sm md:text-sm text-xs lg:leading-5 md:leading-5 leading-4 font-bold;
   }
 
   /* Caption — 12px / 16px */
+  .caption-thin {
+    @apply lg:text-xs md:text-xs text-[0.75rem] lg:leading-4 md:leading-4 leading-3 font-thin;
+  }
   .caption-regular {
-    @apply text-[0.75rem] leading-4 font-normal;
+    @apply lg:text-xs md:text-xs text-[0.75rem] lg:leading-4 md:leading-4 leading-3 font-normal;
+  }
+  .caption-medium {
+    @apply lg:text-xs md:text-xs text-[0.75rem] lg:leading-4 md:leading-4 leading-3 font-medium;
+  }
+  .caption-semibold {
+    @apply lg:text-xs md:text-xs text-[0.75rem] lg:leading-4 md:leading-4 leading-3 font-semibold;
+  }
+  .caption-bold {
+    @apply lg:text-xs md:text-xs text-[0.75rem] lg:leading-4 md:leading-4 leading-3 font-bold;
   }
 
   /* Micro — 11px / 14px */
+  .micro-thin {
+    @apply lg:text-[0.6875rem] md:text-[0.625rem] text-[0.5625rem] lg:leading-3 md:leading-3 leading-3 font-thin;
+  }
   .micro-regular {
-    @apply text-[0.6875rem] leading-4.5 font-normal;
+    @apply lg:text-[0.6875rem] md:text-[0.625rem] text-[0.5625rem] lg:leading-3 md:leading-3 leading-3 font-normal;
+  }
+  .micro-medium {
+    @apply lg:text-[0.6875rem] md:text-[0.625rem] text-[0.5625rem] lg:leading-3 md:leading-3 leading-3 font-medium;
+  }
+  .micro-semibold {
+    @apply lg:text-[0.6875rem] md:text-[0.625rem] text-[0.5625rem] lg:leading-3 md:leading-3 leading-3 font-semibold;
+  }
+  .micro-bold {
+    @apply lg:text-[0.6875rem] md:text-[0.625rem] text-[0.5625rem] lg:leading-3 md:leading-3 leading-3 font-bold;
   }
 }

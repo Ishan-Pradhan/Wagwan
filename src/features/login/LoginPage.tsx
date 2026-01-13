@@ -3,7 +3,7 @@ import LoginForm from "./components/LoginForm";
 
 function LoginPage() {
   return (
-    <div className="container grid grid-cols-2 items-center justify-center h-lvh px-50">
+    <div className="container grid grid-cols-1 md:grid-cols-2 items-center justify-center h-lvh xl:px-50 my-10">
       <div className="col-span-1">
         <img
           src={loginImage}
