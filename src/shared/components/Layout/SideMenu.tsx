@@ -1,3 +1,4 @@
+import Logo from "@components/widgets/Logo";
 import {
   HouseIcon,
   PaperPlaneTiltIcon,
@@ -34,18 +35,20 @@ function SideMenu() {
   ];
 
   return (
-    <div className="flex flex-col gap-3 border-r border-gray-400 h-lvh justify-between p-5">
-      <div className="flex flex-col gap-4">
-        <span className="px-4">Wagwan</span>
+    <div className="flex flex-col gap-3 lg:border-r lg:border-gray-400 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5">
+      <div className="flex flex-col gap-10 lg:w-full">
+        <div className="px-4 lg:flex hidden">
+          <Logo />
+        </div>
 
-        <ul className="flex flex-col gap-4">
+        <ul className="flex lg:flex-col gap-4 lg:w-full">
           {menus.map((menu) => (
             <li key={menu.menu}>
               <NavLink
                 to={menu.path}
                 className={({ isActive }) =>
                   `flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out
-       ${isActive ? "bg-gray-100" : "hover:bg-gray-100"}`
+       ${isActive ? "lg:bg-gray-100" : "lg:hover:bg-gray-100"}`
                 }
               >
                 {({ isActive }) => {
@@ -56,7 +59,9 @@ function SideMenu() {
                       {menu.menu === "profile" ? (
                         <img
                           src={user?.avatar?.url}
-                          className="w-6 h-6 rounded-full"
+                          className={`w-6 h-6 rounded-full ${
+                            isActive ? "border-2 border-gray-700" : ""
+                          }`}
                           alt="Profile"
                         />
                       ) : (
@@ -65,7 +70,7 @@ function SideMenu() {
                           size={24}
                         />
                       )}
-                      <span>{menu.menu}</span>
+                      <span className="hidden lg:flex">{menu.menu}</span>
                     </>
                   );
                 }}
