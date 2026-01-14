@@ -35,7 +35,7 @@ function SideMenu() {
   ];
 
   return (
-    <div className="flex flex-col gap-3 lg:border-r lg:border-gray-400 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5">
+    <div className="flex flex-col gap-3 lg:border-r-2 lg:border-gray-200 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5">
       <div className="flex flex-col gap-10 lg:w-full">
         <div className="px-4 lg:flex hidden">
           <Logo />
@@ -70,7 +70,13 @@ function SideMenu() {
                           size={24}
                         />
                       )}
-                      <span className="hidden lg:flex">{menu.menu}</span>
+                      <span
+                        className={`hidden lg:flex text-gray-700  ${
+                          isActive ? "body-m-bold" : "body-m-medium"
+                        }`}
+                      >
+                        {menu.menu}
+                      </span>
                     </>
                   );
                 }}
