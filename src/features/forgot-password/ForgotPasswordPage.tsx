@@ -23,6 +23,13 @@ function ForgotPasswordPage() {
       <Link to="/signup" className="body-l-semibold">
         Create New Account
       </Link>
+
+      <Link
+        to="/login"
+        className="bg-gray-700 py-3 w-full flex justify-center text-white hover:underline transition-all duration-100 body-l-regular"
+      >
+        Go Back to Login
+      </Link>
     </div>
   );
 }

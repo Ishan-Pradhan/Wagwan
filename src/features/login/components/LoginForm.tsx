@@ -8,6 +8,7 @@ import { useLogin } from "../hooks/useLogin";
 import Button from "@components/ui/Button";
 import { useAuth } from "context/auth/AuthContext";
 import toast from "react-hot-toast";
+import googleLogo from "@assets/images/googleLogo.svg";
 
 function LoginForm() {
   const methods = useForm<LoginFormInput>({
@@ -52,6 +53,10 @@ function LoginForm() {
     });
   };
 
+  const handleGooglebutton = () => {
+    window.location.href = "http://localhost:8080/api/v1/users/google";
+  };
+
   return (
     <div className="flex flex-col mx-auto w-full max-w-xs gap-5 ">
       <h3 className="heading-3-semibold">Log into wagwan</h3>
@@ -88,6 +93,15 @@ function LoginForm() {
       <div className="items-center h-full">
         <Divider word="OR" />
       </div>
+
+      <button
+        type="button"
+        className="flex gap-3 justify-center items-center bg-white py-3 shadow-sm rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-150 ease-in-out"
+        onClick={handleGooglebutton}
+      >
+        <img src={googleLogo} alt="google logo" />
+        <span className="body-m-medium">Sign in with Google</span>
+      </button>
 
       <div className="flex flex-col gap-5 items-center justify-center">
         <Link

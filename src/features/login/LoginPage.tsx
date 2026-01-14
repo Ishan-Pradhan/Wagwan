@@ -1,9 +1,23 @@
 import loginImage from "@assets/images/login/login.png";
 import LoginForm from "./components/LoginForm";
+import { useAuth } from "context/auth/AuthContext";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 function LoginPage() {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) return null;
+
   return (
-    <div className="container grid grid-cols-1 md:grid-cols-2 items-center justify-center h-lvh xl:px-50 my-10">
+    <div className="container grid grid-cols-1 md:grid-cols-2 items-center justify-center h-lvh xl:px-50 my-10 mb-20">
       <div className="col-span-1">
         <img
           src={loginImage}
