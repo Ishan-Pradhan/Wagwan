@@ -4,6 +4,7 @@ import Button from "@components/ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
 import Spinner from "@components/ui/Spinner";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 interface Props {
   token: string;
@@ -12,6 +13,7 @@ interface Props {
 function ResetPasswordForm({ token }: Props) {
   const [newPassword, setNewPassword] = useState("");
   const resetPasswordMutation = useResetPassword();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,8 +22,8 @@ function ResetPasswordForm({ token }: Props) {
       { token, newPassword },
       {
         onSuccess: (data) => {
-          console.log(data);
           toast.success(data.message);
+          navigate("/login", { replace: true });
         },
         onError: (error) => {
           toast.error(error.message || "Something went wrong");

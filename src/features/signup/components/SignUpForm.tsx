@@ -31,7 +31,10 @@ function SignUpForm() {
     signUpMutation.mutate(payload, {
       onSuccess: (res) => {
         toast.success(res.message);
-        navigate("/login", { replace: true });
+        navigate("/verify-email", {
+          replace: true,
+          state: { email: payload.email },
+        });
       },
     });
   };

@@ -8,12 +8,19 @@ import SignUpPage from "features/signup/SignUpPage";
 import UserProfile from "features/user/profile/UserProfile";
 import ResetPasswordPage from "features/reset-password/ResetPasswordPage";
 import NotFound from "features/error/NotFound";
+import VerifyEmailPage from "features/verify-email/VerifyEmailPage";
+import VerificationResultPage from "features/verification-result/VerificationResultPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/signup", element: <SignUpPage /> },
   { path: "/forgot-password", element: <ForgotPasswordPage /> },
   { path: "/forgot-password/:token", element: <ResetPasswordPage /> },
+  { path: "/verify-email", element: <VerifyEmailPage /> },
+  {
+    path: "/users/verify-email/:token",
+    element: <VerificationResultPage />,
+  },
   { path: "*", element: <NotFound /> },
   {
     path: "/",
