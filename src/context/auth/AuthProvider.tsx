@@ -17,7 +17,7 @@ export default function AuthProvider({
         const res = await axios.get("/api/v1/users/current-user", {
           withCredentials: true,
         });
-        setUser(res.data);
+        setUser(res.data.data);
       } catch {
         setUser(null);
       } finally {

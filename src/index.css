@@ -6,6 +6,7 @@
   --color-border: "#E5E7EB";
 
   --font-inter: "Inter";
+  --font-raleway: "Raleway";
 
   /* primary color */
   --color-primary-50: #eef7fc;
@@ -34,7 +35,7 @@
 
 @layer base {
   body {
-    @apply bg-primary-50 font-inter;
+    @apply bg-white font-raleway;
   }
 }
 
