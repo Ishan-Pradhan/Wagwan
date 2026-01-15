@@ -10,57 +10,9 @@ import { formatTime } from "utils/formatTime";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
 import { useState } from "react";
+import type { Post } from "../types/FeedTypes";
 
-type Post = {
-  post: {
-    __v: number;
-    _id: string;
-    author: {
-      __v: number;
-      _id: string;
-      account: {
-        _id: string;
-        avatar: {
-          _id: string;
-          localPath: string;
-          url: string;
-        };
-        email: string;
-        username: string;
-      };
-      bio: string;
-      countryCode: string;
-      coverImage: {
-        _id: string;
-        localPath: string;
-        url: string;
-      };
-      createdAt: string;
-      dob: string;
-      firstName: string;
-      lastName: string;
-      location: string;
-      owner: string;
-      phoneNumber: string;
-      updatedAt: string;
-    };
-    comments: number;
-    content: string;
-    createdAt: string;
-    images: {
-      _id: string;
-      localPath: string;
-      url: string;
-    }[];
-    isBookmarked: boolean;
-    isLiked: boolean;
-    likes: number;
-    tags: string[];
-    updatedAt: string;
-  };
-};
-
-function PostCard({ post }: Post) {
+function PostCard({ post }: { post: Post }) {
   const [seeMore, setSeeMore] = useState(false);
   return (
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
@@ -138,7 +90,7 @@ function PostCard({ post }: Post) {
             placeholder="Add a comment..."
             className="flex-1 body-s-regular focus:outline-none  peer py-1"
           />
-          <button className="border bg-primary cursor-pointer px-1 rounded-sm bg-primary-500 text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex">
+          <button className="border bg-primary cursor-pointer px-2 rounded-sm  justify-center items-center bg-primary-500 body-s-regular text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex">
             Post
           </button>
         </div>
