@@ -18,7 +18,7 @@ function PostCard({ post }: { post: Post }) {
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
       <div className="flex justify-between px-4 items-center">
         {/* user info and created time */}
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-3 items-center">
           <img
             src={post.author.account.avatar.url}
             alt={post.author.account.username}
@@ -28,8 +28,8 @@ function PostCard({ post }: { post: Post }) {
             {post.author.account.username}
           </span>
 
-          <div className="flex gap-1 body-m-regular text-gray-700 items-center">
-            <CircleIcon weight="fill" size={8} />
+          <div className="flex gap-1 body-s-medium text-gray-400 items-center">
+            <CircleIcon weight="fill" size={5} />
             <span>{formatTime(post.createdAt)}</span>
           </div>
         </div>
@@ -47,13 +47,33 @@ function PostCard({ post }: { post: Post }) {
         <div className="flex flex-col  gap-2">
           <div className="flex justify-between items-center">
             <div className="flex gap-3 items-center">
-              <HeartIcon size={28} weight="fill" fill="red" stroke="2px" />
-              <ChatCircleIcon size={28} />
-              <ShareFatIcon size={28} />
+              <HeartIcon
+                size={28}
+                weight={post.isLiked ? "fill" : "regular"}
+                fill={post.isLiked ? "red" : ""}
+                stroke="2px"
+                className="hover:scale-105 cursor-pointer"
+              />
+              <ChatCircleIcon
+                size={28}
+                className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+              />
+              <ShareFatIcon
+                size={28}
+                className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+              />
             </div>
-            <BookmarkSimpleIcon size={28} />
+            <BookmarkSimpleIcon
+              size={28}
+              className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+            />
           </div>
-          <span className="body-s-semibold">{post.likes} likes</span>
+          <button
+            type="button"
+            className="body-s-semibold self-start cursor-pointer"
+          >
+            {post.likes} likes
+          </button>
         </div>
       </div>
 
@@ -72,7 +92,7 @@ function PostCard({ post }: { post: Post }) {
         <button
           className={` self-start text-gray-400 cursor-pointer caption-semibold ${
             seeMore ? "hidden" : "flex"
-          }`}
+          } `}
           onClick={() => setSeeMore(!seeMore)}
         >
           {seeMore ? "See less" : "See More"}

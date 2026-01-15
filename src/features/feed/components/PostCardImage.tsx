@@ -34,7 +34,7 @@ function PostCardImage({ images }: ImagesProps) {
           return (
             <SplideSlide
               key={img._id}
-              className="aspect-square h-100 w-full  overflow-hidden"
+              className="aspect-square  w-full  overflow-hidden"
             >
               <div className="bg-white flex justify-center items-center h-full w-full aspect-square overflow-hidden rounded-md">
                 <img

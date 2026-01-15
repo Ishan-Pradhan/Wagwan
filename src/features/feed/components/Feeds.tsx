@@ -4,6 +4,7 @@ import PostCard from "./PostCard";
 import Spinner from "@components/ui/Spinner";
 import type { Post } from "../types/FeedTypes";
 import FeedSkeletonLoading from "./FeedSkeletonLoading";
+import { SealCheckIcon } from "@phosphor-icons/react";
 
 function Feeds() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -46,6 +47,15 @@ function Feeds() {
       {hasNextPage && (
         <div ref={observerRef} className="h-10 flex justify-center">
           {isFetchingNextPage && <Spinner />}{" "}
+        </div>
+      )}
+
+      {!hasNextPage && (
+        <div className="flex flex-col gap-3 justify-center items-center">
+          <SealCheckIcon weight="duotone" size={32} fill="green" />
+          <span className="text-gray-500 body-l-medium">
+            You are all caught up
+          </span>
         </div>
       )}
     </div>
