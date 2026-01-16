@@ -12,7 +12,14 @@ import { Link } from "react-router";
 import { useState } from "react";
 import type { Post } from "../types/FeedTypes";
 
-function PostCard({ post }: { post: Post }) {
+// TODO use shad cn dialog for comments and profile view
+function PostCard({
+  post,
+  onOpenComments,
+}: {
+  post: Post;
+  onOpenComments: (post: Post) => void;
+}) {
   const [seeMore, setSeeMore] = useState(false);
   return (
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
@@ -57,6 +64,7 @@ function PostCard({ post }: { post: Post }) {
               <ChatCircleIcon
                 size={28}
                 className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+                onClick={() => onOpenComments(post)}
               />
               <ShareFatIcon
                 size={28}
@@ -101,7 +109,12 @@ function PostCard({ post }: { post: Post }) {
 
       {/* comments */}
       <div className="flex flex-col gap-3 justify-start">
-        <button className="body-s-regular text-gray-400 cursor-pointer flex self-start">
+        <button
+          className={`body-s-regular text-gray-400 cursor-pointer  self-start ${
+            post.comments === 0 ? "hidden" : "flex"
+          }`}
+          onClick={() => onOpenComments(post)}
+        >
           See all {post.comments} comments
         </button>
         <div className="flex w-full justify-between">
@@ -110,7 +123,7 @@ function PostCard({ post }: { post: Post }) {
             placeholder="Add a comment..."
             className="flex-1 body-s-regular focus:outline-none  peer py-1"
           />
-          <button className="border bg-primary cursor-pointer px-2 rounded-sm  justify-center items-center bg-primary-500 body-s-regular text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex">
+          <button className="border cursor-pointer px-2 rounded-sm  justify-center items-center bg-primary-500 body-s-regular text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex">
             Post
           </button>
         </div>

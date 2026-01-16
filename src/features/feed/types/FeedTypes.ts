@@ -1,35 +1,9 @@
+import type { Author } from "./AuthorTypes";
+
 export type Post = {
   __v: number;
   _id: string;
-  author: {
-    __v: number;
-    _id: string;
-    account: {
-      _id: string;
-      avatar: {
-        _id: string;
-        localPath: string;
-        url: string;
-      };
-      email: string;
-      username: string;
-    };
-    bio: string;
-    countryCode: string;
-    coverImage: {
-      _id: string;
-      localPath: string;
-      url: string;
-    };
-    createdAt: string;
-    dob: string;
-    firstName: string;
-    lastName: string;
-    location: string;
-    owner: string;
-    phoneNumber: string;
-    updatedAt: string;
-  };
+  author: Author;
   comments: number;
   content: string;
   createdAt: string;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFeed } from "../hooks/useFeed";
 import PostCard from "./PostCard";
 import Spinner from "@components/ui/Spinner";
@@ -6,10 +6,24 @@ import type { Post } from "../types/FeedTypes";
 import FeedSkeletonLoading from "./FeedSkeletonLoading";
 import { SealCheckIcon } from "@phosphor-icons/react";
 
+import CommentDialog from "./CommentDialog";
+
 function Feeds() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useFeed();
 
+  const [activePost, setActivePost] = useState<Post | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const openComments = (post: Post) => {
+    setDialogOpen(true);
+    setActivePost(post);
+  };
+
+  const closeComments = () => {
+    setDialogOpen(false);
+    setActivePost(null);
+  };
   const posts =
     data?.pages?.flatMap((page) => {
       return page?.posts ?? [];
@@ -41,8 +55,18 @@ function Feeds() {
   return (
     <div className="flex flex-col gap-6 mb-20">
       {posts.map((post: Post) => {
-        return <PostCard key={post._id} post={post} />;
+        return (
+          <PostCard key={post._id} post={post} onOpenComments={openComments} />
+        );
       })}
+
+      {activePost && (
+        <CommentDialog
+          post={activePost}
+          open={dialogOpen}
+          onClose={closeComments}
+        />
+      )}
 
       {hasNextPage && (
         <div ref={observerRef} className="h-10 flex justify-center">

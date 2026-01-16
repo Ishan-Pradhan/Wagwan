@@ -20,7 +20,7 @@ function PostCardImage({ images }: ImagesProps) {
   }
 
   return (
-    <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl mx-auto rounded-md  ">
+    <div className="w-full  mx-auto rounded-md  ">
       <Splide
         options={{
           perPage: 1,

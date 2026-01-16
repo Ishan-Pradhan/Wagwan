@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 function RightSideNav() {
   const { user } = useAuth();
-  const userAvatar = user?.avatar.url;
+  const userAvatar = user?.avatar?.url;
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-2 items-center">
