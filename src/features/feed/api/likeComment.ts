@@ -1,18 +1,9 @@
+import api from "api/api";
 import axios from "axios";
 
 export const likeComment = async (commentId: string | undefined) => {
   try {
-    const res = await axios.post(
-      `http://localhost:8080/api/v1/social-media/like/comment/${commentId}`,
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-
-    if (res.data) {
-      console.log(res.data);
-    }
+    const res = await api.post(`/social-media/like/comment/${commentId}`, {});
 
     return res.data;
   } catch (err) {

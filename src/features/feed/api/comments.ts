@@ -1,5 +1,5 @@
+import api from "api/api";
 import type { CommentType } from "../types/CommentTypes";
-import axios from "axios";
 
 export const fetchComments = async ({
   postId,
@@ -10,9 +10,8 @@ export const fetchComments = async ({
   page: number;
   limit: number;
 }): Promise<CommentType> => {
-  const res = await axios.get(
-    `http://localhost:8080/api/v1/social-media/comments/post/${postId}?page=${page}&limit=${limit}`,
-    { withCredentials: true }
+  const res = await api.get(
+    `/social-media/comments/post/${postId}?page=${page}&limit=${limit}`
   );
 
   const data = res.data?.data;

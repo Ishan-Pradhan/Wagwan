@@ -1,14 +1,12 @@
+import api from "api/api";
 import axios from "axios";
-
-interface verificationResultPayload {
-  token: string;
-}
+import type { verificationResultPayload } from "types/VerificationResultPayloadTypes";
 
 export const verificationResult = async ({
   token,
 }: verificationResultPayload) => {
   try {
-    const res = await axios.get(`/api/v1/users/verify-email/${token}`);
+    const res = await api.get(`/users/verify-email/${token}`);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

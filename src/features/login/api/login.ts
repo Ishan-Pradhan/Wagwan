@@ -1,9 +1,10 @@
 import axios from "axios";
 import type { LoginFormInput } from "../schema/LoginSchema";
+import api from "api/api";
 
 export const login = async (payload: LoginFormInput) => {
   try {
-    const res = await axios.post("/api/v1/users/login", payload);
+    const res = await api.post("/users/login", payload);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

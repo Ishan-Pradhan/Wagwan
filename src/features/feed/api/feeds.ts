@@ -1,13 +1,11 @@
+import api from "api/api";
 import type { FeedType } from "../types/FeedTypes";
-import axios from "axios";
 
 export const fetchPosts = async ({
   page = 1,
   limit = 10,
 }): Promise<FeedType> => {
-  const res = await axios.get(
-    `/api/v1/social-media/posts?page=${page}&limit=${limit}`
-  );
+  const res = await api.get(`/social-media/posts?page=${page}&limit=${limit}`);
 
   const data = res.data?.data;
 

@@ -1,17 +1,14 @@
+import api from "api/api";
 import axios from "axios";
-
-interface ResetPasswordPayload {
-  token: string;
-  newPassword: string;
-}
+import type { ResetPasswordPayload } from "types/ResetPasswordPayloadTypes";
 
 export const resetPassword = async ({
   token,
   newPassword,
 }: ResetPasswordPayload) => {
   try {
-    const res = await axios.post(
-      `/api/v1/users/reset-password/${token}`,
+    const res = await api.post(
+      `/users/reset-password/${token}`,
       { newPassword },
       { withCredentials: true }
     );
