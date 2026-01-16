@@ -11,7 +11,8 @@ export const fetchComments = async ({
   limit: number;
 }): Promise<CommentType> => {
   const res = await axios.get(
-    `http://localhost:8080/api/v1/social-media/comments/post/${postId}?page=${page}&limit=${limit}`
+    `http://localhost:8080/api/v1/social-media/comments/post/${postId}?page=${page}&limit=${limit}`,
+    { withCredentials: true }
   );
 
   const data = res.data?.data;

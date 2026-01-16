@@ -9,30 +9,35 @@ import type { Post } from "../types/FeedTypes";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
 import { EllipsisIcon } from "lucide-react";
-import {
-  BookmarkSimpleIcon,
-  HeartIcon,
-  ShareFatIcon,
-} from "@phosphor-icons/react";
+
 import { formatTime } from "utils/formatTime";
 import { useComment } from "../hooks/useComment";
 import { useEffect, useRef } from "react";
 import CommentSection from "./CommentSection";
 import Spinner from "@components/ui/Spinner";
+import InteractionContainer from "./InteractionContainer";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CommentDialogProps {
-  post: Post | null;
+  postId: string;
   open: boolean;
   onClose: () => void;
 }
 
 export default function CommentDialog({
-  post,
+  postId,
   open,
   onClose,
 }: CommentDialogProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useComment(post?._id as string); // TODO used as string here
+    useComment(postId); // TODO used as string here
+
+  const queryClient = useQueryClient();
+
+  const post = queryClient
+    .getQueryData<{ pages: { posts: Post[] }[] }>(["feed"])
+    ?.pages.flatMap((p) => p.posts)
+    .find((p) => p._id === postId);
 
   const comments =
     data?.pages?.flatMap((page) => {
@@ -134,34 +139,13 @@ export default function CommentDialog({
           </div>
           <div className="flex flex-col gap-4 border-t py-2 border-gray-300">
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center">
-                <div className="flex gap-3 items-center">
-                  <HeartIcon
-                    size={28}
-                    weight={post.isLiked ? "fill" : "regular"}
-                    fill={post.isLiked ? "red" : ""}
-                    stroke="2px"
-                    className="hover:scale-105 cursor-pointer"
-                  />
-
-                  <ShareFatIcon
-                    size={28}
-                    className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
-                  />
-                </div>
-                <BookmarkSimpleIcon
-                  size={28}
-                  className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
-                />
-              </div>
+              <InteractionContainer
+                post={post}
+                hideComment={true}
+                onOpenComments={() => {}}
+              />
 
               <div className="flex flex-col gap-1">
-                <button
-                  type="button"
-                  className="body-s-semibold self-start cursor-pointer"
-                >
-                  {post.likes} likes
-                </button>
                 <span className="body-s-regular text-gray-500">
                   {formatTime(post.createdAt)}
                 </span>

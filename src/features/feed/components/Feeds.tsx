@@ -62,7 +62,7 @@ function Feeds() {
 
       {activePost && (
         <CommentDialog
-          post={activePost}
+          postId={activePost._id}
           open={dialogOpen}
           onClose={closeComments}
         />
@@ -70,7 +70,7 @@ function Feeds() {
 
       {hasNextPage && (
         <div ref={observerRef} className="h-10 flex justify-center">
-          {isFetchingNextPage && <Spinner />}{" "}
+          {isFetchingNextPage && <Spinner />}
         </div>
       )}
 

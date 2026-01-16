@@ -1,16 +1,10 @@
-import {
-  BookmarkSimpleIcon,
-  ChatCircleIcon,
-  CircleIcon,
-  DotsThreeIcon,
-  HeartIcon,
-  ShareFatIcon,
-} from "@phosphor-icons/react";
+import { CircleIcon, DotsThreeIcon } from "@phosphor-icons/react";
 import { formatTime } from "utils/formatTime";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
 import { useState } from "react";
 import type { Post } from "../types/FeedTypes";
+import InteractionContainer from "./InteractionContainer";
 
 // TODO use shad cn dialog for comments and profile view
 function PostCard({
@@ -21,6 +15,7 @@ function PostCard({
   onOpenComments: (post: Post) => void;
 }) {
   const [seeMore, setSeeMore] = useState(false);
+
   return (
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
       <div className="flex justify-between px-4 items-center">
@@ -51,38 +46,10 @@ function PostCard({
       {/* post */}
       <div className="flex flex-col gap-3 ">
         <PostCardImage images={post.images} />
-        <div className="flex flex-col  gap-2">
-          <div className="flex justify-between items-center">
-            <div className="flex gap-3 items-center">
-              <HeartIcon
-                size={28}
-                weight={post.isLiked ? "fill" : "regular"}
-                fill={post.isLiked ? "red" : ""}
-                stroke="2px"
-                className="hover:scale-105 cursor-pointer"
-              />
-              <ChatCircleIcon
-                size={28}
-                className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
-                onClick={() => onOpenComments(post)}
-              />
-              <ShareFatIcon
-                size={28}
-                className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
-              />
-            </div>
-            <BookmarkSimpleIcon
-              size={28}
-              className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
-            />
-          </div>
-          <button
-            type="button"
-            className="body-s-semibold self-start cursor-pointer"
-          >
-            {post.likes} likes
-          </button>
-        </div>
+
+        {/* interaction contents goes here
+         */}
+        <InteractionContainer post={post} onOpenComments={onOpenComments} />
       </div>
 
       {/* post description */}
