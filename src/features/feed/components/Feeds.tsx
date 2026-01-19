@@ -39,7 +39,7 @@ function Feeds() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
 
     if (observerRef.current) {
@@ -60,7 +60,6 @@ function Feeds() {
         );
       })}
 
-      {/* FIXME lift up states from comment dialog to here */}
       {activePost && (
         <CommentDialog
           postId={activePost._id}
