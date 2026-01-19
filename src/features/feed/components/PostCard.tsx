@@ -69,8 +69,7 @@ function PostCard({
       <div className="flex flex-col h-full gap-3 aspect-4/5 ">
         <PostCardImage images={post.images} />
 
-        {/* interaction contents goes here
-         */}
+        {/* like comment share and save */}
         <InteractionContainer post={post} onOpenComments={onOpenComments} />
       </div>
 

@@ -19,7 +19,7 @@ function PostCardImage({ images }: ImagesProps) {
     return (
       <div className="w-full h-full  flex items-center justify-center bg-primary-50 border border-gray-400   mx-auto rounded-md overflow-hidden">
         <img
-          className="h-full  object-contain"
+          className="h-full w-full  object-cover"
           src={getImageSrc(images[0])}
           alt="user post"
           loading="lazy"

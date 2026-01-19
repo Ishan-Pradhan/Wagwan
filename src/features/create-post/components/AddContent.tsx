@@ -3,6 +3,8 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { useCreatePost } from "../hooks/useCreatePost";
 import toast from "react-hot-toast";
 import PostImagePreview from "./PostImagePreview";
+import { useQueryClient } from "@tanstack/react-query";
+import Spinner from "@components/ui/Spinner";
 
 interface AddContentPropTypes {
   onBack: () => void;
@@ -17,6 +19,7 @@ function AddContent({ onBack }: AddContentPropTypes) {
   } = useFormContext();
 
   const createPostMutation = useCreatePost();
+  const queryClient = useQueryClient();
 
   const handleSubmit = async () => {
     const isValid = await trigger();
@@ -43,7 +46,8 @@ function AddContent({ onBack }: AddContentPropTypes) {
     if (isValid) {
       createPostMutation.mutate(formData, {
         onSuccess: () => {
-          toast.success("submitted");
+          toast.success("posted");
+          queryClient.invalidateQueries({ queryKey: ["feed"] });
         },
       });
     }
@@ -105,10 +109,10 @@ function AddContent({ onBack }: AddContentPropTypes) {
           </button>
           <button
             type="button"
-            className="bg-primary-500 text-white"
+            className="bg-primary-500 hover:bg-primary-600 cursor-pointer text-white"
             onClick={handleSubmit}
           >
-            post
+            post {createPostMutation.isPending && <Spinner />}
           </button>
         </div>
       </div>

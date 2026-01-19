@@ -12,11 +12,12 @@ import { EllipsisIcon } from "lucide-react";
 
 import { formatTime } from "utils/formatTime";
 import { useComment } from "../hooks/useComment";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import CommentSection from "./CommentSection";
 import Spinner from "@components/ui/Spinner";
 import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePostComments } from "../hooks/usePostComments";
 
 interface CommentDialogProps {
   postId: string;
@@ -31,6 +32,8 @@ export default function CommentDialog({
 }: CommentDialogProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useComment(postId);
+
+  const [newComment, setNewComment] = useState("");
 
   const queryClient = useQueryClient();
 
@@ -62,6 +65,27 @@ export default function CommentDialog({
     }
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const postCommentMutation = usePostComments();
+
+  const handlePostComment = (postId: string, comment: string) => {
+    if (!comment.trim()) return;
+
+    postCommentMutation.mutate(
+      { postId, comment },
+      {
+        onSuccess: () => {
+          setNewComment("");
+
+          // this is for refetching
+          queryClient.invalidateQueries({ queryKey: ["comment", postId] });
+        },
+        onError: (err) => {
+          console.error("Failed to post comment", err);
+        },
+      },
+    );
+  };
 
   if (!post) return null;
 
@@ -164,9 +188,14 @@ export default function CommentDialog({
                 type="text"
                 placeholder="Add a comment..."
                 className="w-full px-2 py-1 border rounded"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
               />
-              <button className="px-3 py-1 text-primary-500  hover:text-primary-600">
-                Post
+              <button
+                className="px-3 py-1 text-primary-500 hover:text-primary-600 cursor-pointer flex-1 flex gap-2 items-center"
+                onClick={() => handlePostComment(postId, newComment)}
+              >
+                <span>Post</span> {postCommentMutation.isPending && <Spinner />}
               </button>
             </div>
           </div>

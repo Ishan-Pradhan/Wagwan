@@ -8,7 +8,6 @@ import { useLikeComment } from "../hooks/useLikeComment";
 function CommentSection({ comment }: { comment: Comment }) {
   const [commentLike, setCommentLike] = useState(comment.isLiked);
   const [likes, setLikes] = useState(comment.likes);
-  // Pass comment.postId here
   const likeCommentMutation = useLikeComment(comment.postId);
   const handleCommentLike = (commentId: string) => {
     setCommentLike(!commentLike);

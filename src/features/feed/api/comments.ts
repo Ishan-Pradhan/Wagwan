@@ -11,10 +11,11 @@ export const fetchComments = async ({
   limit: number;
 }): Promise<CommentType> => {
   const res = await api.get(
-    `/social-media/comments/post/${postId}?page=${page}&limit=${limit}`
+    `/social-media/comments/post/${postId}?page=${page}&limit=${limit}`,
   );
 
   const data = res.data?.data;
+  console.log(data);
 
   return {
     comments: data?.comments ?? [],
