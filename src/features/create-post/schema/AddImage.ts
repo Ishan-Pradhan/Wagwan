@@ -30,9 +30,9 @@ export const AddImageSchema = z.object({
               "File must be <=10MB",
             ),
         )
+        .min(1, "At Least one image is needed")
         .max(6, "You can upload up to 6 images"),
-    )
-    .optional(),
+    ),
 });
 
 export type AddImageInput = z.infer<typeof AddImageSchema>;

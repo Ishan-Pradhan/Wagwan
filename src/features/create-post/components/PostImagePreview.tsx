@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
@@ -7,19 +7,20 @@ interface PostImagePreviewProps {
 }
 
 function PostImagePreview({ images }: PostImagePreviewProps) {
-  const previews = useMemo(
-    () => images.map((file) => URL.createObjectURL(file)),
-    [images],
-  );
+  const [previews, setPreviews] = useState<string[]>([]);
 
-  // Cleanup URLs
   useEffect(() => {
-    return () => {
-      previews.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, [previews]);
+    // Create blob URLs when images change
+    const urls = images.map((file) => URL.createObjectURL(file));
+    setPreviews(urls);
 
-  if (!images.length) return null;
+    // Cleanup function to revoke URLs when component unmounts or images change
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [images]);
+
+  if (!images.length || !previews.length) return null;
 
   if (images.length === 1) {
     return (

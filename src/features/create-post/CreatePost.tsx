@@ -22,6 +22,7 @@ interface CreatePostDialogPropTypes {
 
 function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
   const methods = useForm<CreatePostInput>({
     resolver: zodResolver(CreatePostSchema),
@@ -36,9 +37,9 @@ function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
   const renderStep = (step: number) => {
     switch (step) {
       case 0:
-        return <AddImage onNext={() => setCurrentStep(1)} />;
+        return <AddImage onNext={() => setCurrentStep(1)} onImagesSelected={setSelectedImages} />;
       case 1:
-        return <AddContent onBack={() => setCurrentStep(0)} />;
+        return <AddContent onBack={() => setCurrentStep(0)} selectedImages={selectedImages} />;
       default:
         return null;
     }

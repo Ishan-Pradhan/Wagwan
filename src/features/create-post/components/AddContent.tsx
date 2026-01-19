@@ -1,4 +1,4 @@
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { useCreatePost } from "../hooks/useCreatePost";
 import toast from "react-hot-toast";
@@ -8,9 +8,12 @@ import Spinner from "@components/ui/Spinner";
 
 interface AddContentPropTypes {
   onBack: () => void;
+  selectedImages: File[];
 }
 
-function AddContent({ onBack }: AddContentPropTypes) {
+function AddContent({ onBack, selectedImages }: AddContentPropTypes) {
+  console.log("AddContent - selectedImages:", selectedImages);
+  
   const {
     register,
     formState: { errors },
@@ -53,21 +56,10 @@ function AddContent({ onBack }: AddContentPropTypes) {
     }
   };
 
-  const watchedImages = useWatch({
-    name: "images",
-  });
-
-  const previewImages: File[] =
-    watchedImages instanceof FileList
-      ? Array.from(watchedImages)
-      : Array.isArray(watchedImages)
-        ? watchedImages
-        : [];
-
   return (
     <div className="flex flex-col lg:flex-row  gap-2 w-full max-w-lg">
       <div className="w-full">
-        <PostImagePreview images={previewImages} />
+        <PostImagePreview images={selectedImages} />
       </div>
       <div className="flex flex-col gap-3">
         <textarea

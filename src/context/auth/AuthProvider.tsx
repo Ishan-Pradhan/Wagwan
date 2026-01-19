@@ -17,7 +17,8 @@ export default function AuthProvider({
       try {
         const res = await api.get("/users/current-user");
         setUser(res.data.data);
-      } catch {
+      } catch (error) {
+        console.log(error);
         setUser(null);
       } finally {
         setLoading(false);
