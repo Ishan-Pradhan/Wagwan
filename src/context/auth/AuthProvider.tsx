@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "context/auth/AuthContext";
 import axios from "axios";
 import type { User } from "types/LoginTypes";
+import api from "api/api";
 
 export default function AuthProvider({
   children,
@@ -14,9 +15,7 @@ export default function AuthProvider({
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await axios.get("/api/v1/users/current-user", {
-          withCredentials: true,
-        });
+        const res = await api.get("/users/current-user");
         setUser(res.data.data);
       } catch {
         setUser(null);

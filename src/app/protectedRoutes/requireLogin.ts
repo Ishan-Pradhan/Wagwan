@@ -1,11 +1,11 @@
-import axios from "axios";
+import api from "api/api";
 import toast from "react-hot-toast";
 
 import { redirect } from "react-router";
 
 export default async function requireLogin() {
   try {
-    await axios.get("/api/v1/users/current-user", { withCredentials: true });
+    await api.get("/users/current-user");
 
     return null;
   } catch (err) {

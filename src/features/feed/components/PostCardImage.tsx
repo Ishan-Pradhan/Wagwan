@@ -20,7 +20,7 @@ function PostCardImage({ images }: ImagesProps) {
   }
 
   return (
-    <div className="w-full  mx-auto rounded-md  ">
+    <div className="w-full h-full flex items-center  mx-auto rounded-md overflow-hidden  ">
       <Splide
         options={{
           perPage: 1,
@@ -34,13 +34,13 @@ function PostCardImage({ images }: ImagesProps) {
           return (
             <SplideSlide
               key={img._id}
-              className="aspect-square  w-full  overflow-hidden"
+              className="h-full w-full relative rounded-l-md"
             >
-              <div className="bg-white flex justify-center items-center h-full w-full aspect-square overflow-hidden rounded-md">
+              <div className="bg-white flex justify-center items-center h-full w-full rounded-l-md">
                 <img
                   src={getImageSrc(img)}
-                  alt=""
-                  className=" object-cover h-full w-full"
+                  alt="users posts"
+                  className=" object-cover   h-full w-full"
                   loading="lazy"
                 />
               </div>

@@ -1,16 +1,15 @@
 import { HeartIcon } from "@phosphor-icons/react";
 import { Link } from "react-router";
 import type { Comment } from "../types/CommentTypes";
-import { useLikeComment } from "../hooks/useLikeComment";
 import { useState } from "react";
 import { formatTime } from "./../../../utils/formatTime";
+import { useLikeComment } from "../hooks/useLikeComment";
 
 function CommentSection({ comment }: { comment: Comment }) {
   const [commentLike, setCommentLike] = useState(comment.isLiked);
   const [likes, setLikes] = useState(comment.likes);
-
-  const likeCommentMutation = useLikeComment();
-
+  // Pass comment.postId here
+  const likeCommentMutation = useLikeComment(comment.postId);
   const handleCommentLike = (commentId: string) => {
     setCommentLike(!commentLike);
     setLikes(commentLike ? likes - 1 : likes + 1);

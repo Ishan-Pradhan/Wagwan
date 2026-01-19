@@ -60,6 +60,7 @@ function Feeds() {
         );
       })}
 
+      {/* FIXME lift up states from comment dialog to here */}
       {activePost && (
         <CommentDialog
           postId={activePost._id}

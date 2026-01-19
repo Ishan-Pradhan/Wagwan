@@ -6,6 +6,7 @@ import {
 } from "@phosphor-icons/react";
 import { useLike } from "../hooks/useLike";
 import type { Post } from "../types/FeedTypes";
+import { useBookmark } from "../hooks/useBookmark";
 
 function InteractionContainer({
   post,
@@ -17,9 +18,14 @@ function InteractionContainer({
   hideComment?: boolean;
 }) {
   const likeMutation = useLike();
+  const bookmarkMutation = useBookmark();
 
   const handleLike = (postId: string) => {
     likeMutation.mutate(postId);
+  };
+
+  const handleBookmark = (postId: string) => {
+    bookmarkMutation.mutate(postId);
   };
 
   return (
@@ -49,6 +55,8 @@ function InteractionContainer({
         <BookmarkSimpleIcon
           size={28}
           className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+          onClick={() => handleBookmark(post._id)}
+          weight={post.isBookmarked ? "fill" : "regular"}
         />
       </div>
       <button

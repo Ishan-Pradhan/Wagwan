@@ -371,3 +371,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.splide {
+  @apply h-full;
+}
+
+.splide__track {
+  @apply h-full;
+}

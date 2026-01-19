@@ -30,7 +30,7 @@ export default function CommentDialog({
   onClose,
 }: CommentDialogProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useComment(postId); // TODO used as string here
+    useComment(postId);
 
   const queryClient = useQueryClient();
 
@@ -54,7 +54,7 @@ export default function CommentDialog({
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
 
     if (observerRef.current) {
@@ -63,11 +63,8 @@ export default function CommentDialog({
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (isLoading) {
-    return <div>Loading comments</div>;
-  }
-
   if (!post) return null;
+
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogHeader className="sr-only">
@@ -80,18 +77,20 @@ export default function CommentDialog({
     w-full
     max-w-sm
     sm:max-w-lg
-    lg:max-w-5xl
+    lg:max-w-3xl
     xl:max-w-7xl
-    grid grid-cols-1 lg:grid-cols-2 gap-6
+    grid grid-cols-1 lg:grid-cols-2 gap-0
+    p-0 lg:max-h-[80vh]
   "
       >
-        {/* Post content */}
-        <div className="hidden lg:flex w-full flex-col gap-3">
+        {/* image content */}
+        <div className="hidden lg:flex w-full h-full  flex-col overflow-hidden">
           <PostCardImage images={post.images} />
         </div>
-        {/* comment input */}
-        <div className="flex flex-col gap-2">
-          <div className=" justify-between items-center pb-4 border-b border-gray-300 lg:flex hidden">
+
+        {/* comment section */}
+        <div className="flex flex-col gap-2 h-[80vh] overflow-auto p-5">
+          <div className="justify-between items-center pb-4 border-b border-gray-300 lg:flex hidden">
             <div className="flex gap-2 items-center">
               <img
                 className="w-10 h-10 rounded-full "
@@ -118,26 +117,34 @@ export default function CommentDialog({
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 xl:h-80 md:h-100 h-[70vh] overflow-y-auto py-4">
-            {comments.length === 0 && (
-              <div className="heading-2-medium  flex flex-col gap-1 items-center justify-center">
-                <span> No Comments yet.</span>
-                <span className="body-s-regular text-gray-400">
-                  Start the conversation.
-                </span>
+          <div className="flex flex-col gap-8 xl:h-80 md:h-100 h-full overflow-y-auto py-4 relative">
+            {isLoading ? (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Spinner />
               </div>
-            )}
-            {comments.map((comment) => {
-              return <CommentSection key={comment._id} comment={comment} />;
-            })}
+            ) : (
+              <>
+                {comments.length === 0 && (
+                  <div className="heading-2-medium  flex flex-col gap-1 items-center justify-center h-full">
+                    <span> No Comments yet.</span>
+                    <span className="body-s-regular text-gray-400">
+                      Start the conversation.
+                    </span>
+                  </div>
+                )}
+                {comments.map((comment) => {
+                  return <CommentSection key={comment._id} comment={comment} />;
+                })}
 
-            {hasNextPage && (
-              <div ref={observerRef} className="h-10 flex justify-center">
-                {isFetchingNextPage && <Spinner />}{" "}
-              </div>
+                {hasNextPage && (
+                  <div ref={observerRef} className="h-10 flex justify-center">
+                    {isFetchingNextPage && <Spinner />}
+                  </div>
+                )}
+              </>
             )}
           </div>
-          <div className="flex flex-col gap-4 border-t py-2 border-gray-300">
+          <div className="flex flex-col gap-4 border-t py-2 border-gray-300 mt-auto">
             <div className="flex flex-col gap-2">
               <InteractionContainer
                 post={post}
