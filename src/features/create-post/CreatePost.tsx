@@ -51,16 +51,16 @@ function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
         if (!isOpen) onClose();
       }}
     >
-      <DialogContent className="w-full max-w-3xl p-0">
-        <DialogHeader className="sr-only">
+      <DialogContent className="w-full p-5 ">
+        <DialogHeader>
           <DialogTitle>Create Post</DialogTitle>
-          <DialogDescription>Create a new post</DialogDescription>
+          <DialogDescription className="sr-only">
+            Create a new post
+          </DialogDescription>
         </DialogHeader>
 
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(() => {})}>
-            {renderStep(currentStep)}
-          </form>
+          <form className="w-full">{renderStep(currentStep)}</form>
         </FormProvider>
       </DialogContent>
     </Dialog>

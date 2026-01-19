@@ -5,6 +5,14 @@ import { Link } from "react-router";
 import { useState } from "react";
 import type { Post } from "../types/FeedTypes";
 import InteractionContainer from "./InteractionContainer";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu";
 
 // TODO use shad cn dialog for comments and profile view
 function PostCard({
@@ -37,14 +45,28 @@ function PostCard({
         </div>
 
         {/* menu */}
-        <DotsThreeIcon
-          size={28}
-          className="cursor-pointer hover:text-gray-500"
-        />
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger asChild>
+            <DotsThreeIcon
+              size={28}
+              className="cursor-pointer hover:text-gray-500"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-40" align="end">
+            <DropdownMenuLabel>File Actions</DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <DropdownMenuItem onSelect={() => {}}>
+                New File...
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => {}}>Share...</DropdownMenuItem>
+              <DropdownMenuItem disabled>Download</DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {/* post */}
-      <div className="flex flex-col gap-3 ">
+      <div className="flex flex-col h-full gap-3 aspect-4/5 ">
         <PostCardImage images={post.images} />
 
         {/* interaction contents goes here

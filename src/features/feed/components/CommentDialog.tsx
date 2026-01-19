@@ -81,10 +81,11 @@ export default function CommentDialog({
     xl:max-w-7xl
     grid grid-cols-1 lg:grid-cols-2 gap-0
     p-0 lg:max-h-[80vh]
+    overflow-hidden
   "
       >
         {/* image content */}
-        <div className="hidden lg:flex w-full h-full  flex-col overflow-hidden">
+        <div className="hidden lg:flex w-full  h-[80vh] flex-col overflow-hidden">
           <PostCardImage images={post.images} />
         </div>
 

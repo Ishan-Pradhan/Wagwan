@@ -373,9 +373,9 @@
 }
 
 .splide {
-  @apply h-full;
+  @apply h-full overflow-hidden;
 }
 
 .splide__track {
-  @apply h-full;
+  @apply h-full overflow-hidden;
 }
