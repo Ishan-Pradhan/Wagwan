@@ -1,8 +1,9 @@
+import api from "api/api";
 import axios from "axios";
 
 export const loginWithGoogle = async () => {
   try {
-    const res = await axios.get("/api/v1/users/google");
+    const res = await api.get("/users/google");
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

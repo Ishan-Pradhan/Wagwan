@@ -44,7 +44,7 @@ function LoginForm() {
     //mutate payload , if email then payload goes as email and if username then payload goes as username
     loginMutation.mutate(payload, {
       onSuccess: (data) => {
-        setUser(data);
+        setUser(data.data.user);
         toast.success(data.message);
 
         localStorage.setItem("user", JSON.stringify(data.data));

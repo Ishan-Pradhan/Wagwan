@@ -1,8 +1,9 @@
+import api from "api/api";
 import axios from "axios";
 
 export const forgotPassword = async (email: string) => {
   try {
-    const res = await axios.post("/api/v1/users/forgot-password", { email });
+    const res = await api.post("/users/forgot-password", { email });
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

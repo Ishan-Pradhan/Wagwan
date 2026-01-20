@@ -1,0 +1,121 @@
+import { useFormContext } from "react-hook-form";
+
+import { useCreatePost } from "../hooks/useCreatePost";
+import toast from "react-hot-toast";
+import PostImagePreview from "./PostImagePreview";
+import { useQueryClient } from "@tanstack/react-query";
+import Spinner from "@components/ui/Spinner";
+
+interface AddContentPropTypes {
+  onBack: () => void;
+  selectedImages: File[];
+  onClose: () => void;
+}
+
+function AddContent({ onBack, selectedImages, onClose }: AddContentPropTypes) {
+  console.log("AddContent - selectedImages:", selectedImages);
+
+  const {
+    register,
+    formState: { errors },
+    trigger,
+    getValues,
+  } = useFormContext();
+
+  const createPostMutation = useCreatePost();
+  const queryClient = useQueryClient();
+
+  const handleSubmit = async () => {
+    const isValid = await trigger();
+
+    const data = getValues();
+
+    const formData = new FormData();
+
+    formData.append("content", data.content);
+
+    data.tags.forEach((tag: string) => {
+      formData.append("tags[]", tag);
+    });
+    const images =
+      data.images instanceof FileList
+        ? Array.from(data.images)
+        : Array.isArray(data.images)
+          ? data.images
+          : [];
+
+    images.forEach((file) => {
+      formData.append("images", file);
+    });
+    if (isValid) {
+      createPostMutation.mutate(formData, {
+        onSuccess: () => {
+          toast.success("posted");
+          onClose();
+          queryClient.invalidateQueries({ queryKey: ["feed"] });
+        },
+      });
+    }
+  };
+
+  return (
+    <div className="flex flex-col lg:flex-row  gap-2 ">
+      <div className="w-full flex-1">
+        <PostImagePreview images={selectedImages} />
+      </div>
+      <div className="flex-1 flex flex-col gap-3 w-full">
+        <textarea
+          className="p-2 border border-gray-300 rounded-sm flex-1"
+          {...register("content")}
+          placeholder="Add content"
+        ></textarea>
+        {errors.content && (
+          <p className="text-red-500 text-sm">
+            {errors.content.message as string}
+          </p>
+        )}
+
+        <input
+          type="text"
+          className="p-2 border border-gray-300 rounded-sm"
+          placeholder="Add tags"
+          {...register("tags", {
+            setValueAs: (val) => {
+              if (Array.isArray(val)) return val;
+              if (typeof val !== "string") return [];
+              return val
+                .split(",")
+                .map((t) => t.trim())
+                .filter(Boolean);
+            },
+          })}
+        />
+
+        {errors.tags && (
+          <p className="text-red-500 text-sm">
+            {errors.tags.message as string}
+          </p>
+        )}
+        <div className="flex justify-between">
+          <button
+            type="button"
+            className="hover:text-primary-500 cursor-pointer"
+            onClick={onBack}
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            className="bg-primary-500 hover:bg-primary-600 cursor-pointer px-3 py-1 flex items-center gap-2 rounded-md text-white"
+            onClick={handleSubmit}
+          >
+            <span className="body-md-regular">Post</span>
+            {createPostMutation.isPending && <Spinner />}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AddContent;
