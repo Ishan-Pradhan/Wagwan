@@ -12,6 +12,7 @@ function PostImagePreview({ images }: PostImagePreviewProps) {
   useEffect(() => {
     // Create blob URLs when images change
     const urls = images.map((file) => URL.createObjectURL(file));
+    // eslint-disable-next-line
     setPreviews(urls);
 
     // Cleanup function to revoke URLs when component unmounts or images change

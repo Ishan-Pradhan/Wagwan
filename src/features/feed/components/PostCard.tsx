@@ -13,6 +13,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
+import PostCommentInput from "./PostCommentInput";
 
 // TODO use shad cn dialog for comments and profile view
 function PostCard({
@@ -105,16 +106,7 @@ function PostCard({
         >
           See all {post.comments} comments
         </button>
-        <div className="flex w-full justify-between">
-          <input
-            type="text"
-            placeholder="Add a comment..."
-            className="flex-1 body-s-regular focus:outline-none  peer py-1"
-          />
-          <button className="border cursor-pointer px-2 rounded-sm  justify-center items-center bg-primary-500 body-s-regular text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex">
-            Post
-          </button>
-        </div>
+        <PostCommentInput postId={post._id} />
       </div>
     </div>
   );

@@ -37,9 +37,20 @@ function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
   const renderStep = (step: number) => {
     switch (step) {
       case 0:
-        return <AddImage onNext={() => setCurrentStep(1)} onImagesSelected={setSelectedImages} />;
+        return (
+          <AddImage
+            onNext={() => setCurrentStep(1)}
+            onImagesSelected={setSelectedImages}
+          />
+        );
       case 1:
-        return <AddContent onBack={() => setCurrentStep(0)} selectedImages={selectedImages} />;
+        return (
+          <AddContent
+            onBack={() => setCurrentStep(0)}
+            selectedImages={selectedImages}
+            onClose={onClose}
+          />
+        );
       default:
         return null;
     }
@@ -52,7 +63,7 @@ function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
         if (!isOpen) onClose();
       }}
     >
-      <DialogContent className="w-full p-5 ">
+      <DialogContent className="sm:max-w-5xl p-5 ">
         <DialogHeader>
           <DialogTitle>Create Post</DialogTitle>
           <DialogDescription className="sr-only">

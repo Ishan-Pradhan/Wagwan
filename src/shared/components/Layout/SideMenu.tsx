@@ -1,5 +1,13 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu";
 import Logo from "@components/widgets/Logo";
 import {
+  DotsThreeOutlineVerticalIcon,
   HouseIcon,
   PaperPlaneTiltIcon,
   PlusIcon,
@@ -11,7 +19,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function SideMenu() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const menus = [
     {
@@ -93,13 +101,35 @@ function SideMenu() {
               className="flex gap-3 w-full cursor-pointer items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:hover:bg-gray-100"
             >
               <PlusIcon weight={"regular"} size={24} />
-              <span className="`hidden lg:flex text-gray-700 body-m-medium">
+              <span className="hidden lg:flex text-gray-700 body-m-medium">
                 Create
               </span>
             </button>
           </li>
         </ul>
       </div>
+
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <div className="hidden cursor-pointer hover:bg-gray-100 w-full lg:flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out">
+            <DotsThreeOutlineVerticalIcon
+              size={24}
+              className=" hover:text-gray-500"
+            />
+            <span>More</span>
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-65" align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              className="hover:bg-gray-100 cursor-pointer"
+              onSelect={logout}
+            >
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
       {openCreatePostDialog && (
         <CreatePost
           open={openCreatePostDialog}

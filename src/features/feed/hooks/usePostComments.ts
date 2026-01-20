@@ -8,8 +8,6 @@ export const usePostComments = () => {
       postComments(postId, comment),
     onSuccess: () => {
       toast.success("Comment added");
-
-      console.log("Comment added successfully");
     },
     onError: (err) => {
       console.error("Failed to add comment", err);

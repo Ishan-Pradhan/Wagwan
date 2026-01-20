@@ -158,7 +158,13 @@ export default function CommentDialog({
                   </div>
                 )}
                 {comments.map((comment) => {
-                  return <CommentSection key={comment._id} comment={comment} />;
+                  return (
+                    <CommentSection
+                      key={comment._id}
+                      comment={comment}
+                      post={post}
+                    />
+                  );
                 })}
 
                 {hasNextPage && (

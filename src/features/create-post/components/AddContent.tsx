@@ -9,11 +9,12 @@ import Spinner from "@components/ui/Spinner";
 interface AddContentPropTypes {
   onBack: () => void;
   selectedImages: File[];
+  onClose: () => void;
 }
 
-function AddContent({ onBack, selectedImages }: AddContentPropTypes) {
+function AddContent({ onBack, selectedImages, onClose }: AddContentPropTypes) {
   console.log("AddContent - selectedImages:", selectedImages);
-  
+
   const {
     register,
     formState: { errors },
@@ -50,6 +51,7 @@ function AddContent({ onBack, selectedImages }: AddContentPropTypes) {
       createPostMutation.mutate(formData, {
         onSuccess: () => {
           toast.success("posted");
+          onClose();
           queryClient.invalidateQueries({ queryKey: ["feed"] });
         },
       });
@@ -57,14 +59,13 @@ function AddContent({ onBack, selectedImages }: AddContentPropTypes) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row  gap-2 w-full max-w-lg">
-      <div className="w-full">
+    <div className="flex flex-col lg:flex-row  gap-2 ">
+      <div className="w-full flex-1">
         <PostImagePreview images={selectedImages} />
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex-1 flex flex-col gap-3 w-full">
         <textarea
-          className="p-4 border border-gray-300 rounded-sm"
-          rows={10}
+          className="p-2 border border-gray-300 rounded-sm flex-1"
           {...register("content")}
           placeholder="Add content"
         ></textarea>
@@ -76,7 +77,7 @@ function AddContent({ onBack, selectedImages }: AddContentPropTypes) {
 
         <input
           type="text"
-          className="p-4 border border-gray-300 rounded-sm"
+          className="p-2 border border-gray-300 rounded-sm"
           placeholder="Add tags"
           {...register("tags", {
             setValueAs: (val) => {
@@ -96,15 +97,20 @@ function AddContent({ onBack, selectedImages }: AddContentPropTypes) {
           </p>
         )}
         <div className="flex justify-between">
-          <button type="button" onClick={onBack}>
-            back
+          <button
+            type="button"
+            className="hover:text-primary-500 cursor-pointer"
+            onClick={onBack}
+          >
+            Back
           </button>
           <button
             type="button"
-            className="bg-primary-500 hover:bg-primary-600 cursor-pointer text-white"
+            className="bg-primary-500 hover:bg-primary-600 cursor-pointer px-3 py-1 flex items-center gap-2 rounded-md text-white"
             onClick={handleSubmit}
           >
-            post {createPostMutation.isPending && <Spinner />}
+            <span className="body-md-regular">Post</span>
+            {createPostMutation.isPending && <Spinner />}
           </button>
         </div>
       </div>

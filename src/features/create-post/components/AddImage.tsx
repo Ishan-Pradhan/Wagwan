@@ -35,7 +35,7 @@ function AddImage({ onNext, onImagesSelected }: AddImagePropTypes) {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       {previewImages.length === 0 ? (
         <div className="flex flex-col gap-3 justify-center items-center h-96">
           <span className="heading-2-regular">Add photos</span>
@@ -86,7 +86,7 @@ function AddImage({ onNext, onImagesSelected }: AddImagePropTypes) {
 
       {previewImages.length > 0 && (
         <button
-          className="self-end bg-primary-500 text-white px-6 py-2 rounded-md hover:bg-primary-600"
+          className="self-end cursor-pointer bg-primary-500 text-white px-6 py-2 rounded-md hover:bg-primary-600"
           type="button"
           onClick={handleNext}
         >
