@@ -44,7 +44,7 @@
 
 @layer components {
   .container {
-    @apply max-w-100 xl:max-w-480 lg:max-w-270 md:max-w-180 mx-auto px-10;
+    @apply max-w-100 xl:max-w-480 lg:max-w-270 md:max-w-180 mx-auto lg:px-10 px-2;
   }
 }
 

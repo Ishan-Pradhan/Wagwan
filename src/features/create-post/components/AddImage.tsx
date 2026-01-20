@@ -56,13 +56,13 @@ function AddImage({ onNext, onImagesSelected }: AddImagePropTypes) {
         </div>
       ) : (
         <>
-          <div className="w-full h-96">
-            <PostImagePreview images={previewImages} />
+          <div className="lg:aspect-square  h-96 overflow-hidden">
+            <PostImagePreview images={previewImages} forAddImage />
           </div>
           <div className="flex gap-2 items-center">
             <label
               htmlFor="add-image-change"
-              className="text-primary-500 hover:text-primary-600 cursor-pointer text-sm"
+              className="text-gray-800 hover:text-gray-600 cursor-pointer text-sm"
             >
               Change images
             </label>

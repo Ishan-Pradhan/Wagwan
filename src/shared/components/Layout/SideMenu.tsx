@@ -35,7 +35,7 @@ function SideMenu() {
 
     {
       menu: "profile",
-      path: "/user/profile",
+      path: `/user/profile/${user?.username}`,
       icon: UserCircleIcon,
     },
   ];

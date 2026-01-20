@@ -29,7 +29,10 @@ function PostCard({
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
       <div className="flex justify-between px-4 items-center">
         {/* user info and created time */}
-        <div className="flex gap-3 items-center">
+        <Link
+          to={`/user/profile/${post.author.account.username}`}
+          className="flex gap-3 items-center"
+        >
           <img
             src={post.author.account.avatar.url}
             alt={post.author.account.username}
@@ -43,7 +46,7 @@ function PostCard({
             <CircleIcon weight="fill" size={5} />
             <span>{formatTime(post.createdAt)}</span>
           </div>
-        </div>
+        </Link>
 
         {/* menu */}
         <DropdownMenu modal={false}>

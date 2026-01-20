@@ -4,9 +4,13 @@ import "@splidejs/react-splide/css";
 
 interface PostImagePreviewProps {
   images: File[];
+  forAddImage: boolean;
 }
 
-function PostImagePreview({ images }: PostImagePreviewProps) {
+function PostImagePreview({
+  images,
+  forAddImage = true,
+}: PostImagePreviewProps) {
   const [previews, setPreviews] = useState<string[]>([]);
 
   useEffect(() => {
@@ -25,18 +29,20 @@ function PostImagePreview({ images }: PostImagePreviewProps) {
 
   if (images.length === 1) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-200 border border-gray-400 mx-auto rounded-md overflow-hidden">
+      <div className="h-full w-full flex items-center justify-center bg-gray-200 border border-gray-400 mx-auto rounded-md overflow-hidden">
         <img
           src={previews[0]}
           alt="preview"
-          className="h-full w-full object-contain"
+          className="aspect-square object-contain"
         />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full border border-gray-300 mx-auto rounded-md overflow-hidden">
+    <div
+      className={`${forAddImage && "lg:h-full h-auto "} aspect-square  border border-gray-300 mx-auto rounded-md overflow-hidden`}
+    >
       <Splide
         options={{
           perPage: 1,

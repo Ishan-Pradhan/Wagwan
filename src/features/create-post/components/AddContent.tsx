@@ -60,8 +60,8 @@ function AddContent({ onBack, selectedImages, onClose }: AddContentPropTypes) {
 
   return (
     <div className="flex flex-col lg:flex-row  gap-2 ">
-      <div className="w-full flex-1">
-        <PostImagePreview images={selectedImages} />
+      <div className="flex-1">
+        <PostImagePreview images={selectedImages} forAddImage={false} />
       </div>
       <div className="flex-1 flex flex-col gap-3 w-full">
         <textarea

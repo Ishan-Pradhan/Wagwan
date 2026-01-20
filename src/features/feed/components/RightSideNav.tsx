@@ -7,7 +7,7 @@ function RightSideNav() {
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-2 items-center">
-        <Link to="/user/profile">
+        <Link to={`/user/profile/${user?.username}`}>
           <img
             src={userAvatar}
             alt="user avatar"
@@ -15,7 +15,7 @@ function RightSideNav() {
           />
         </Link>
         <div className="flex flex-col">
-          <Link to="/user/profile">
+          <Link to={`/user/profile/${user?.username}`}>
             <span className="body-m-bold">{user?.username}</span>
           </Link>
           <span className="body-s-regular tracking-wide">{user?.email}</span>

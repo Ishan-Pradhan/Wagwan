@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         element: <Outlet />,
         children: [
           { element: <NotFound />, index: true },
-          { element: <UserProfile />, path: "profile" },
+          { element: <UserProfile />, path: "profile/:username" },
         ],
       },
     ],
