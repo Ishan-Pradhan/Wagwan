@@ -10,6 +10,7 @@ import ResetPasswordPage from "features/reset-password/ResetPasswordPage";
 import NotFound from "features/error/NotFound";
 import VerifyEmailPage from "features/verify-email/VerifyEmailPage";
 import VerificationResultPage from "features/verification-result/VerificationResultPage";
+import SinglePostPage from "features/single-post/SinglePostPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <FeedPage /> },
+      { path: "post/:postId", element: <SinglePostPage /> },
       {
         path: "user",
         element: <Outlet />,

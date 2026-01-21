@@ -5,18 +5,18 @@ function FeedSkeletonLoading() {
         {/* user info and created time */}
         <div className="flex gap-4 items-center">
           <div className="w-10 h-10 rounded-full cursor-pointer bg-gray-500 animate-pulse"></div>
-          <div className="body-m-semibold cursor-pointer bg-gray-500 animate-pulse h-5 rounded-md"></div>
+          <div className="body-m-semibold cursor-pointer bg-gray-500 animate-pulse h-5 w-30 rounded-md"></div>
 
           <div className="bg-gray-500 animate-pulse h-5 rounded-md"></div>
         </div>
 
         {/* menu */}
-        <div className="bg-gray-500 animate-pulse h-1 w-4"></div>
+        <div className="bg-gray-500 animate-pulse h-1 w-4 rounded-md"></div>
       </div>
 
       {/* post */}
       <div className="flex flex-col gap-3 ">
-        <div className="bg-gray-500 animate-pulse h-96"></div>
+        <div className="bg-gray-500 animate-pulse h-96 rounded-md"></div>
         <div className="flex flex-col  gap-2">
           <div className="flex justify-between items-center">
             <div className="flex gap-3 items-center">
@@ -26,7 +26,7 @@ function FeedSkeletonLoading() {
             </div>
             <div className="bg-gray-500 animate-pulse h-5 rounded-md w-5"></div>
           </div>
-          <span className=" bg-gray-500 animate-pulse h-3 w-7 "></span>
+          <span className=" bg-gray-500 animate-pulse h-3 w-7 rounded-md"></span>
         </div>
       </div>
 
@@ -41,7 +41,7 @@ function FeedSkeletonLoading() {
         <div className="bg-gray-500 animate-pulse h-5 rounded-md w-1/3"></div>
         <div className="flex w-full justify-between">
           <div className="w-full bg-gray-500 animate-pulse h-5 rounded-md"></div>
-          <div className="bg-gray-500 animate-pulse h-5 rounded-md w-6"></div>
+          {/* <div className="bg-gray-500 animate-pulse h-5 rounded-md w-6"></div> */}
         </div>
       </div>
     </div>

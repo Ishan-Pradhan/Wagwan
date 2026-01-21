@@ -7,6 +7,7 @@ import {
 import { useLike } from "../hooks/useLike";
 import type { Post } from "../types/FeedTypes";
 import { useBookmark } from "../hooks/useBookmark";
+import { useQueryClient } from "@tanstack/react-query";
 
 function InteractionContainer({
   post,
@@ -18,14 +19,26 @@ function InteractionContainer({
   hideComment?: boolean;
 }) {
   const likeMutation = useLike();
+  const queryClient = useQueryClient();
+
   const bookmarkMutation = useBookmark();
 
   const handleLike = (postId: string) => {
-    likeMutation.mutate(postId);
+    likeMutation.mutate(postId, {
+      onSuccess: () => {
+        // this is for refetching
+        queryClient.invalidateQueries({ queryKey: ["post", postId] });
+      },
+    });
   };
 
   const handleBookmark = (postId: string) => {
-    bookmarkMutation.mutate(postId);
+    bookmarkMutation.mutate(postId, {
+      onSuccess: () => {
+        // this is for refetching
+        queryClient.invalidateQueries({ queryKey: ["post", postId] });
+      },
+    });
   };
 
   return (

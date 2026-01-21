@@ -15,7 +15,6 @@ import {
 } from "@components/ui/dropdown-menu";
 import PostCommentInput from "./PostCommentInput";
 
-// TODO use shad cn dialog for comments and profile view
 function PostCard({
   post,
   onOpenComments,

@@ -2,15 +2,20 @@ import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
 import { useAuth } from "context/auth/AuthContext";
 import { useGetPosts } from "./hooks/useGetPosts";
 import { useParams } from "react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetProfile } from "./hooks/useGetProfile";
 import LottieLoading from "@components/ui/LottieLoading";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
+import BookmarksGrid from "./components/BookmarksGrid";
+
+// TODO make bookmarked section for logged in users
+// TODO redirect user to posts page when posts are clicked.
 
 function UserProfile() {
   const { user, logout } = useAuth();
   const { username } = useParams();
+  const [activeTab, setActiveTab] = useState<"posts" | "bookmarks">("posts");
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useGetPosts(username);
@@ -54,27 +59,37 @@ function UserProfile() {
 
       {/* posts */}
       <div className="flex flex-col">
-        <div className="grid grid-cols-2  border-b border-gray-200 ">
+        <div
+          className={`grid ${user?._id === profile?.account._id ? "grid-cols-2" : "grid-cols-1"} border-b border-gray-200`}
+        >
           <button
             type="button"
-            className="cursor-pointer w-full flex justify-center border-b border-black py-2"
+            className={`cursor-pointer w-full flex justify-center border-b-2 py-2 ${activeTab === "posts" ? "border-black" : "border-transparent"}`}
+            onClick={() => setActiveTab("posts")}
           >
             <GridNineIcon weight="duotone" size={32} />
           </button>
-          <button
-            type="button"
-            className="cursor-pointer w-full flex justify-center py-2"
-          >
-            <BookmarkIcon weight="duotone" size={32} />
-          </button>
+
+          {user?._id === profile?.account._id && (
+            <button
+              type="button"
+              className={`cursor-pointer w-full flex justify-center border-b-2 py-2 ${activeTab === "bookmarks" ? "border-black" : "border-transparent"}`}
+              onClick={() => setActiveTab("bookmarks")}
+            >
+              <BookmarkIcon weight="duotone" size={32} />
+            </button>
+          )}
         </div>
 
-        <PostsGrid
-          posts={posts}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          observerRef={observerRef}
-        />
+        {activeTab === "posts" && (
+          <PostsGrid
+            posts={posts}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            observerRef={observerRef}
+          />
+        )}
+        {activeTab === "bookmarks" && <BookmarksGrid />}
       </div>
     </div>
   );

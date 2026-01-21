@@ -8,6 +8,9 @@ import {
 import { GearIcon } from "@phosphor-icons/react";
 import type { Post } from "../types/PostTypes";
 import type { User } from "types/LoginTypes";
+import { useFollow } from "../hooks/useFollow";
+import { useState } from "react";
+import FollowersFollowingDialog from "./FollowersFollowingDialog";
 
 export interface Media {
   _id: string;
@@ -50,6 +53,8 @@ export interface UserProfile {
   __v: number;
 }
 
+// TODO Make functionality for followers, following and follow
+
 interface UserDetailProps {
   posts: Post[];
   user: User | null;
@@ -57,8 +62,15 @@ interface UserDetailProps {
   profile: UserProfile;
 }
 
+type DialogType = "followers" | "following" | null;
+
 function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
-  console.log("profile", profile);
+  const followMutation = useFollow(profile.account.username);
+  const [dialogType, setDialogType] = useState<DialogType>(null);
+
+  const handleFollow = (userId: string) => {
+    followMutation.mutate(userId);
+  };
   return (
     <div className="mx-auto ">
       <div className="flex lg:justify-between  gap-4  items-center  w-full">
@@ -76,9 +88,17 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           {/* user info and interactions */}
           <div className="flex gap-5 items-center ">
             <span className="body-l-medium">{profile?.account?.username}</span>
-            {user?._id === profile.owner && (
+            {user?._id === profile.owner ? (
               <button className="hidden lg:flex bg-gray-100 body-m-medium cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-3 py-1">
                 Edit Profile
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="hidden lg:flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer"
+                onClick={() => handleFollow(profile.account._id)}
+              >
+                {profile.isFollowing ? "Following" : "Follow"}
               </button>
             )}
             {user?._id === profile.owner && (
@@ -103,9 +123,17 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             )}
           </div>
 
-          {user?._id === profile.owner && (
+          {user?._id === profile.owner ? (
             <button className="lg:hidden flex self-start bg-gray-100 body-m-medium cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-3 py-1">
               Edit Profile
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="lg:hidden flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer"
+              onClick={() => handleFollow(profile.account._id)}
+            >
+              {profile.isFollowing ? "Following" : "Follow"}
             </button>
           )}
 
@@ -115,13 +143,19 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
               <span className="body-l-semibold">{posts.length}</span>
               <span className="body-m-regular text-gray-600">posts</span>
             </div>
-            <button className="flex gap-1 items-center cursor-pointer group">
+            <button
+              className="flex gap-1 items-center cursor-pointer group"
+              onClick={() => setDialogType("followers")}
+            >
               <span className="body-l-semibold">{profile.followersCount}</span>
               <span className="body-m-regular text-gray-600 group-hover:text-gray-400">
                 followers
               </span>
             </button>
-            <button className="flex gap-1 items-center cursor-pointer group">
+            <button
+              className="flex gap-1 items-center cursor-pointer group"
+              onClick={() => setDialogType("following")}
+            >
               <span className="body-l-semibold">{profile.followingCount}</span>
               <span className="body-m-regular text-gray-600 group-hover:text-gray-400">
                 following
@@ -145,6 +179,15 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat animi
         odit ut ratione neque, expedita, adipisci itaqu. trains yeahqs
       </p>
+
+      {dialogType && (
+        <FollowersFollowingDialog
+          type={dialogType}
+          open={true}
+          onClose={() => setDialogType(null)}
+          username={profile.account.username}
+        />
+      )}
     </div>
   );
 }

@@ -18,7 +18,7 @@ function PostsGrid({
   return (
     <div className="grid grid-cols-3">
       {posts.map((post) => (
-        <Link to="" className="aspect-square">
+        <Link to={`/post/${post._id}`} className="aspect-square">
           <img
             src={post.images[0].url}
             alt="user post"
