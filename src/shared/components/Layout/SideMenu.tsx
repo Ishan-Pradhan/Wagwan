@@ -16,6 +16,7 @@ import {
 import { useAuth } from "context/auth/AuthContext";
 import CreatePost from "features/create-post/CreatePost";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 
 function SideMenu() {
@@ -29,7 +30,7 @@ function SideMenu() {
     },
     {
       menu: "messages",
-      path: "/message",
+      path: `${user?.isEmailVerified ? "/message" : `/user/profile/${user?.username}`}`,
       icon: PaperPlaneTiltIcon,
     },
 
@@ -97,7 +98,13 @@ function SideMenu() {
           ))}
           <li>
             <button
-              onClick={() => setOpenCreatePostDialog(!openCreatePostDialog)}
+              onClick={
+                user?.isEmailVerified
+                  ? () => setOpenCreatePostDialog(!openCreatePostDialog)
+                  : () => {
+                      toast.error("Please verify your email to Add posts");
+                    }
+              }
               className="flex gap-3 w-full cursor-pointer items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:hover:bg-gray-100"
             >
               <PlusIcon weight={"regular"} size={24} />
@@ -130,6 +137,7 @@ function SideMenu() {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
+
       {openCreatePostDialog && (
         <CreatePost
           open={openCreatePostDialog}

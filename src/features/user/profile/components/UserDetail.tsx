@@ -53,7 +53,7 @@ export interface UserProfile {
   __v: number;
 }
 
-// TODO Make functionality for followers, following and follow
+// FIXME user not being able to view the followers or following more than 10 even if there are more data
 
 interface UserDetailProps {
   posts: Post[];

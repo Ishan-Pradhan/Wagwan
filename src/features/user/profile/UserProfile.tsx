@@ -9,9 +9,6 @@ import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
 
-// TODO make bookmarked section for logged in users
-// TODO redirect user to posts page when posts are clicked.
-
 function UserProfile() {
   const { user, logout } = useAuth();
   const { username } = useParams();
