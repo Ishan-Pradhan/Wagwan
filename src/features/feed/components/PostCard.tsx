@@ -1,19 +1,13 @@
-import { CircleIcon, DotsThreeIcon } from "@phosphor-icons/react";
+import { CircleIcon } from "@phosphor-icons/react";
 import { formatTime } from "utils/formatTime";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
 import { useState } from "react";
 import type { Post } from "../types/FeedTypes";
 import InteractionContainer from "./InteractionContainer";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@components/ui/dropdown-menu";
+
 import PostCommentInput from "./PostCommentInput";
+import PostMenu from "features/post-menu/PostMenu";
 
 function PostCard({
   post,
@@ -23,6 +17,7 @@ function PostCard({
   onOpenComments: (post: Post) => void;
 }) {
   const [seeMore, setSeeMore] = useState(false);
+  console.log(post);
 
   return (
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
@@ -48,24 +43,7 @@ function PostCard({
         </Link>
 
         {/* menu */}
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger asChild>
-            <DotsThreeIcon
-              size={28}
-              className="cursor-pointer hover:text-gray-500"
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-40" align="end">
-            <DropdownMenuLabel>File Actions</DropdownMenuLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem onSelect={() => {}}>
-                New File...
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => {}}>Share...</DropdownMenuItem>
-              <DropdownMenuItem disabled>Download</DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <PostMenu post={post} />
       </div>
 
       {/* post */}
@@ -83,11 +61,15 @@ function PostCard({
             seeMore ? "line-clap-none" : "line-clamp-2"
           }`}
         >
-          <Link to="" className="body-s-bold cursor-pointer inline">
+          <Link
+            to={`/user/profile/${post.author.account.username}`}
+            className="body-s-bold cursor-pointer inline"
+          >
             {post.author.account.username}&nbsp;
           </Link>
           {post.content}
         </p>
+
         <button
           className={` self-start text-gray-400 cursor-pointer caption-semibold ${
             seeMore ? "hidden" : "flex"
@@ -96,6 +78,16 @@ function PostCard({
         >
           {seeMore ? "See less" : "See More"}
         </button>
+        <div className="flex gap-1">
+          {post.tags.map((tag) => (
+            <Link
+              to={`/posts/tags/${tag}`}
+              className="text-primary-800 caption-semibold"
+            >
+              #{tag}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* comments */}

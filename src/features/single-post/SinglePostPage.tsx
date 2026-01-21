@@ -5,12 +5,12 @@ import InteractionContainer from "features/feed/components/InteractionContainer"
 import PostCardImage from "features/feed/components/PostCardImage";
 import { useComment } from "features/feed/hooks/useComment";
 import { usePostComments } from "features/feed/hooks/usePostComments";
-import { EllipsisIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { formatTime } from "utils/formatTime";
 import { useGetSinglePost } from "./hooks/useGetSinglePost";
 import LottieLoading from "@components/ui/LottieLoading";
+import PostMenu from "features/post-menu/PostMenu";
 
 function SinglePostPage() {
   const { postId } = useParams();
@@ -110,7 +110,7 @@ function SinglePostPage() {
               {post?.author?.account.username}
             </Link>
           </div>
-          <EllipsisIcon size={24} className="cursor-pointer" />
+          <PostMenu post={post} />
         </div>
         <div className="lg:flex gap-4 hidden">
           <img

@@ -8,7 +8,6 @@ import {
 import type { Post } from "../types/FeedTypes";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
-import { EllipsisIcon } from "lucide-react";
 
 import { formatTime } from "utils/formatTime";
 import { useComment } from "../hooks/useComment";
@@ -18,6 +17,7 @@ import Spinner from "@components/ui/Spinner";
 import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePostComments } from "../hooks/usePostComments";
+import PostMenu from "features/post-menu/PostMenu";
 
 interface CommentDialogProps {
   postId: string;
@@ -126,7 +126,7 @@ export default function CommentDialog({
                 {post.author.account.username}
               </Link>
             </div>
-            <EllipsisIcon size={24} className="cursor-pointer" />
+            <PostMenu post={post} />{" "}
           </div>
           <div className="lg:flex gap-4 hidden">
             <img

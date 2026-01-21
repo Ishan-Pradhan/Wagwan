@@ -53,6 +53,8 @@ function AddContent({ onBack, selectedImages, onClose }: AddContentPropTypes) {
           toast.success("posted");
           onClose();
           queryClient.invalidateQueries({ queryKey: ["feed"] });
+          queryClient.invalidateQueries({ queryKey: ["posts"] });
+          queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
         },
       });
     }

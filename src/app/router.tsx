@@ -11,6 +11,7 @@ import NotFound from "features/error/NotFound";
 import VerifyEmailPage from "features/verify-email/VerifyEmailPage";
 import VerificationResultPage from "features/verification-result/VerificationResultPage";
 import SinglePostPage from "features/single-post/SinglePostPage";
+import TagsPage from "features/tags/TagsPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <FeedPage /> },
       { path: "post/:postId", element: <SinglePostPage /> },
+      { path: "posts/tags/:tag", element: <TagsPage /> },
       {
         path: "user",
         element: <Outlet />,

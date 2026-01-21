@@ -10,6 +10,7 @@ import { useGetFollowersFollowing } from "../hooks/useGetFollowFollowing";
 import { useEffect, useRef } from "react";
 import Spinner from "@components/ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface FollowersFollowingDialogPropTypes {
   open: boolean;
@@ -29,8 +30,23 @@ function FollowersFollowingDialog({
 
   const followMutation = useFollowInDialog(username, type);
 
+  const queryClient = useQueryClient();
+
   const handleFollow = (userId: string) => {
-    followMutation.mutate(userId);
+    followMutation.mutate(userId, {
+      onSuccess: () => {
+        // this is for refetching
+        queryClient.invalidateQueries({
+          queryKey: ["follow-list", username, type],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["profile", username],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["profile", "me"],
+        });
+      },
+    });
   };
 
   const users =
