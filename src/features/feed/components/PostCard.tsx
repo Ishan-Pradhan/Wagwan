@@ -17,7 +17,6 @@ function PostCard({
   onOpenComments: (post: Post) => void;
 }) {
   const [seeMore, setSeeMore] = useState(false);
-  console.log(post);
 
   return (
     <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">

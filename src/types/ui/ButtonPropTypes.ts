@@ -3,4 +3,5 @@ export type ButtonPropTypes = {
   children: React.ReactNode;
   disabled?: boolean;
   onClick?: () => void;
+  className?: string;
 };

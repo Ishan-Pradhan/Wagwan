@@ -28,6 +28,7 @@ function InteractionContainer({
       onSuccess: () => {
         // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["post", postId] });
+        queryClient.invalidateQueries({ queryKey: ["tags"] });
       },
     });
   };
@@ -37,6 +38,8 @@ function InteractionContainer({
       onSuccess: () => {
         // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["post", postId] });
+        queryClient.invalidateQueries({ queryKey: ["tags"] });
+        queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
       },
     });
   };

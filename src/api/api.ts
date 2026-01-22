@@ -25,7 +25,7 @@ const refreshAccessToken = async () => {
       await axios.post(
         "/api/v1/users/refresh-token",
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
     } catch (error) {
       // If refresh fails, we can't do anything. Clear the promise and throw.
@@ -69,7 +69,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

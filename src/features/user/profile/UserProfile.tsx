@@ -55,25 +55,33 @@ function UserProfile() {
       <UserDetail profile={profile} posts={posts} user={user} logout={logout} />
 
       {/* posts */}
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-3">
         <div
           className={`grid ${user?._id === profile?.account._id ? "grid-cols-2" : "grid-cols-1"} border-b border-gray-200`}
         >
           <button
             type="button"
-            className={`cursor-pointer w-full flex justify-center border-b-2 py-2 ${activeTab === "posts" ? "border-black" : "border-transparent"}`}
+            className={`cursor-pointer w-full flex justify-center items-center  `}
             onClick={() => setActiveTab("posts")}
           >
-            <GridNineIcon weight="duotone" size={32} />
+            <div
+              className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black" : "border-transparent"}`}
+            >
+              <GridNineIcon weight="duotone" size={32} />
+            </div>
           </button>
 
           {user?._id === profile?.account._id && (
             <button
               type="button"
-              className={`cursor-pointer w-full flex justify-center border-b-2 py-2 ${activeTab === "bookmarks" ? "border-black" : "border-transparent"}`}
+              className={`cursor-pointer w-full flex justify-center `}
               onClick={() => setActiveTab("bookmarks")}
             >
-              <BookmarkIcon weight="duotone" size={32} />
+              <div
+                className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black" : "border-transparent"}`}
+              >
+                <BookmarkIcon weight="duotone" size={32} />
+              </div>
             </button>
           )}
         </div>

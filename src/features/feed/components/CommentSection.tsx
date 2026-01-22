@@ -46,7 +46,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
 
   return (
     <div className="flex gap-8  items-start group">
-      <Link to="">
+      <Link to={`/user/profile/${comment.author.account.username}`}>
         <img
           src={comment.author.account.avatar.url}
           alt="user avatar"
@@ -55,7 +55,10 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
       </Link>
       <div className="flex-1 flex flex-col gap-1  ">
         <p className={`body-s-regular `}>
-          <Link to="" className="body-s-bold cursor-pointer inline">
+          <Link
+            to={`/user/profile/${comment.author.account.username}`}
+            className="body-s-bold cursor-pointer inline"
+          >
             {comment.author.account.username}&nbsp;
           </Link>
           {comment.content}

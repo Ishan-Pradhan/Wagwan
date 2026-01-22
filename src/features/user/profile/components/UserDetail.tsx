@@ -11,6 +11,7 @@ import type { User } from "types/LoginTypes";
 import { useFollow } from "../hooks/useFollow";
 import { useState } from "react";
 import FollowersFollowingDialog from "./FollowersFollowingDialog";
+import { Link } from "react-router";
 
 export interface Media {
   _id: string;
@@ -77,7 +78,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
         {/* image */}
         <div>
           <img
-            className="lg:h-30 lg:w-30 w-10 h-10 rounded-full "
+            className="lg:h-30 lg:w-30 w-10 h-10 rounded-full border border-gray-200"
             src={profile?.account?.avatar.url}
             alt="user avatar"
           />
@@ -89,9 +90,12 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           <div className="flex gap-5 items-center ">
             <span className="body-l-medium">{profile?.account?.username}</span>
             {user?._id === profile.owner ? (
-              <button className="hidden lg:flex bg-gray-100 body-m-medium cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-3 py-1">
+              <Link
+                to="/user/profile/edit-profile"
+                className="hidden lg:flex bg-gray-100 body-m-medium cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-3 py-1"
+              >
                 Edit Profile
-              </button>
+              </Link>
             ) : (
               <button
                 type="button"

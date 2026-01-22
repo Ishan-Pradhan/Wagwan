@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+import type { ImageItem } from "../CreatePost";
 
 interface PostImagePreviewProps {
-  images: File[];
-  forAddImage: boolean;
+  images: ImageItem[];
+  forAddImage?: boolean;
 }
 
 function PostImagePreview({
@@ -14,15 +15,12 @@ function PostImagePreview({
   const [previews, setPreviews] = useState<string[]>([]);
 
   useEffect(() => {
-    // Create blob URLs when images change
-    const urls = images.map((file) => URL.createObjectURL(file));
-    // eslint-disable-next-line
+    // Generate URLs for previews
+    const urls = images.map((img) =>
+      img.type === "new" ? img.preview : img.url,
+    );
+    //eslint-disable-next-line
     setPreviews(urls);
-
-    // Cleanup function to revoke URLs when component unmounts or images change
-    return () => {
-      urls.forEach((url) => URL.revokeObjectURL(url));
-    };
   }, [images]);
 
   if (!images.length || !previews.length) return null;
@@ -41,7 +39,7 @@ function PostImagePreview({
 
   return (
     <div
-      className={`${forAddImage && "lg:h-full h-auto "} aspect-square  border border-gray-300 mx-auto rounded-md overflow-hidden`}
+      className={`${forAddImage ? "lg:h-full h-auto" : ""} aspect-square border border-gray-300 mx-auto rounded-md overflow-hidden`}
     >
       <Splide
         options={{

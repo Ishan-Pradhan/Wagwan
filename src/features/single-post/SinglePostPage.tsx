@@ -106,7 +106,10 @@ function SinglePostPage() {
               src={post?.author?.account.avatar.url}
               alt="user avatar"
             />
-            <Link to="" className="body-m-semibold">
+            <Link
+              to={`/user/profile/${post.author.account.username}`}
+              className="body-m-semibold"
+            >
               {post?.author?.account.username}
             </Link>
           </div>
@@ -119,7 +122,10 @@ function SinglePostPage() {
             alt="user avatar"
           />
           <p className={`body-s-regular`}>
-            <Link to="" className="body-s-bold cursor-pointer inline">
+            <Link
+              to={`/user/profile/${post.author.account.username}`}
+              className="body-s-bold cursor-pointer inline"
+            >
               {post?.author?.account.username}&nbsp;
             </Link>
             {post.content}

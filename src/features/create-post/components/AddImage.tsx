@@ -1,50 +1,74 @@
 import { useFormContext } from "react-hook-form";
-import { useState } from "react";
 import PostImagePreview from "./PostImagePreview";
+import type { ImageItem } from "../CreatePost";
 
 interface AddImagePropTypes {
+  images: ImageItem[];
+  setImages: React.Dispatch<React.SetStateAction<ImageItem[]>>;
   onNext: () => void;
-  onImagesSelected: (images: File[]) => void;
+  mode: "edit" | "create";
 }
 
-function AddImage({ onNext, onImagesSelected }: AddImagePropTypes) {
+function AddImage({
+  images,
+  setImages,
+  onNext,
+  mode = "create",
+}: AddImagePropTypes) {
   const {
     formState: { errors },
     trigger,
     setValue,
   } = useFormContext();
 
-  const [previewImages, setPreviewImages] = useState<File[]>([]);
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files) {
-      // Convert FileList to File array
-      const fileArray = Array.from(files);
-      setPreviewImages(fileArray);
-      setValue("images", fileArray, { shouldValidate: false });
-      onImagesSelected(fileArray);
-    }
+    if (!files) return;
+
+    const newImages: ImageItem[] = Array.from(files).map((file) => ({
+      type: "new",
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+
+    setImages((prev) => [...prev, ...newImages]);
+
+    // RHF only needs files for validation
+    setValue(
+      "images",
+      [...images, ...newImages]
+        .filter((img) => img.type === "new")
+        .map((img) => img.file),
+      { shouldValidate: false },
+    );
   };
 
   const handleNext = async () => {
-    const isValid = await trigger("images");
-    if (isValid) {
+    if (mode === "edit") {
       onNext();
+      return;
     }
+
+    const isValid = await trigger("images");
+    if (isValid) onNext();
   };
+
+  const hasImages =
+    mode === "edit" ? true : images.some((i) => i.type === "new");
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      {previewImages.length === 0 ? (
+      {!hasImages ? (
         <div className="flex flex-col gap-3 justify-center items-center h-96">
           <span className="heading-2-regular">Add photos</span>
+
           <label
             htmlFor="add-image"
             className="bg-primary-500 text-white px-4 py-2 hover:bg-primary-600 cursor-pointer rounded-md"
           >
-            Select from computer
+            Select from device
           </label>
+
           <input
             id="add-image"
             type="file"
@@ -56,16 +80,18 @@ function AddImage({ onNext, onImagesSelected }: AddImagePropTypes) {
         </div>
       ) : (
         <>
-          <div className="lg:aspect-square  h-96 overflow-hidden">
-            <PostImagePreview images={previewImages} forAddImage />
+          <div className="lg:aspect-square h-96 overflow-hidden">
+            <PostImagePreview images={images} forAddImage />
           </div>
+
           <div className="flex gap-2 items-center">
             <label
               htmlFor="add-image-change"
               className="text-gray-800 hover:text-gray-600 cursor-pointer text-sm"
             >
-              Change images
+              Add more images
             </label>
+
             <input
               id="add-image-change"
               type="file"
@@ -84,11 +110,11 @@ function AddImage({ onNext, onImagesSelected }: AddImagePropTypes) {
         </p>
       )}
 
-      {previewImages.length > 0 && (
+      {hasImages && (
         <button
-          className="self-end cursor-pointer bg-primary-500 text-white px-6 py-2 rounded-md hover:bg-primary-600"
           type="button"
           onClick={handleNext}
+          className="self-end cursor-pointer bg-primary-500 text-white px-6 py-2 rounded-md hover:bg-primary-600"
         >
           Next
         </button>

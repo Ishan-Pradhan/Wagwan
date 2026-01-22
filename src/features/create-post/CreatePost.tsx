@@ -15,22 +15,47 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
+type PostMode = "create" | "edit";
+
 interface CreatePostDialogPropTypes {
   open: boolean;
   onClose: () => void;
+  mode?: PostMode;
+  post?: {
+    _id: string;
+    content: string;
+    images: { _id: string; url: string }[];
+    tags: string[];
+  };
 }
+export type ImageItem =
+  | { type: "existing"; _id: string; url: string }
+  | { type: "new"; file: File; preview: string };
 
-function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
+function CreatePost({
+  open,
+  onClose,
+  mode = "create",
+  post,
+}: CreatePostDialogPropTypes) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedImages, setSelectedImages] = useState<File[]>([]);
-
+  const [selectedImages, setSelectedImages] = useState<ImageItem[]>(() => {
+    if (mode === "edit" && post) {
+      return post.images.map((img) => ({
+        type: "existing",
+        _id: img._id,
+        url: img.url,
+      }));
+    }
+    return [];
+  });
   const methods = useForm<CreatePostInput>({
-    resolver: zodResolver(CreatePostSchema),
+    resolver: zodResolver(CreatePostSchema(mode)),
     shouldUnregister: false,
     defaultValues: {
       images: [],
-      content: "",
-      tags: [],
+      content: post?.content ?? "",
+      tags: post?.tags ?? [],
     },
   });
 
@@ -39,15 +64,20 @@ function CreatePost({ open, onClose }: CreatePostDialogPropTypes) {
       case 0:
         return (
           <AddImage
+            mode={mode}
+            images={selectedImages}
+            setImages={setSelectedImages}
             onNext={() => setCurrentStep(1)}
-            onImagesSelected={setSelectedImages}
           />
         );
       case 1:
         return (
           <AddContent
             onBack={() => setCurrentStep(0)}
-            selectedImages={selectedImages}
+            setImages={setSelectedImages}
+            images={selectedImages}
+            mode={mode}
+            postId={post?._id}
             onClose={onClose}
           />
         );

@@ -9,30 +9,60 @@ export const fileSchema = (allowedTypes: string[], maxSizeMB: number) =>
       `File size must be less than ${maxSizeMB}MB`,
     );
 
-export const AddImageSchema = z.object({
-  images: z
-    .any()
-    .transform((files) =>
-      files instanceof FileList ? Array.from(files) : files || [],
-    )
-    .pipe(
-      z
-        .array(
-          z
-            .instanceof(File)
-            .refine(
-              (file) =>
-                ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-              "Invalid file type",
+export const AddImageSchema = (mode: "edit" | "create") =>
+  z.object({
+    images:
+      mode === "create"
+        ? z
+            .any()
+            .transform((files) =>
+              files instanceof FileList ? Array.from(files) : files || [],
             )
-            .refine(
-              (file) => file.size <= 10 * 1024 * 1024,
-              "File must be <=10MB",
-            ),
-        )
-        .min(1, "At Least one image is needed")
-        .max(6, "You can upload up to 6 images"),
-    ),
-});
+            .pipe(
+              z
+                .array(
+                  z
+                    .instanceof(File)
+                    .refine(
+                      (file) =>
+                        ["image/jpeg", "image/png", "image/webp"].includes(
+                          file.type,
+                        ),
+                      "Invalid file type",
+                    )
+                    .refine(
+                      (file) => file.size <= 10 * 1024 * 1024,
+                      "File must be <=10MB",
+                    ),
+                )
+                .min(1, "At Least one image is needed")
+                .max(6, "You can upload up to 6 images"),
+            )
+        : z
+            .any()
+            .transform((files) =>
+              files instanceof FileList ? Array.from(files) : files || [],
+            )
+            .pipe(
+              z
+                .array(
+                  z
+                    .instanceof(File)
+                    .refine(
+                      (file) =>
+                        ["image/jpeg", "image/png", "image/webp"].includes(
+                          file.type,
+                        ),
+                      "Invalid file type",
+                    )
+                    .refine(
+                      (file) => file.size <= 10 * 1024 * 1024,
+                      "File must be <=10MB",
+                    ),
+                )
+                .max(6, "You can upload up to 6 images"),
+            )
+            .optional(),
+  });
 
 export type AddImageInput = z.infer<typeof AddImageSchema>;

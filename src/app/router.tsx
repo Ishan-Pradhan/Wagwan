@@ -12,6 +12,7 @@ import VerifyEmailPage from "features/verify-email/VerifyEmailPage";
 import VerificationResultPage from "features/verification-result/VerificationResultPage";
 import SinglePostPage from "features/single-post/SinglePostPage";
 import TagsPage from "features/tags/TagsPage";
+import EditProfile from "features/user/edit-profile/EditProfile";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
         children: [
           { element: <NotFound />, index: true },
           { element: <UserProfile />, path: "profile/:username" },
+          { element: <EditProfile />, path: "profile/edit-profile" },
         ],
       },
     ],

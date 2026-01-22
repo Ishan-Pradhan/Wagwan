@@ -18,6 +18,7 @@ function TagsPage() {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetTagPosts(tag as string);
+
   const openComments = (post: Post) => {
     setDialogOpen(true);
     setActivePost(post);

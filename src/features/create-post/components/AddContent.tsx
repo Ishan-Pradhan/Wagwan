@@ -1,32 +1,38 @@
 import { useFormContext } from "react-hook-form";
-
-import { useCreatePost } from "../hooks/useCreatePost";
 import toast from "react-hot-toast";
-import PostImagePreview from "./PostImagePreview";
-import { useQueryClient } from "@tanstack/react-query";
 import Spinner from "@components/ui/Spinner";
+import { useQueryClient } from "@tanstack/react-query";
+import PostImagePreview from "./PostImagePreview";
+import { useCreatePost } from "../hooks/useCreatePost";
+import type { ImageItem } from "../CreatePost";
+import { useUpdatePost } from "../hooks/useUpdatePost";
 
-interface AddContentPropTypes {
+interface Props {
+  images: ImageItem[];
+  setImages: React.Dispatch<React.SetStateAction<ImageItem[]>>;
+  mode: "create" | "edit";
+  postId?: string;
   onBack: () => void;
-  selectedImages: File[];
   onClose: () => void;
 }
 
-function AddContent({ onBack, selectedImages, onClose }: AddContentPropTypes) {
-  console.log("AddContent - selectedImages:", selectedImages);
-
+function AddContent({ images, mode, postId, onBack, onClose }: Props) {
   const {
     register,
-    formState: { errors },
     trigger,
     getValues,
+    formState: { errors },
   } = useFormContext();
-
-  const createPostMutation = useCreatePost();
   const queryClient = useQueryClient();
 
+  const create = useCreatePost();
+  const update = useUpdatePost(postId);
+
+  const mutation = mode === "edit" ? update : create;
+
   const handleSubmit = async () => {
-    const isValid = await trigger();
+    const valid = await trigger();
+    if (!valid) return;
 
     const data = getValues();
 
@@ -34,85 +40,85 @@ function AddContent({ onBack, selectedImages, onClose }: AddContentPropTypes) {
 
     formData.append("content", data.content);
 
-    data.tags.forEach((tag: string) => {
-      formData.append("tags[]", tag);
-    });
-    const images =
-      data.images instanceof FileList
-        ? Array.from(data.images)
-        : Array.isArray(data.images)
-          ? data.images
-          : [];
+    data.tags.forEach((t: string) => formData.append("tags[]", t));
 
-    images.forEach((file) => {
-      formData.append("images", file);
-    });
-    if (isValid) {
-      createPostMutation.mutate(formData, {
-        onSuccess: () => {
-          toast.success("posted");
-          onClose();
-          queryClient.invalidateQueries({ queryKey: ["feed"] });
-          queryClient.invalidateQueries({ queryKey: ["posts"] });
-          queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
-        },
+    images
+      .filter((i) => i.type === "new")
+      .forEach((i) => {
+        formData.append("images", i.file);
       });
+
+    if (mode === "edit") {
+      formData.append(
+        "existingImages",
+        JSON.stringify(
+          images.filter((i) => i.type === "existing").map((i) => i._id),
+        ),
+      );
     }
+
+    mutation.mutate(formData, {
+      onSuccess: () => {
+        toast.success(mode === "edit" ? "Post updated" : "Post created");
+        onClose();
+        queryClient.invalidateQueries({ queryKey: ["feed"] });
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
+      },
+    });
   };
 
   return (
-    <div className="flex flex-col lg:flex-row  gap-2 ">
+    <div className="flex gap-4">
       <div className="flex-1">
-        <PostImagePreview images={selectedImages} forAddImage={false} />
+        <PostImagePreview images={images} forAddImage={false} />
       </div>
-      <div className="flex-1 flex flex-col gap-3 w-full">
+
+      <div className="flex-1 flex flex-col gap-3">
         <textarea
-          className="p-2 border border-gray-300 rounded-sm flex-1"
           {...register("content")}
-          placeholder="Add content"
-        ></textarea>
+          placeholder="Write something..."
+          className={`border p-2 flex-1 ${errors.content ? "border-red-500" : ""}`}
+        />
         {errors.content && (
-          <p className="text-red-500 text-sm">
+          <p className="text-red-500 text-xs">
             {errors.content.message as string}
           </p>
         )}
 
         <input
-          type="text"
-          className="p-2 border border-gray-300 rounded-sm"
-          placeholder="Add tags"
           {...register("tags", {
-            setValueAs: (val) => {
-              if (Array.isArray(val)) return val;
-              if (typeof val !== "string") return [];
-              return val
-                .split(",")
-                .map((t) => t.trim())
-                .filter(Boolean);
-            },
+            setValueAs: (v) =>
+              typeof v === "string"
+                ? v
+                    .split(",")
+                    .map((t) => t.trim())
+                    .filter((t) => t !== "")
+                : [],
           })}
+          placeholder="tags, comma separated"
+          className={`border p-2 ${errors.tags ? "border-red-500" : ""}`}
         />
-
         {errors.tags && (
-          <p className="text-red-500 text-sm">
+          <p className="text-red-500 text-xs">
             {errors.tags.message as string}
           </p>
         )}
-        <div className="flex justify-between">
+
+        <div className="flex justify-between items-center mt-auto">
           <button
             type="button"
-            className="hover:text-primary-500 cursor-pointer"
             onClick={onBack}
+            className="text-gray-600 hover:text-gray-900 font-medium"
           >
             Back
           </button>
           <button
             type="button"
-            className="bg-primary-500 hover:bg-primary-600 cursor-pointer px-3 py-1 flex items-center gap-2 rounded-md text-white"
             onClick={handleSubmit}
+            className="bg-primary-500 px-4 py-2 text-white flex gap-2"
           >
-            <span className="body-md-regular">Post</span>
-            {createPostMutation.isPending && <Spinner />}
+            {mode === "edit" ? "Update" : "Post"}
+            {mutation.isPending && <Spinner />}
           </button>
         </div>
       </div>

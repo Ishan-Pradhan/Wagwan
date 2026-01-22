@@ -30,7 +30,7 @@ function SideMenu() {
     },
     {
       menu: "messages",
-      path: `${user?.isEmailVerified ? "/message" : `/user/profile/${user?.username}`}`,
+      path: `${user?.isEmailVerified ? "/message" : `/user/profile/edit-profile`}`,
       icon: PaperPlaneTiltIcon,
     },
 
