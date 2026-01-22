@@ -6,6 +6,7 @@ import PostImagePreview from "./PostImagePreview";
 import { useCreatePost } from "../hooks/useCreatePost";
 import type { ImageItem } from "../CreatePost";
 import { useUpdatePost } from "../hooks/useUpdatePost";
+import Button from "@components/ui/Button";
 
 interface Props {
   images: ImageItem[];
@@ -16,7 +17,14 @@ interface Props {
   onClose: () => void;
 }
 
-function AddContent({ images, mode, postId, onBack, onClose }: Props) {
+function AddContent({
+  images,
+  mode,
+  postId,
+  onBack,
+  onClose,
+  setImages,
+}: Props) {
   const {
     register,
     trigger,
@@ -70,7 +78,12 @@ function AddContent({ images, mode, postId, onBack, onClose }: Props) {
   return (
     <div className="flex gap-4">
       <div className="flex-1">
-        <PostImagePreview images={images} forAddImage={false} />
+        <PostImagePreview
+          images={images}
+          forAddImage={false}
+          setImages={setImages}
+          postId={postId}
+        />
       </div>
 
       <div className="flex-1 flex flex-col gap-3">
@@ -112,14 +125,14 @@ function AddContent({ images, mode, postId, onBack, onClose }: Props) {
           >
             Back
           </button>
-          <button
+          <Button
             type="button"
             onClick={handleSubmit}
             className="bg-primary-500 px-4 py-2 text-white flex gap-2"
           >
             {mode === "edit" ? "Update" : "Post"}
             {mutation.isPending && <Spinner />}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -81,7 +81,11 @@ function AddImage({
       ) : (
         <>
           <div className="lg:aspect-square h-96 overflow-hidden">
-            <PostImagePreview images={images} forAddImage />
+            <PostImagePreview
+              images={images}
+              forAddImage
+              setImages={setImages}
+            />
           </div>
 
           <div className="flex gap-2 items-center">

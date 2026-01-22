@@ -30,7 +30,11 @@ interface CreatePostDialogPropTypes {
 }
 export type ImageItem =
   | { type: "existing"; _id: string; url: string }
-  | { type: "new"; file: File; preview: string };
+  | {
+      type: "new";
+      file: File;
+      preview: string;
+    };
 
 function CreatePost({
   open,
