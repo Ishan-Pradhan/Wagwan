@@ -13,6 +13,7 @@ import VerificationResultPage from "features/verification-result/VerificationRes
 import SinglePostPage from "features/single-post/SinglePostPage";
 import TagsPage from "features/tags/TagsPage";
 import EditProfile from "features/user/edit-profile/EditProfile";
+import StoryPage from "features/story/StoryPage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
       { index: true, element: <FeedPage /> },
       { path: "post/:postId", element: <SinglePostPage /> },
       { path: "posts/tags/:tag", element: <TagsPage /> },
+      { path: "story/:username", element: <StoryPage /> },
       {
         path: "user",
         element: <Outlet />,

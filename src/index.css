@@ -23,6 +23,9 @@
   --color-primary-800: #2a7397;
   --color-primary-900: #246382;
 
+  /* secondary color */
+  --color-secondary-500: #3dd9bf;
+
   /* warning color */
   --color-warning-50: #fff9e5;
   --color-warning-100: #fff2b8;
@@ -378,4 +381,44 @@
 
 .splide__track {
   @apply h-full overflow-hidden;
+}
+
+.splide__progress {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.splide__progress__bar {
+  height: 3px;
+  background: #ccc;
+}
+
+.splide__toggle {
+}
+
+/* hide pause by default */
+.splide__toggle__pause {
+  display: none;
+  color: white;
+}
+
+/* When button has class 'is-active', show pause and hide play */
+.splide__toggle.is-active .splide__toggle__play {
+  display: none;
+  color: white;
+}
+
+.splide__toggle.is-active .splide__toggle__pause {
+  display: inline;
+  color: white;
+}
+
+/* Optional: smooth fade */
+.splide__toggle__play,
+.splide__toggle__pause {
+  transition: opacity 0.2s;
 }

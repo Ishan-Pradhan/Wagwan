@@ -58,7 +58,7 @@ function FollowersFollowingDialog({
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!hasNextPage || !scrollContainerRef.current) return;
+    if (!open || !hasNextPage || !scrollContainerRef.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -75,12 +75,9 @@ function FollowersFollowingDialog({
     if (observerRef.current) {
       observer.observe(observerRef.current);
     }
-    return () => observer.disconnect();
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+    return () => observer.disconnect();
+  }, [open, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -117,7 +114,10 @@ function FollowersFollowingDialog({
               )}
               {users.map((user) => {
                 return (
-                  <div className="flex justify-between items-center">
+                  <div
+                    className="flex justify-between items-center"
+                    key={user._id}
+                  >
                     <Link to={`/user/profile/${user.username}`}>
                       {user.username}
                     </Link>

@@ -53,7 +53,7 @@ function Feeds() {
   }
 
   return (
-    <div className="flex flex-col gap-6 mb-20">
+    <div className="flex flex-col gap-6 mt-15">
       {posts.map((post: Post) => {
         return (
           <PostCard key={post._id} post={post} onOpenComments={openComments} />

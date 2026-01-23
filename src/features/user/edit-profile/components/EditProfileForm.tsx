@@ -34,29 +34,29 @@ function EditProfileForm({ profile }: { profile: UserProfile }) {
   };
 
   return (
-    <form action="" className="flex flex-col gap-3 ">
-      <div className="flex gap-3">
-        <div className="flex flex-col gap-1 w-full">
+    <form action="" className="flex flex-col  gap-3 w-full">
+      <div className="flex-1 flex gap-3 w-full ">
+        <div className="flex flex-1 flex-col gap-1 w-full">
           <label htmlFor="firstName" className="body-m-medium">
             First Name
           </label>
           <input
             id="firstName"
             placeholder="firstName"
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 border w-full border-gray-300 rounded-md"
             name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-1 flex-col gap-1 w-full">
           <label htmlFor="lastName" className="body-m-medium">
             Last Name
           </label>
           <input
             id="lastName"
             placeholder="lastName"
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 border w-full border-gray-300 rounded-md"
             name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -78,11 +78,11 @@ function EditProfileForm({ profile }: { profile: UserProfile }) {
       </div>
       <Button
         type="button"
-        className="self-end px-20 body-l-medium flex gap-2 items-center"
+        className="lg:self-end px-20 body-l-medium flex gap-2 items-center justify-center"
         onClick={handleSubmit}
         disabled={updateProfileMutation.isPending}
       >
-        <span>Submit</span>
+        <span className="">Submit</span>
         {updateProfileMutation.isPending && <Spinner />}
       </Button>
     </form>

@@ -82,18 +82,18 @@ function SinglePostPage() {
     <div
       className="
     w-full
-    max-w-sm
+    
     sm:max-w-lg
     lg:max-w-3xl
     xl:max-w-7xl
     grid grid-cols-1 lg:grid-cols-2 gap-0
     p-0 lg:max-h-[80vh]
     overflow-hidden
-    mt-10 px-10
+    lg:mt-10 lg:px-10 pb-10 lg:pb-0
   "
     >
       {/* image content */}
-      <div className="hidden lg:flex w-full  h-[80vh] flex-col overflow-hidden">
+      <div className=" lg:flex w-full  h-[80vh] flex-col overflow-hidden">
         <PostCardImage images={post.images} />
       </div>
 

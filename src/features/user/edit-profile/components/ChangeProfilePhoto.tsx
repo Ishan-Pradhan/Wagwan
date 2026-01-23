@@ -36,8 +36,8 @@ function ChangeProfilePhoto({
     });
   };
   return (
-    <div className="flex justify-between items-center bg-gray-100 p-3 rounded-md">
-      <div className="flex gap-4 items-center">
+    <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-center bg-gray-100 p-3 rounded-md">
+      <div className="flex gap-4 items-center ">
         <img
           src={user?.avatar.url}
           alt="user avatar"
@@ -58,9 +58,9 @@ function ChangeProfilePhoto({
           </div>
         )}
       </div>
-      <form action="">
+      <form action="" className="">
         <label
-          className="rounded-sm bg-primary-700 text-white px-4 py-2 cursor-pointer hover:bg-primary-500"
+          className="rounded-sm w-full bg-primary-700 text-white px-4 py-2 cursor-pointer hover:bg-primary-500"
           htmlFor="avatar"
         >
           <span>Change Photo</span>

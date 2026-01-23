@@ -77,7 +77,7 @@ function PostCard({
         >
           {seeMore ? "See less" : "See More"}
         </button>
-        <div className="flex gap-1">
+        <div className="flex flex-wrap gap-1">
           {post.tags.map((tag) => (
             <Link
               to={`/posts/tags/${tag}`}
