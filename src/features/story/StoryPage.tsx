@@ -17,16 +17,19 @@ function StoryPage() {
   const firstPost = data?.pages?.[0]?.posts?.[0];
   if (!firstPost)
     return (
-      <div className="bg-black h-lvh w-full text-white flex items-center justify-center relative">
+      <div className="bg-gray-800 h-lvh w-full text-white flex items-center justify-center relative">
         <span>User doesn't have story</span>
-        <Link to="/" className="text-white absolute top-10 right-10 text-3xl">
+        <Link
+          to="/"
+          className="text-white absolute lg:top-10 lg:right-10 right-5 top-5 text-3xl"
+        >
           <XIcon />
         </Link>
       </div>
     );
 
   return (
-    <div className="bg-black h-lvh flex justify-center items-center relative">
+    <div className="bg-gray-800 h-lvh flex justify-center items-center relative">
       <div className="h-[80vh] w-sm mx-auto flex flex-col ">
         <Splide
           hasTrack={false}
@@ -45,7 +48,7 @@ function StoryPage() {
             <img
               src={profile?.account.avatar.url}
               alt="user avatar"
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full border border-gray-100"
             />
             <span className="body-l-semibold text-white">{username}</span>
           </div>
@@ -74,7 +77,10 @@ function StoryPage() {
           </button>
         </Splide>
       </div>
-      <Link to="/" className="text-white absolute top-10 right-10 text-3xl">
+      <Link
+        to="/"
+        className="text-white absolute lg:top-10 lg:right-10 right-5 top-5 text-3xl"
+      >
         <XIcon />
       </Link>
     </div>

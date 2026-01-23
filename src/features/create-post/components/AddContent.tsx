@@ -128,7 +128,7 @@ function AddContent({
           <Button
             type="button"
             onClick={handleSubmit}
-            className="bg-primary-500 px-4 py-2 text-white flex gap-2"
+            className="self-end flex justify-center  bg-primary-500 px-4 py-2 text-white  gap-2"
           >
             {mode === "edit" ? "Update" : "Post"}
             {mutation.isPending && <Spinner />}

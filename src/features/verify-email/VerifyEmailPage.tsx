@@ -25,7 +25,9 @@ function VerifyEmailPage() {
         </div>
 
         <Link to="/login">
-          <Button type="button">Go to Login </Button>
+          <Button type="button" className="w-full">
+            Go to Login{" "}
+          </Button>
         </Link>
       </div>
     </div>

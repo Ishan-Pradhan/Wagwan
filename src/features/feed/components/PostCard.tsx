@@ -31,6 +31,7 @@ function PostCard({
             alt={post.author.account.username}
             className="w-10 h-10 rounded-full border border-primary-500 cursor-pointer"
           />
+
           <span className="body-m-semibold cursor-pointer">
             {post.author.account.username}
           </span>
@@ -58,7 +59,7 @@ function PostCard({
         <p
           className={`body-s-regular ${
             seeMore ? "line-clap-none" : "line-clamp-2"
-          }`}
+          } `}
         >
           <Link
             to={`/user/profile/${post.author.account.username}`}
@@ -71,17 +72,18 @@ function PostCard({
 
         <button
           className={` self-start text-gray-400 cursor-pointer caption-semibold ${
-            seeMore ? "hidden" : "flex"
+            post.content.length < 50 ? "hidden" : "flex"
           } `}
           onClick={() => setSeeMore(!seeMore)}
         >
           {seeMore ? "See less" : "See More"}
         </button>
         <div className="flex flex-wrap gap-1">
-          {post.tags.map((tag) => (
+          {post.tags.map((tag, index) => (
             <Link
               to={`/posts/tags/${tag}`}
               className="text-primary-800 caption-semibold"
+              key={index}
             >
               #{tag}
             </Link>

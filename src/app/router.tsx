@@ -14,6 +14,7 @@ import SinglePostPage from "features/single-post/SinglePostPage";
 import TagsPage from "features/tags/TagsPage";
 import EditProfile from "features/user/edit-profile/EditProfile";
 import StoryPage from "features/story/StoryPage";
+import MessagePage from "features/message/MessagePage";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "post/:postId", element: <SinglePostPage /> },
       { path: "posts/tags/:tag", element: <TagsPage /> },
       { path: "story/:username", element: <StoryPage /> },
+      { path: "message", element: <MessagePage /> },
       {
         path: "user",
         element: <Outlet />,

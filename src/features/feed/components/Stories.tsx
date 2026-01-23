@@ -38,13 +38,13 @@ function Stories() {
 
   if (isLoading) {
     return (
-      <div className="flex gap-5">
-        <div className=" shrink-0 w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
+      <div className="flex gap-5 w-full px-25   ">
+        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
+        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
+        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
+        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
+        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
+        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
       </div>
     );
   }
@@ -77,7 +77,7 @@ function Stories() {
             <SplideSlide
               key={user?._id}
               ref={observerRef}
-              className="flex gap-2 px-5 cursor-grab"
+              className="flex lg:gap-2 px-5 cursor-grab"
             >
               <div
                 className={`shrink-0 rounded-full  flex flex-col gap-1 items-center justify-center`}
