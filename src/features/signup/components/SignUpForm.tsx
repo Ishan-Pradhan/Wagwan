@@ -1,9 +1,9 @@
 import Divider from "@components/ui/Divider";
-import Input from "@components/ui/Input";
+import Input from "@components/custom-ui/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import toast from "react-hot-toast";
 import { SignUpSchema, type SignUpFormInput } from "../schema/SignUpSchema";
 import { useSignUp } from "../hooks/useSignUp";

@@ -1,50 +1,21 @@
-import { useFormContext, useFormState, useWatch } from "react-hook-form";
-import type { InputPropTypes } from "types/ui/inputPropTypes";
+import * as React from "react"
 
-function Input({
-  className,
-  type = "text",
-  placeholder,
-  name,
-}: InputPropTypes) {
-  const { register, control, setValue } = useFormContext();
+import { cn } from "@/lib/utils"
 
-  const { errors } = useFormState({ control, name });
-  const error = errors[name]?.message as string | undefined;
-
-  const value = (useWatch({ control, name, defaultValue: "" }) as string) || "";
-
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
-    <div className="w-full flex flex-col gap-2 relative ">
-      <input
-        {...register(name)}
-        className={`peer border w-full   rounded-sm px-3 py-3 focus-within:outline focus-within:outline-primary-500   hover:bg-gray-100 hover:border-gray-300 transition-all duration-100 ease-in ${className} ${
-          error ? "border-red-500 bg-red-100" : "border-gray-200 bg-gray-50 "
-        }`}
-        type={type}
-        id={name}
-        placeholder=" "
-        name={name}
-        value={value}
-        onChange={(e) => setValue(name, e.target.value)}
-      />
-      <label
-        htmlFor={name}
-        className="absolute text-sm top-3.5 left-2.5 
-      peer-placeholder-shown:top-3.5
-      peer-placeholder-shown:text-sm
-      peer-focus:top-0.5
-      peer-focus:text-xs
-      pointer-events-none
-    text-gray-500
-      peer-not-placeholder-shown:top-0.5
-      peer-not-placeholder-shown:text-xs"
-      >
-        {placeholder}
-      </label>
-      {error && <p className="text-red-500 text-xs">{error}</p>}
-    </div>
-  );
+    <input
+      type={type}
+      data-slot="input"
+      className={cn(
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
-export default Input;
+export { Input }

@@ -1,11 +1,23 @@
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { EditIcon } from "lucide-react";
 import type { User } from "types/LoginTypes";
 import { useGetUsersList } from "../hooks/useGetUsersList";
 import type { Chat } from "../types/ChatType";
+import { useGetAvailableUsers } from "../hooks/useGetAvailableUsers";
+
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@components/ui/combobox";
 
 function MessageSideMenu({ user }: { user: User }) {
   const { data: chats } = useGetUsersList();
+  console.log("🚀 ~ MessageSideMenu ~ chats:", chats);
+  const { data: chatUsers } = useGetAvailableUsers();
+  console.log("🚀 ~ MessageSideMenu ~ chatUsers:", chatUsers);
 
   return (
     <div className="col-span-1 p-4 border-r border-gray-200 h-lvh">
@@ -17,22 +29,36 @@ function MessageSideMenu({ user }: { user: User }) {
         </div>
 
         {/* Search */}
-        <div className="flex items-center focus-within:outline focus-within:outline-primary-500 px-2 py-1 border border-gray-300 rounded-full">
-          <label htmlFor="searchPeople" className="text-gray-500">
-            <MagnifyingGlassIcon />
-          </label>
-          <input
-            id="searchPeople"
-            type="search"
-            className="w-full px-2 focus:outline-0"
-            placeholder="Search"
-          />
-        </div>
+        <Combobox items={chatUsers}>
+          <ComboboxInput placeholder="Search User" />
+          <ComboboxContent>
+            <ComboboxEmpty>No users found.</ComboboxEmpty>
+            <ComboboxList>
+              {(item) => (
+                <ComboboxItem key={item._id} value={item}>
+                  <div className="flex gap-2 items-center">
+                    <img
+                      src={item?.avatar.url}
+                      alt=""
+                      className="rounded-full h-10 w-10"
+                    />
+                    <span className="">{item.username}</span>
+                  </div>
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
 
         {/* Messages */}
         <div className="flex flex-col gap-4">
           <span className="body-m-bold">Messages</span>
           <div className="flex flex-col gap-6">
+            {chats?.length === 0 && (
+              <div className="text-sm text-gray-500">
+                You have not messaged any one yet.
+              </div>
+            )}
             {chats?.map((chat: Chat) => {
               const receivers = chat.participants.filter(
                 (p) => p._id !== user._id,

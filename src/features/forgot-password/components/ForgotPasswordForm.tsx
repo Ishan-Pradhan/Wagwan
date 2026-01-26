@@ -1,4 +1,4 @@
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
 import { useState } from "react";
 import { useForgotPassword } from "../hooks/useForgotPassword";

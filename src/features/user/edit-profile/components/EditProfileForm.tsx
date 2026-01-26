@@ -1,4 +1,4 @@
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";

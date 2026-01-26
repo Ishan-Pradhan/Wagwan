@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 
 import ErrorImage from "@assets/images/error/notfound.png";
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 
 function NotFound() {
   const navigate = useNavigate();

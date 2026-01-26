@@ -1,4 +1,4 @@
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import { EnvelopeIcon } from "@phosphor-icons/react";
 import { Link, useLocation } from "react-router";
 

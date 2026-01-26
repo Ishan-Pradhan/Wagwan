@@ -1,11 +1,11 @@
 import Divider from "@components/ui/Divider";
-import Input from "@components/ui/Input";
+import Input from "@components/custom-ui/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { LoginSchema, type LoginFormInput } from "../schema/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin } from "../hooks/useLogin";
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import { useAuth } from "context/auth/AuthContext";
 import toast from "react-hot-toast";
 import googleLogo from "@assets/images/googleLogo.svg";

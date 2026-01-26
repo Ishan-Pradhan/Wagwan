@@ -1,4 +1,4 @@
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import { SealCheckIcon, SpinnerIcon, XCircleIcon } from "@phosphor-icons/react";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";

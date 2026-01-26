@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useResetPassword } from "../hooks/useResetPassword";
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
 import Spinner from "@components/ui/Spinner";
 import toast from "react-hot-toast";
@@ -28,7 +28,7 @@ function ResetPasswordForm({ token }: Props) {
         onError: (error) => {
           toast.error(error.message || "Something went wrong");
         },
-      }
+      },
     );
   };
 

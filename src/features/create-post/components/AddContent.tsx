@@ -6,7 +6,7 @@ import PostImagePreview from "./PostImagePreview";
 import { useCreatePost } from "../hooks/useCreatePost";
 import type { ImageItem } from "../CreatePost";
 import { useUpdatePost } from "../hooks/useUpdatePost";
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 
 interface Props {
   images: ImageItem[];

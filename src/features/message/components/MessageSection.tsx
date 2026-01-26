@@ -1,4 +1,4 @@
-import Button from "@components/ui/Button";
+import Button from "@components/custom-ui/Button";
 import { CircleIcon } from "@phosphor-icons/react";
 
 function MessageSection() {
