@@ -27,9 +27,11 @@ import { useDeleteChat } from "../hooks/useDeleteChat";
 function MessageSideMenu({
   user,
   onSelectUser,
+  setChatId,
 }: {
   user: User;
   onSelectUser: (user: ChatUserType) => void;
+  setChatId: (chatId: string) => void;
 }) {
   const { data: chats } = useGetUsersList();
   const { data: chatUsers } = useGetAvailableUsers();
@@ -38,8 +40,8 @@ function MessageSideMenu({
   const deleteMutation = useDeleteChat();
 
   return (
-    <div className="col-span-1 p-4 border-r border-gray-200 h-lvh">
-      <div className="flex flex-col gap-4">
+    <div className="col-span-1 p-4 border-r border-gray-200 h-lvh ">
+      <div className="flex flex-col gap-4 h-full">
         {/* Header */}
         <div className="flex justify-between items-center">
           <span className="body-m-semibold">{user?.username}</span>
@@ -87,9 +89,9 @@ function MessageSideMenu({
         </Combobox>
 
         {/* Messages */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 h-full overflow-hidden">
           <span className="body-m-bold">Messages</span>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 h-full overflow-y-auto">
             {chats?.length === 0 && (
               <div className="text-sm text-gray-500">
                 You have not messaged any one yet.
@@ -105,7 +107,10 @@ function MessageSideMenu({
                 <div
                   key={chat._id}
                   className="flex   hover:bg-gray-200 p-2 rounded-md cursor-pointer group  justify-between items-center"
-                  onClick={() => onSelectUser(receiver)}
+                  onClick={() => {
+                    onSelectUser(receiver);
+                    setChatId(chat._id);
+                  }}
                 >
                   <div className="flex gap-4 items-center">
                     <img
@@ -116,7 +121,9 @@ function MessageSideMenu({
 
                     <div className="flex flex-col">
                       {/* Username of the receiver */}
-                      <span className="body-m-medium">{receiver.username}</span>
+                      <span className="body-m-medium w-20 overflow-hidden text-ellipsis line-clamp-1">
+                        {receiver.username}
+                      </span>
 
                       {/* Last message */}
                       <p className="caption-regular">
@@ -129,7 +136,7 @@ function MessageSideMenu({
                       <DropdownMenuTrigger asChild>
                         <DotsThreeIcon
                           size={28}
-                          className="cursor-pointer hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                          className="cursor-pointer shrink-0 hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
                         />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="w-40" align="end">

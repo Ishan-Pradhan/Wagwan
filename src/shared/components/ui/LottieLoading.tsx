@@ -1,7 +1,7 @@
 import { useLottie } from "lottie-react";
-// If the above still fails, try: import { Lottie } from "lottie-react";
 
-import loadingAnimation from "@assets/lottie/loading.json";
+// import loadingAnimation from "@assets/lottie/loading.json";
+import loadingAnimation from "@assets/lottie/custom_lottie_loader.json";
 
 export default function LottieLoading() {
   const options = {

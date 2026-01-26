@@ -9,6 +9,7 @@ function MessagePage() {
   const [activeChatUser, setActiveChatUser] = useState<ChatUserType | null>(
     null,
   );
+  const [chatId, setChatId] = useState("");
 
   if (!user) return;
 
@@ -17,8 +18,13 @@ function MessagePage() {
       <MessageSideMenu
         user={user}
         onSelectUser={(chatUser: ChatUserType) => setActiveChatUser(chatUser)}
+        setChatId={setChatId}
       />
-      <MessageSection user={user} activeChatUser={activeChatUser} />
+      <MessageSection
+        user={user}
+        activeChatUser={activeChatUser}
+        chatId={chatId}
+      />
     </div>
   );
 }
