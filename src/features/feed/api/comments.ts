@@ -15,7 +15,6 @@ export const fetchComments = async ({
   );
 
   const data = res.data?.data;
-  console.log(data);
 
   return {
     comments: data?.comments ?? [],

@@ -3,8 +3,8 @@ import { CircleIcon } from "@phosphor-icons/react";
 
 function MessageSection() {
   return (
-    <div className="flex flex-col  w-full col-span-4">
-      <div className="py-3 flex gap-4 items-center border-b border-gray-200 w-full px-4">
+    <div className="flex flex-col h-full  w-full col-span-4">
+      <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
         <img
           src={`https://picsum.photos/200/300`}
           alt="user profile avatar"
@@ -15,9 +15,9 @@ function MessageSection() {
           <span className="caption-regular text-gray-500">hari_chandra</span>
         </div>
       </div>
-      <div className=" flex-1">
-        <div className=" overflow-y-auto flex flex-col gap-2 justify-center items-center">
-          <div className="flex flex-col gap-2 justify-center items-center">
+      <div className=" flex-1 min-h-0 ">
+        <div className=" flex flex-col gap-2 h-148 overflow-y-auto py-10">
+          <div className="flex flex-col gap-2 justify-center items-center ">
             <img
               src={`https://picsum.photos/200/300`}
               alt="user profile avatar"
@@ -32,90 +32,9 @@ function MessageSection() {
               View Profile
             </Button>
           </div>
-          <div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-          </div>
         </div>
       </div>
-      <div className="flex items-center gap-4 p-4">
+      <div className="shrink-0 flex items-center gap-4 p-4">
         <div className="w-full">
           <input
             type="text"

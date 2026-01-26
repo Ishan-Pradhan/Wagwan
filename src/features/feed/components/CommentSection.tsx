@@ -46,7 +46,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
 
   return (
     <div className="flex gap-8  items-start group">
-      <Link to={`/user/profile/${comment.author.account.username}`}>
+      <Link to={`/user/profile/${comment.author?.account.username}`}>
         <img
           src={comment.author.account.avatar.url}
           alt="user avatar"
@@ -56,10 +56,10 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
       <div className="flex-1 flex flex-col gap-1  ">
         <p className={`body-s-regular `}>
           <Link
-            to={`/user/profile/${comment.author.account.username}`}
+            to={`/user/profile/${comment.author?.account.username}`}
             className="body-s-bold cursor-pointer inline"
           >
-            {comment.author.account.username}&nbsp;
+            {comment.author?.account.username}&nbsp;
           </Link>
           {comment.content}
         </p>
@@ -80,10 +80,10 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
               <DropdownMenuContent className="w-40" align="end">
                 <DropdownMenuGroup>
                   {/* only the author of the comment can delete the comment */}
-                  {/* {(user?._id === comment.author.account?._id ||
-                    user?._id === post.author.account?._id) && ()} */}
+                  {/* {(user?._id === comment.author?.account?._id ||
+                    user?._id === post.author?.account?._id) && ()} */}
 
-                  {user?._id === comment.author.account?._id && (
+                  {user?._id === comment.author?.account?._id && (
                     <DropdownMenuItem
                       className="flex gap-2"
                       onSelect={() => {

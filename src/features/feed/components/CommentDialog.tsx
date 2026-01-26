@@ -47,6 +47,9 @@ export default function CommentDialog({
       return page?.comments ?? [];
     }) ?? [];
 
+  const latestComments = comments.slice().reverse();
+  console.log("latest comments", latestComments);
+
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -119,11 +122,11 @@ export default function CommentDialog({
             <div className="flex gap-2 items-center">
               <img
                 className="w-10 h-10 rounded-full "
-                src={post.author.account.avatar.url}
+                src={post.author?.account.avatar.url}
                 alt="user avatar"
               />
               <Link to="" className="body-m-semibold">
-                {post.author.account.username}
+                {post.author?.account.username}
               </Link>
             </div>
             <PostMenu post={post} />{" "}
@@ -131,12 +134,12 @@ export default function CommentDialog({
           <div className="lg:flex gap-4 hidden">
             <img
               className="w-10 h-10 rounded-full "
-              src={post.author.account.avatar.url}
+              src={post.author?.account.avatar.url}
               alt="user avatar"
             />
             <p className={`body-s-regular`}>
               <Link to="" className="body-s-bold cursor-pointer inline">
-                {post.author.account.username}&nbsp;
+                {post.author?.account.username}&nbsp;
               </Link>
               {post.content}
             </p>
@@ -149,7 +152,7 @@ export default function CommentDialog({
               </div>
             ) : (
               <>
-                {comments.length === 0 && (
+                {latestComments.length === 0 && (
                   <div className="heading-2-medium  flex flex-col gap-1 items-center justify-center h-full">
                     <span> No Comments yet.</span>
                     <span className="body-s-regular text-gray-400">
@@ -157,7 +160,7 @@ export default function CommentDialog({
                     </span>
                   </div>
                 )}
-                {comments.map((comment) => {
+                {latestComments.map((comment) => {
                   return (
                     <CommentSection
                       key={comment._id}

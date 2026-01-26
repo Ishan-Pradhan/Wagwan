@@ -77,12 +77,14 @@ function PostImagePreview({
 
   if (images.length === 1) {
     return (
-      <div className="h-full relative w-full flex items-center justify-center bg-gray-200 border border-gray-400 mx-auto rounded-md overflow-hidden">
-        <img
-          src={previews[0]}
-          alt="preview"
-          className="aspect-square object-contain"
-        />
+      <div className="h-full relative  flex items-center justify-center bg-gray-200 border border-gray-400 mx-auto rounded-md overflow-hidden">
+        <div className="flex h-full bg-gray-200  overflow-hidden">
+          <img
+            src={previews[0]}
+            alt="preview"
+            className="object-contain w-full"
+          />
+        </div>
       </div>
     );
   }
