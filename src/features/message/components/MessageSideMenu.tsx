@@ -1,4 +1,3 @@
-import { EditIcon } from "lucide-react";
 import type { User } from "types/LoginTypes";
 import { useGetUsersList } from "../hooks/useGetUsersList";
 import type { Chat } from "../types/ChatType";
@@ -12,12 +11,31 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@components/ui/combobox";
+import type { ChatUserType } from "../types/ChatUserType";
+import { useCreateChat } from "../hooks/useCreateChat";
+import { useQueryClient } from "@tanstack/react-query";
+import { DotsThreeIcon } from "@phosphor-icons/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu";
+import { useDeleteChat } from "../hooks/useDeleteChat";
 
-function MessageSideMenu({ user }: { user: User }) {
+function MessageSideMenu({
+  user,
+  onSelectUser,
+}: {
+  user: User;
+  onSelectUser: (user: ChatUserType) => void;
+}) {
   const { data: chats } = useGetUsersList();
-  console.log("🚀 ~ MessageSideMenu ~ chats:", chats);
   const { data: chatUsers } = useGetAvailableUsers();
-  console.log("🚀 ~ MessageSideMenu ~ chatUsers:", chatUsers);
+  const createChatMutation = useCreateChat();
+  const queryClient = useQueryClient();
+  const deleteMutation = useDeleteChat();
 
   return (
     <div className="col-span-1 p-4 border-r border-gray-200 h-lvh">
@@ -25,24 +43,42 @@ function MessageSideMenu({ user }: { user: User }) {
         {/* Header */}
         <div className="flex justify-between items-center">
           <span className="body-m-semibold">{user?.username}</span>
-          <EditIcon />
         </div>
 
         {/* Search */}
-        <Combobox items={chatUsers}>
+        <Combobox
+          items={chatUsers}
+          itemToStringValue={(chatUser: ChatUserType) => chatUser.username}
+        >
           <ComboboxInput placeholder="Search User" />
+
           <ComboboxContent>
             <ComboboxEmpty>No users found.</ComboboxEmpty>
             <ComboboxList>
               {(item) => (
-                <ComboboxItem key={item._id} value={item}>
-                  <div className="flex gap-2 items-center">
-                    <img
-                      src={item?.avatar.url}
-                      alt=""
-                      className="rounded-full h-10 w-10"
-                    />
-                    <span className="">{item.username}</span>
+                <ComboboxItem
+                  key={item._id}
+                  value={""}
+                  onClick={() => {
+                    createChatMutation.mutate(item._id, {
+                      onSuccess: () => {
+                        queryClient.invalidateQueries({
+                          queryKey: ["chats"],
+                        });
+                      },
+                    });
+                    onSelectUser(item);
+                  }}
+                >
+                  <div className="flex gap-2 items-center justify-between group">
+                    <div className="flex gap-2 items-center">
+                      <img
+                        src={item.avatar.url}
+                        alt={item.username}
+                        className="rounded-full h-10 w-10"
+                      />
+                      <span>{item.username}</span>
+                    </div>
                   </div>
                 </ComboboxItem>
               )}
@@ -68,24 +104,53 @@ function MessageSideMenu({ user }: { user: User }) {
               return (
                 <div
                   key={chat._id}
-                  className="flex gap-4 items-center hover:bg-gray-200 p-2 rounded-md cursor-pointer"
+                  className="flex   hover:bg-gray-200 p-2 rounded-md cursor-pointer group  justify-between items-center"
+                  onClick={() => onSelectUser(receiver)}
                 >
-                  <img
-                    src={receiver.avatar.url}
-                    alt={receiver.username}
-                    className="w-10 h-10 rounded-full"
-                  />
+                  <div className="flex gap-4 items-center">
+                    <img
+                      src={receiver.avatar.url}
+                      alt={receiver.username}
+                      className="w-10 h-10 rounded-full"
+                    />
 
-                  <div className="flex flex-col">
-                    {/* Username of the receiver */}
-                    <span className="body-m-medium">{receiver.username}</span>
+                    <div className="flex flex-col">
+                      {/* Username of the receiver */}
+                      <span className="body-m-medium">{receiver.username}</span>
 
-                    {/* Last message */}
-                    <p className="caption-regular">
-                      {chat.latestMessage
-                        ? `${chat.latestMessage.sender.username}: ${chat.latestMessage.content}`
-                        : "No messages yet"}
-                    </p>
+                      {/* Last message */}
+                      <p className="caption-regular">
+                        {chat.latestMessage
+                          ? `${chat.latestMessage.sender.username}: ${chat.latestMessage.content}`
+                          : "No messages yet"}
+                      </p>
+                    </div>
+                    <DropdownMenu modal={false}>
+                      <DropdownMenuTrigger asChild>
+                        <DotsThreeIcon
+                          size={28}
+                          className="cursor-pointer hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                        />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-40" align="end">
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            className="cursor-pointer"
+                            onSelect={() => {
+                              deleteMutation.mutate(chat._id, {
+                                onSuccess: () => {
+                                  queryClient.invalidateQueries({
+                                    queryKey: ["chats"],
+                                  });
+                                },
+                              });
+                            }}
+                          >
+                            Delete Chat
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 </div>
               );
