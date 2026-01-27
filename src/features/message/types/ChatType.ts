@@ -31,4 +31,5 @@ export type Chat = {
     content: string;
     createdAt: string;
   };
+  hasUnread: boolean;
 };

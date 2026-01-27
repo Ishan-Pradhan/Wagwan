@@ -422,3 +422,15 @@
 .splide__toggle__pause {
   transition: opacity 0.2s;
 }
+
+@keyframes ellipsis-up {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

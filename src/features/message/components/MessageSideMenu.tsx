@@ -24,6 +24,11 @@ import {
 } from "@components/ui/dropdown-menu";
 import { useDeleteChat } from "../hooks/useDeleteChat";
 
+import { useSocket } from "context/socket/SocketContext";
+import { MESSAGE_RECEIVED_EVENT, NEW_CHAT_EVENT } from "../const/const";
+import { useEffect } from "react";
+import type { Message } from "../types/MessageType";
+
 function MessageSideMenu({
   user,
   onSelectUser,
@@ -38,6 +43,39 @@ function MessageSideMenu({
   const createChatMutation = useCreateChat();
   const queryClient = useQueryClient();
   const deleteMutation = useDeleteChat();
+  const { socketRef } = useSocket();
+
+  useEffect(() => {
+    if (!socketRef.current) return;
+
+    const socket = socketRef.current;
+
+    socket.on(NEW_CHAT_EVENT, (chat: Chat) => {
+      console.log("New chat created!", chat);
+      queryClient.invalidateQueries({ queryKey: ["chats"] });
+    });
+
+    socket.on(MESSAGE_RECEIVED_EVENT, (message: Message) => {
+      const activeChatId = queryClient.getQueryData<string>(["activeChatId"]);
+
+      queryClient.setQueryData<Chat[]>(["chats"], (old) =>
+        old?.map((chat) => {
+          if (chat._id !== message.chat) return chat;
+
+          return {
+            ...chat,
+            latestMessage: message,
+            hasUnread: message.chat !== activeChatId,
+          };
+        }),
+      );
+    });
+
+    return () => {
+      socket.off(NEW_CHAT_EVENT);
+      socket.off(MESSAGE_RECEIVED_EVENT);
+    };
+  }, [socketRef, queryClient]);
 
   return (
     <div className="col-span-1 p-4 border-r border-gray-200 h-lvh ">
@@ -63,10 +101,12 @@ function MessageSideMenu({
                   value={""}
                   onClick={() => {
                     createChatMutation.mutate(item._id, {
-                      onSuccess: () => {
+                      onSuccess: (data) => {
                         queryClient.invalidateQueries({
                           queryKey: ["chats"],
                         });
+                        console.log("data in side nav:", data);
+                        setChatId(data.data._id);
                       },
                     });
                     onSelectUser(item);
@@ -97,71 +137,87 @@ function MessageSideMenu({
                 You have not messaged any one yet.
               </div>
             )}
-            {chats?.map((chat: Chat) => {
-              const receivers = chat.participants.filter(
-                (p) => p._id !== user._id,
-              );
-              const receiver = receivers[0];
-              if (!receiver) return null;
-              return (
-                <div
-                  key={chat._id}
-                  className="flex   hover:bg-gray-200 p-2 rounded-md cursor-pointer group  justify-between items-center"
-                  onClick={() => {
-                    onSelectUser(receiver);
-                    setChatId(chat._id);
-                  }}
-                >
-                  <div className="flex gap-4 items-center">
-                    <img
-                      src={receiver.avatar.url}
-                      alt={receiver.username}
-                      className="w-10 h-10 rounded-full"
-                    />
+            {chats
+              ?.filter((chat: Chat) => !chat.isGroupChat)
+              ?.map((chat: Chat) => {
+                console.log(chat?.latestMessage?.content);
+                const receivers = chat.participants.filter(
+                  (p) => p._id !== user._id,
+                );
+                const receiver = receivers[0];
+                if (!receiver) return null;
+                return (
+                  <div
+                    key={chat._id}
+                    className="flex   hover:bg-gray-200 p-2 rounded-md cursor-pointer group  justify-between items-center"
+                    onClick={() => {
+                      onSelectUser(receiver);
+                      setChatId(chat._id);
 
-                    <div className="flex flex-col">
-                      {/* Username of the receiver */}
-                      <span className="body-m-medium w-20 overflow-hidden text-ellipsis line-clamp-1">
-                        {receiver.username}
-                      </span>
+                      queryClient.setQueryData(["activeChatId"], chat._id);
 
-                      {/* Last message */}
-                      <p className="caption-regular">
-                        {chat.latestMessage
-                          ? `${chat.latestMessage.sender.username}: ${chat.latestMessage.content}`
-                          : "No messages yet"}
-                      </p>
-                    </div>
-                    <DropdownMenu modal={false}>
-                      <DropdownMenuTrigger asChild>
-                        <DotsThreeIcon
-                          size={28}
-                          className="cursor-pointer shrink-0 hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                      queryClient.setQueryData<Chat[]>(["chats"], (old) =>
+                        old?.map((c) =>
+                          c._id === chat._id ? { ...c, hasUnread: false } : c,
+                        ),
+                      );
+                    }}
+                  >
+                    <div className="flex justify-between items-center w-full">
+                      <div className="flex gap-4 items-center w-full relative">
+                        {chat.hasUnread && (
+                          <span className="h-2 w-2 bg-primary-500 rounded-full shrink-0 animate-pulse absolute top-0 right-0" />
+                        )}
+                        <img
+                          src={receiver.avatar.url}
+                          alt={receiver.username}
+                          className="w-10 h-10 rounded-full"
                         />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-40" align="end">
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem
-                            className="cursor-pointer"
-                            onSelect={() => {
-                              deleteMutation.mutate(chat._id, {
-                                onSuccess: () => {
-                                  queryClient.invalidateQueries({
-                                    queryKey: ["chats"],
-                                  });
-                                },
-                              });
-                            }}
-                          >
-                            Delete Chat
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+
+                        <div className="flex flex-col">
+                          {/* Username of the receiver */}
+                          <span className="body-m-medium w-20 overflow-hidden text-ellipsis line-clamp-1">
+                            {receiver.username}
+                          </span>
+
+                          {/* Last message */}
+                          <p className="caption-regular line-clamp-1">
+                            {chat.latestMessage
+                              ? `${chat.latestMessage.content}`
+                              : "No messages yet"}
+                          </p>
+                        </div>
+                      </div>
+                      <DropdownMenu modal={false}>
+                        <DropdownMenuTrigger asChild>
+                          <DotsThreeIcon
+                            size={28}
+                            className="cursor-pointer shrink-0 hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                          />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-40" align="end">
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem
+                              className="cursor-pointer"
+                              onSelect={() => {
+                                deleteMutation.mutate(chat._id, {
+                                  onSuccess: () => {
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["chats"],
+                                    });
+                                  },
+                                });
+                              }}
+                            >
+                              Delete Chat
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </div>

@@ -10,11 +10,15 @@ import { useSocket } from "context/socket/SocketContext";
 import {
   JOIN_CHAT_EVENT,
   LEAVE_CHAT_EVENT,
+  MESSAGE_DELETE_EVENT,
   MESSAGE_RECEIVED_EVENT,
+  STOP_TYPING_EVENT,
+  TYPING_EVENT,
 } from "../const/const";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSendMessage } from "../hooks/useSendMessage";
 import LottieLoading from "@components/ui/LottieLoading";
+import { formatTime } from "utils/formatTime";
 
 function MessageSection({
   user,
@@ -28,6 +32,9 @@ function MessageSection({
   const { data, isPending } = useGetMessageInChat(chatId);
   const messages = data?.slice().reverse();
   const [messageToBeSent, setMessageToBeSent] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingTimeout, setTypingTimeout] = useState<number | null>(null);
+
   const { socketRef } = useSocket();
   const queryClient = useQueryClient();
 
@@ -43,16 +50,53 @@ function MessageSection({
       queryClient.invalidateQueries({ queryKey: ["chat_messages", chatId] });
     });
 
+    socket.on(TYPING_EVENT, (id: string) => {
+      if (id === chatId) setIsTyping(true);
+    });
+
+    socket.on(STOP_TYPING_EVENT, (id: string) => {
+      if (id === chatId) setIsTyping(false);
+    });
+
+    socket.on(MESSAGE_DELETE_EVENT, () => {
+      queryClient.invalidateQueries({ queryKey: ["chat_messages", chatId] });
+      queryClient.invalidateQueries({ queryKey: ["chats"] });
+    });
+
     // Cleanup: Leave the room and stop listening when switching chats
     return () => {
       socket.emit(LEAVE_CHAT_EVENT, chatId);
-      socket.off(MESSAGE_RECEIVED_EVENT);
+      // socket.off(MESSAGE_RECEIVED_EVENT);
+      socket.off(TYPING_EVENT);
+      socket.off(STOP_TYPING_EVENT);
+      socket.off(MESSAGE_DELETE_EVENT);
     };
   }, [chatId, socketRef, queryClient]);
 
   const sendMessageMutation = useSendMessage();
 
+  const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessageToBeSent(e.target.value);
+
+    if (!socketRef.current || !chatId) return;
+
+    socketRef.current.emit(TYPING_EVENT, chatId);
+
+    if (typingTimeout) clearTimeout(typingTimeout);
+
+    const timeout = setTimeout(() => {
+      socketRef.current?.emit(STOP_TYPING_EVENT, chatId);
+    }, 3000);
+
+    setTypingTimeout(timeout);
+  };
+
   const sendMessage = () => {
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+      socketRef.current?.emit(STOP_TYPING_EVENT, chatId);
+    }
+
     sendMessageMutation.mutate(
       { chatId, content: messageToBeSent },
       {
@@ -67,7 +111,7 @@ function MessageSection({
   };
 
   return (
-    <div className="flex flex-col h-full  w-full col-span-4">
+    <div className="flex flex-col h-lvh overflow-hidden  w-full col-span-4 pb-10 lg:pb-0">
       <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
         <img
           src={user.avatar.url}
@@ -79,7 +123,7 @@ function MessageSection({
           <span className="caption-regular text-gray-500">{user.email}</span>
         </div>
       </div>
-      <div className=" flex-1 min-h-0 ">
+      <div className=" flex-1 min-h-0 overflow-hidden">
         {!activeChatUser ? (
           <div className="flex flex-col gap-2 h-full  items-center justify-center py-10">
             <div className="flex justify-center items-center p-3 border rounded-full ">
@@ -95,7 +139,7 @@ function MessageSection({
             </div>
           </div>
         ) : (
-          <div className=" flex flex-col gap-2 h-148 overflow-y-auto py-10">
+          <div className=" flex flex-col gap-2 h-full overflow-y-auto py-10">
             <div className="flex flex-col gap-2 justify-center items-center ">
               <img
                 src={activeChatUser?.avatar.url}
@@ -124,7 +168,7 @@ function MessageSection({
               <div className="flex flex-col gap-3  container">
                 {messages?.map((message: Message) => (
                   <div
-                    className={`flex gap-2 items-center ${message?.sender._id === user._id ? " self-end" : "self-start"}`}
+                    className={`flex gap-2  ${message?.sender._id === user._id ? " self-end" : "self-start"}`}
                     key={message._id}
                   >
                     {message?.sender._id !== user._id && (
@@ -135,12 +179,44 @@ function MessageSection({
                       />
                     )}
                     <div
-                      className={`${message?.sender._id === user._id ? "bg-primary-500 text-white rounded-full self-end px-4  py-2" : "bg-gray-200 text-black rounded-full self-start px-4 py-2"}`}
+                      className={` flex flex-col ${message?.sender._id === user._id ? "items-end" : ""}`}
                     >
-                      {message.content}
+                      <span
+                        className={`${message?.sender._id === user._id ? "bg-primary-500 text-white rounded-full  self-end   px-4  py-2" : "self-start bg-gray-200 text-black rounded-full px-4 py-2"}`}
+                      >
+                        {" "}
+                        {message.content}
+                      </span>
+                      <span
+                        className={`caption-regular text-gray-500 ${message?.sender._id === user._id ? "" : ""}`}
+                      >
+                        {formatTime(message.createdAt)}
+                      </span>
                     </div>
                   </div>
                 ))}
+                {isTyping && (
+                  <div className="self-start bg-gray-100 text-gray-500 rounded-full px-4 py-2 italic text-xs">
+                    {/* {activeChatUser?.username} is typing... */}
+                    <div className="flex gap-2">
+                      <CircleIcon
+                        size={10}
+                        weight="fill"
+                        className="animate-[ellipsis-up_1s_ease-in-out_infinite] "
+                      />
+                      <CircleIcon
+                        size={10}
+                        weight="fill"
+                        className="animate-[ellipsis-up_1s_ease-in-out_infinite] delay-75"
+                      />
+                      <CircleIcon
+                        size={10}
+                        weight="fill"
+                        className="animate-[ellipsis-up_1s_ease-in-out_infinite] delay-100"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -157,7 +233,7 @@ function MessageSection({
               onKeyDown={(e) => {
                 if (e.key === "Enter") sendMessage();
               }}
-              onChange={(e) => setMessageToBeSent(e.target.value)}
+              onChange={handleTyping}
             />
           </div>
           <Button type="button" onClick={sendMessage}>
