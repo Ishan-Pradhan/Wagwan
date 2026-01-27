@@ -11,7 +11,7 @@ import type { User } from "types/LoginTypes";
 import { useFollow } from "../hooks/useFollow";
 import { useState } from "react";
 import FollowersFollowingDialog from "./FollowersFollowingDialog";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export interface Media {
   _id: string;
@@ -66,6 +66,7 @@ type DialogType = "followers" | "following" | null;
 function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   const followMutation = useFollow(profile?.account.username);
   const [dialogType, setDialogType] = useState<DialogType>(null);
+  const navigate = useNavigate();
 
   const handleFollow = (userId: string) => {
     followMutation.mutate(userId);
@@ -118,6 +119,12 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
                       onSelect={logout}
                     >
                       Logout
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="hover:bg-gray-100 cursor-pointer"
+                      onSelect={() => navigate("/user/profile/change-password")}
+                    >
+                      Change Password
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -180,10 +187,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           </div>
         </div>
       </div>
-      <p className="body-s-regular lg:hidden">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat animi
-        odit ut ratione neque, expedita, adipisci itaqu. trains yeahqs
-      </p>
+      <p className="body-s-regular lg:hidden">{profile?.bio}</p>
 
       {dialogType && (
         <FollowersFollowingDialog

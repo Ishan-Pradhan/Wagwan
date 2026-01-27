@@ -2,17 +2,22 @@ import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
 import { useAuth } from "context/auth/AuthContext";
 import { useGetPosts } from "./hooks/useGetPosts";
 import { useParams } from "react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useGetProfile } from "./hooks/useGetProfile";
 import LottieLoading from "@components/ui/LottieLoading";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
+import { useSearchParams } from "react-router-dom";
 
 function UserProfile() {
   const { user, logout } = useAuth();
   const { username } = useParams();
-  const [activeTab, setActiveTab] = useState<"posts" | "bookmarks">("posts");
+  // const [activeTab, setActiveTab] = useState<"posts" | "bookmarks">("posts");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const activeTab = searchParams.get("tab") ?? "posts";
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useGetPosts(username);
@@ -62,7 +67,7 @@ function UserProfile() {
           <button
             type="button"
             className={`cursor-pointer w-full flex justify-center items-center  `}
-            onClick={() => setActiveTab("posts")}
+            onClick={() => setSearchParams({ tab: "posts" })}
           >
             <div
               className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black" : "border-transparent"}`}
@@ -75,7 +80,7 @@ function UserProfile() {
             <button
               type="button"
               className={`cursor-pointer w-full flex justify-center `}
-              onClick={() => setActiveTab("bookmarks")}
+              onClick={() => setSearchParams({ tab: "bookmarks" })}
             >
               <div
                 className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black" : "border-transparent"}`}

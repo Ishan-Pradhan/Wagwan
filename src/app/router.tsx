@@ -15,6 +15,7 @@ import TagsPage from "features/tags/TagsPage";
 import EditProfile from "features/user/edit-profile/EditProfile";
 import StoryPage from "features/story/StoryPage";
 import MessagePage from "features/message/MessagePage";
+import ChangePassword from "features/user/change-password/ChangePassword";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
           { element: <NotFound />, index: true },
           { element: <UserProfile />, path: "profile/:username" },
           { element: <EditProfile />, path: "profile/edit-profile" },
+          { element: <ChangePassword />, path: "profile/change-password" },
         ],
       },
     ],

@@ -7,20 +7,23 @@ import {
 } from "@components/ui/dropdown-menu";
 import Logo from "@components/widgets/Logo";
 import {
-  DotsThreeOutlineVerticalIcon,
+  BookmarkSimpleIcon,
   HouseIcon,
+  ListIcon,
   PaperPlaneTiltIcon,
   PlusIcon,
+  PowerIcon,
   UserCircleIcon,
 } from "@phosphor-icons/react";
 import { useAuth } from "context/auth/AuthContext";
 import CreatePost from "features/create-post/CreatePost";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function SideMenu() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const menus = [
     {
@@ -119,20 +122,31 @@ function SideMenu() {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <div className="hidden cursor-pointer hover:bg-gray-100 w-full lg:flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out">
-            <DotsThreeOutlineVerticalIcon
-              size={24}
-              className=" hover:text-gray-500"
-            />
+            <ListIcon size={24} className=" hover:text-gray-500" />
             <span>More</span>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-65" align="end">
+        <DropdownMenuContent className="w-50" align="end">
           <DropdownMenuGroup>
             <DropdownMenuItem
-              className="hover:bg-gray-100 cursor-pointer"
+              className="hover:bg-gray-100 cursor-pointer flex gap-2 items-center w-full"
+              onSelect={() =>
+                navigate(`/user/profile/${user?.username}?tab=bookmarks`)
+              }
+            >
+              <BookmarkSimpleIcon
+                size={32}
+                className="shrink-0 "
+                weight="bold"
+              />
+              <span className="body-s-regular">Saved Posts</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="hover:bg-gray-100 cursor-pointer flex gap-2 items-center w-full"
               onSelect={logout}
             >
-              Logout
+              <PowerIcon size={32} className="shrink-0" weight="bold" />
+              <span className="body-s-regular">Logout</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

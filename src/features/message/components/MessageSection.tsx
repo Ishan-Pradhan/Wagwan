@@ -1,5 +1,5 @@
 import Button from "@components/custom-ui/Button";
-import { ChatsIcon, CircleIcon } from "@phosphor-icons/react";
+import { ChatsIcon, CircleIcon, DotsThreeIcon } from "@phosphor-icons/react";
 import type { ChatUserType } from "../types/ChatUserType";
 import { Link } from "react-router";
 import type { User } from "types/LoginTypes";
@@ -19,6 +19,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useSendMessage } from "../hooks/useSendMessage";
 import LottieLoading from "@components/ui/LottieLoading";
 import { formatTime } from "utils/formatTime";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu";
+import { useDeleteMessage } from "../hooks/useDeleteMesssage";
 
 function MessageSection({
   user,
@@ -110,6 +118,8 @@ function MessageSection({
     );
   };
 
+  const deleteMessageMutation = useDeleteMessage();
+
   return (
     <div className="flex flex-col h-lvh overflow-hidden  w-full col-span-4 pb-10 lg:pb-0">
       <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
@@ -168,7 +178,7 @@ function MessageSection({
               <div className="flex flex-col gap-3  container">
                 {messages?.map((message: Message) => (
                   <div
-                    className={`flex gap-2  ${message?.sender._id === user._id ? " self-end" : "self-start"}`}
+                    className={`flex gap-2 ${user._id === message.sender._id ? "flex-row-reverse items-center" : ""} relative group  ${message?.sender._id === user._id ? " self-end" : "self-start"}`}
                     key={message._id}
                   >
                     {message?.sender._id !== user._id && (
@@ -178,6 +188,7 @@ function MessageSection({
                         className="h-7 w-7 border rounded-full"
                       />
                     )}
+
                     <div
                       className={` flex flex-col ${message?.sender._id === user._id ? "items-end" : ""}`}
                     >
@@ -193,6 +204,40 @@ function MessageSection({
                         {formatTime(message.createdAt)}
                       </span>
                     </div>
+                    {user._id === message.sender._id && (
+                      <DropdownMenu modal={false}>
+                        <DropdownMenuTrigger asChild>
+                          <DotsThreeIcon
+                            size={28}
+                            className="cursor-pointer shrink-0 hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                          />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-40" align="end">
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem
+                              className="cursor-pointer"
+                              onSelect={() => {
+                                deleteMessageMutation.mutate(
+                                  { chatId, messageId: message._id },
+                                  {
+                                    onSuccess: () => {
+                                      queryClient.invalidateQueries({
+                                        queryKey: ["chats"],
+                                      });
+                                      queryClient.invalidateQueries({
+                                        queryKey: ["chat_messages", chatId],
+                                      });
+                                    },
+                                  },
+                                );
+                              }}
+                            >
+                              Delete Message
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
                   </div>
                 ))}
                 {isTyping && (
