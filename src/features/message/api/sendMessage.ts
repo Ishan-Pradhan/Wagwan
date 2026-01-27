@@ -3,12 +3,20 @@ import axios from "axios";
 
 export const sendMessage = async (
   chatId: string | undefined,
-  content: string,
+  formData: FormData,
 ) => {
   try {
-    const res = await api.post(`/chat-app/messages/${chatId}`, {
-      content,
-    });
+    const res = await api.post(
+      `/chat-app/messages/${chatId}`,
+
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+    console.log(formData);
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

@@ -1,5 +1,10 @@
 import Button from "@components/custom-ui/Button";
-import { ChatsIcon, CircleIcon, DotsThreeIcon } from "@phosphor-icons/react";
+import {
+  ChatsIcon,
+  CircleIcon,
+  DotsThreeIcon,
+  PlusIcon,
+} from "@phosphor-icons/react";
 import type { ChatUserType } from "../types/ChatUserType";
 import { Link } from "react-router";
 import type { User } from "types/LoginTypes";
@@ -27,6 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { useDeleteMessage } from "../hooks/useDeleteMesssage";
+import toast from "react-hot-toast";
 
 function MessageSection({
   user,
@@ -42,6 +48,8 @@ function MessageSection({
   const [messageToBeSent, setMessageToBeSent] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState<number | null>(null);
+
+  const [attachments, setAttachments] = useState<File[]>([]);
 
   const { socketRef } = useSocket();
   const queryClient = useQueryClient();
@@ -100,19 +108,33 @@ function MessageSection({
   };
 
   const sendMessage = () => {
+    if (!messageToBeSent && attachments.length === 0) return;
+
     if (typingTimeout) {
       clearTimeout(typingTimeout);
       socketRef.current?.emit(STOP_TYPING_EVENT, chatId);
     }
 
+    const formData = new FormData();
+    formData.append("chatId", chatId);
+    formData.append("content", messageToBeSent);
+
+    attachments.forEach((file) => {
+      formData.append("attachments", file);
+    });
+
     sendMessageMutation.mutate(
-      { chatId, content: messageToBeSent },
+      { chatId, formData },
       {
         onSuccess: () => {
           setMessageToBeSent("");
+          setAttachments([]);
           queryClient.invalidateQueries({
             queryKey: ["chat_messages", chatId],
           });
+        },
+        onError: (error) => {
+          toast.error(error?.message);
         },
       },
     );
@@ -121,7 +143,7 @@ function MessageSection({
   const deleteMessageMutation = useDeleteMessage();
 
   return (
-    <div className="flex flex-col h-lvh overflow-hidden  w-full col-span-4 pb-10 lg:pb-0">
+    <div className="flex flex-col lg:h-lvh h-[89vh] overflow-hidden  w-full lg:col-span-4 col-span-5 pb-10 lg:pb-0">
       <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
         <img
           src={user.avatar.url}
@@ -149,7 +171,7 @@ function MessageSection({
             </div>
           </div>
         ) : (
-          <div className=" flex flex-col gap-2 h-full overflow-y-auto py-10">
+          <div className=" flex flex-col gap-10 h-full overflow-y-auto py-10">
             <div className="flex flex-col gap-2 justify-center items-center ">
               <img
                 src={activeChatUser?.avatar.url}
@@ -193,9 +215,19 @@ function MessageSection({
                       className={` flex flex-col ${message?.sender._id === user._id ? "items-end" : ""}`}
                     >
                       <span
-                        className={`${message?.sender._id === user._id ? "bg-primary-500 text-white rounded-full  self-end   px-4  py-2" : "self-start bg-gray-200 text-black rounded-full px-4 py-2"}`}
+                        className={`${message?.sender._id === user._id ? "bg-primary-500 text-white rounded-md  self-end   px-4  py-2  break-all" : "self-start bg-gray-200 text-black rounded-md px-4 py-2 break-after-all"}`}
                       >
-                        {" "}
+                        {message.attachments?.length > 0 && (
+                          <div className="grid grid-cols-2 gap-2 mt-2">
+                            {message.attachments.map((img, i) => (
+                              <img
+                                key={i}
+                                src={img.url}
+                                className="rounded-md max-w-[200px]"
+                              />
+                            ))}
+                          </div>
+                        )}
                         {message.content}
                       </span>
                       <span
@@ -268,23 +300,66 @@ function MessageSection({
         )}
       </div>
       {chatId && (
-        <div className="shrink-0 flex items-center gap-4 p-4">
-          <div className="w-full">
+        <>
+          {attachments.length > 0 && (
+            <div className="flex gap-2 px-4">
+              {attachments.map((file, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={URL.createObjectURL(file)}
+                    className="h-16 w-16 object-cover rounded"
+                  />
+                  <button
+                    className="absolute -top-1 -right-1 bg-black text-white rounded-full text-xs px-1"
+                    onClick={() =>
+                      setAttachments((prev) =>
+                        prev.filter((_, i) => i !== index),
+                      )
+                    }
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="shrink-0 flex items-center gap-4 p-4">
             <input
-              type="text"
-              className="border border-gray-200 rounded-full w-full h-full py-3 px-3"
-              placeholder="Message"
-              value={messageToBeSent}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") sendMessage();
+              type="file"
+              accept="image/*"
+              multiple
+              hidden
+              id="attachment-input"
+              onChange={(e) => {
+                if (!e.target.files) return;
+
+                const files = Array.from(e.target.files).slice(0, 5);
+
+                setAttachments(files);
               }}
-              onChange={handleTyping}
             />
+
+            <label htmlFor="attachment-input" className="cursor-pointer">
+              <PlusIcon size={22} />
+            </label>
+
+            <div className="w-full">
+              <input
+                type="text"
+                className="border border-gray-200 rounded-full w-full h-full py-3 px-3"
+                placeholder="Message"
+                value={messageToBeSent}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") sendMessage();
+                }}
+                onChange={handleTyping}
+              />
+            </div>
+            <Button type="button" onClick={sendMessage}>
+              Send
+            </Button>
           </div>
-          <Button type="button" onClick={sendMessage}>
-            Send
-          </Button>
-        </div>
+        </>
       )}
     </div>
   );

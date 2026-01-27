@@ -71,6 +71,13 @@ function SideMenu() {
                   `flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out
        ${isActive ? "lg:bg-gray-100" : "lg:hover:bg-gray-100 dark:lg:hover:bg-gray-700"}`
                 }
+                onClick={() =>
+                  window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "smooth",
+                  })
+                }
               >
                 {({ isActive }) => {
                   const Icon = menu.icon;
@@ -89,7 +96,7 @@ function SideMenu() {
                         <Icon
                           weight={isActive ? "duotone" : "regular"}
                           size={24}
-                          className={`${isActive ? "text-gray-800" : ""}`}
+                          className={`${isActive ? "text-gray-800 font-bold dark:text-white lg:dark:text-gray-800 rounded-md" : ""}`}
                         />
                       )}
                       <span
@@ -136,9 +143,16 @@ function SideMenu() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-50" align="end">
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Switch Theme</DropdownMenuLabel>
+            <DropdownMenuLabel className="body-s-regular text-gray-500 mb-1 ">
+              Switch Theme
+            </DropdownMenuLabel>
             <DropdownMenuItem className="hover:bg-gray-100 r flex gap-5 items-center w-full">
-              <span className="body-s-regular">Dark Mode</span>
+              <label
+                htmlFor="dark-mode"
+                className="body-s-regular cursor-pointer"
+              >
+                Dark Mode
+              </label>
               <Switch
                 className="cursor-pointer"
                 id="dark-mode"

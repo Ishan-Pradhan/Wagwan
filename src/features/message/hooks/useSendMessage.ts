@@ -3,7 +3,12 @@ import { sendMessage } from "../api/sendMessage";
 
 export const useSendMessage = () => {
   return useMutation({
-    mutationFn: ({ chatId, content }: { chatId: string; content: string }) =>
-      sendMessage(chatId, content),
+    mutationFn: ({
+      chatId,
+      formData,
+    }: {
+      chatId: string;
+      formData: FormData;
+    }) => sendMessage(chatId, formData),
   });
 };

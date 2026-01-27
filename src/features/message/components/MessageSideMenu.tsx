@@ -78,7 +78,7 @@ function MessageSideMenu({
   }, [socketRef, queryClient]);
 
   return (
-    <div className="col-span-1 p-4 border-r border-gray-200 h-lvh ">
+    <div className="lg:col-span-1 col-span-5  p-4 border-r border-gray-200 h-lvh ">
       <div className="flex flex-col gap-4 h-full">
         {/* Header */}
         <div className="flex justify-between items-center">
