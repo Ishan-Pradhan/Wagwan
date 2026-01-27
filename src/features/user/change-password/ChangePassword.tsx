@@ -74,7 +74,7 @@ function ChangePassword() {
               name="oldPassword"
             />
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
               {seeOldPassword ? (
                 <EyeIcon onClick={() => setSeeOldPassword(!seeOldPassword)} />
               ) : (
@@ -92,7 +92,7 @@ function ChangePassword() {
               name="newPassword"
             />
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
               {seeNewPassword ? (
                 <EyeIcon onClick={() => setSeeNewPassword(!seeNewPassword)} />
               ) : (
@@ -110,7 +110,7 @@ function ChangePassword() {
               name="confirmPassword"
             />
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl">
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
               {seeConfirmPassword ? (
                 <EyeIcon
                   onClick={() => setSeeConfirmPassword(!seeConfirmPassword)}

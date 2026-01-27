@@ -10,7 +10,7 @@ export const useGetBookmarks = () => {
     queryFn: ({ pageParam }) => {
       return getBookmarks({
         page: pageParam,
-        limit: 10,
+        limit: 5,
       });
     },
 

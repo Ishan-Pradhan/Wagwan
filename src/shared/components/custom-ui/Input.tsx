@@ -18,7 +18,7 @@ function Input({
     <div className="w-full flex flex-col gap-2 relative ">
       <input
         {...register(name)}
-        className={`peer border w-full   rounded-sm px-3 py-3 focus-within:outline focus-within:outline-primary-500   hover:bg-gray-100 hover:border-gray-300 transition-all duration-100 ease-in ${className} ${
+        className={`peer border w-full dark:text-gray-900   rounded-sm px-3 py-3 focus-within:outline focus-within:outline-primary-500   hover:bg-gray-100 hover:border-gray-300 transition-all duration-100 ease-in ${className} ${
           error ? "border-red-500 bg-red-100" : "border-gray-200 bg-gray-50 "
         }`}
         type={type}

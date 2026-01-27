@@ -10,7 +10,7 @@ function VerifyEmailPage() {
     <div className="container flex items-center justify-center h-lvh">
       <div className="flex flex-col gap-4 relative border-2 border-gray-300 rounded-xl bg-white p-10 max-w-xl">
         <div className="absolute rounded-full p-2 flex items-center justify-center -top-5 left-1/2 -translate-x-1/2 bg-white border-2 border-gray-300">
-          <EnvelopeIcon size={24} />
+          <EnvelopeIcon size={24} className="dark:text-gray-700" />
         </div>
         <div className="flex flex-col gap-2 items-center justify-center">
           <p className="body-m-regular text-gray-600">

@@ -36,7 +36,7 @@ function ChangeProfilePhoto({
     });
   };
   return (
-    <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-center bg-gray-100 p-3 rounded-md">
+    <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-center bg-gray-100 dark:bg-gray-700 p-3 rounded-md">
       <div className="flex gap-4 items-center ">
         <img
           src={user?.avatar.url}
@@ -46,10 +46,12 @@ function ChangeProfilePhoto({
 
         <div className="flex flex-col ">
           <span className="body-m-semibold ">{user?.username}</span>
-          <span className="body-s-regular text-gray-500">{user?.email}</span>
+          <span className="body-s-regular text-gray-500 dark:text-gray-400">
+            {user?.email}
+          </span>
         </div>
         {user.isEmailVerified ? (
-          <div className="border border-green-500 bg-green-50 text-green-500 px-2 py-1 caption-regular rounded-full">
+          <div className="border border-green-500 bg-green-50 dark:bg-gray-800 text-green-500 px-2 py-1 caption-regular rounded-full">
             Verified
           </div>
         ) : (
@@ -58,7 +60,7 @@ function ChangeProfilePhoto({
           </div>
         )}
       </div>
-      <form action="" className="">
+      <form>
         <label
           className="rounded-sm w-full bg-primary-700 text-white px-4 py-2 cursor-pointer hover:bg-primary-500"
           htmlFor="avatar"

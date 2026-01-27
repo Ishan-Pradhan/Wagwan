@@ -199,6 +199,9 @@ export default function CommentDialog({
                 className="w-full px-2 py-1 border rounded"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handlePostComment(postId, newComment);
+                }}
               />
               <button
                 className="px-3 py-1 text-primary-500 hover:text-primary-600 cursor-pointer flex-1 flex gap-2 items-center"

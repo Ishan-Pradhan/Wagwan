@@ -91,6 +91,9 @@ function AddContent({
           {...register("content")}
           placeholder="Write something..."
           className={`border p-2 flex-1 ${errors.content ? "border-red-500" : ""}`}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSubmit();
+          }}
         />
         {errors.content && (
           <p className="text-red-500 text-xs">
@@ -110,6 +113,9 @@ function AddContent({
           })}
           placeholder="tags, comma separated"
           className={`border p-2 ${errors.tags ? "border-red-500" : ""}`}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSubmit();
+          }}
         />
         {errors.tags && (
           <p className="text-red-500 text-xs">

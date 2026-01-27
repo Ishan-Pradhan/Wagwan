@@ -41,7 +41,7 @@
 
 @layer base {
   body {
-    @apply bg-white font-raleway;
+    @apply bg-white font-raleway dark:bg-gray-800;
   }
 }
 

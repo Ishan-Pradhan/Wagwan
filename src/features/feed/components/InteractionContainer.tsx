@@ -8,6 +8,7 @@ import { useLike } from "../hooks/useLike";
 import type { Post } from "../types/FeedTypes";
 import { useBookmark } from "../hooks/useBookmark";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTheme } from "context/Theme/ThemeContext";
 
 function InteractionContainer({
   post,
@@ -20,6 +21,7 @@ function InteractionContainer({
 }) {
   const likeMutation = useLike();
   const queryClient = useQueryClient();
+  const { theme } = useTheme();
 
   const bookmarkMutation = useBookmark();
 
@@ -47,13 +49,12 @@ function InteractionContainer({
   return (
     <div className="flex flex-col  gap-2">
       <div className="flex justify-between items-center">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center dark:text-white">
           <HeartIcon
             size={28}
             weight={post.isLiked ? "fill" : "regular"}
-            fill={post.isLiked ? "red" : ""}
-            stroke="2px"
-            className="hover:scale-105 cursor-pointer"
+            fill={post.isLiked ? "red" : theme === "dark" ? "white" : ""}
+            className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer "
             onClick={() => handleLike(post._id)}
           />
           <ChatCircleIcon

@@ -149,7 +149,7 @@ function MessageSideMenu({
                 return (
                   <div
                     key={chat._id}
-                    className="flex   hover:bg-gray-200 p-2 rounded-md cursor-pointer group  justify-between items-center"
+                    className="flex   hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-md cursor-pointer group  justify-between items-center"
                     onClick={() => {
                       onSelectUser(receiver);
                       setChatId(chat._id);

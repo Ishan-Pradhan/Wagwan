@@ -60,7 +60,7 @@ function UserProfile() {
       <UserDetail profile={profile} posts={posts} user={user} logout={logout} />
 
       {/* posts */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 h-full">
         <div
           className={`grid ${user?._id === profile?.account._id ? "grid-cols-2" : "grid-cols-1"} border-b border-gray-200`}
         >
@@ -70,7 +70,7 @@ function UserProfile() {
             onClick={() => setSearchParams({ tab: "posts" })}
           >
             <div
-              className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black" : "border-transparent"}`}
+              className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black dark:border-white" : "border-transparent"}`}
             >
               <GridNineIcon weight="duotone" size={32} />
             </div>
@@ -83,7 +83,7 @@ function UserProfile() {
               onClick={() => setSearchParams({ tab: "bookmarks" })}
             >
               <div
-                className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black" : "border-transparent"}`}
+                className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black dark:border-white" : "border-transparent"}`}
               >
                 <BookmarkIcon weight="duotone" size={32} />
               </div>

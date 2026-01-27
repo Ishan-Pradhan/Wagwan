@@ -96,11 +96,13 @@ function LoginForm() {
 
       <button
         type="button"
-        className="flex gap-3 justify-center items-center bg-white py-3 shadow-sm rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-150 ease-in-out"
+        className="flex gap-3 justify-center items-center bg-white py-3 shadow-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-200 cursor-pointer transition-all duration-150 ease-in-out"
         onClick={handleGooglebutton}
       >
         <img src={googleLogo} alt="google logo" />
-        <span className="body-m-medium">Sign in with Google</span>
+        <span className="body-m-medium dark:text-gray-800">
+          Sign in with Google
+        </span>
       </button>
 
       <div className="flex flex-col gap-5 items-center justify-center">
