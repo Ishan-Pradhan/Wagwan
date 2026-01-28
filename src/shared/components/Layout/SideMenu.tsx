@@ -18,15 +18,23 @@ import {
   UserCircleIcon,
 } from "@phosphor-icons/react";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
-import { useAuth } from "context/auth/AuthContext";
 import { useTheme } from "context/Theme/ThemeContext";
 import CreatePost from "features/create-post/CreatePost";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
+import { logoutUser } from "stores/auth/authThunk";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
 
 function SideMenu() {
-  const { user, logout } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    window.location.replace("/login");
+  };
+
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
@@ -176,7 +184,7 @@ function SideMenu() {
             </DropdownMenuItem>
             <DropdownMenuItem
               className="hover:bg-gray-100 cursor-pointer flex gap-2 items-center w-full"
-              onSelect={logout}
+              onSelect={handleLogout}
             >
               <PowerIcon size={32} className="shrink-0" weight="bold" />
               <span className="body-s-regular">Logout</span>

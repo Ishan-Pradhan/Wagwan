@@ -1,28 +1,13 @@
-import { RouterProvider } from "react-router";
-import { router } from "./router";
-import { Toaster } from "react-hot-toast";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AuthProvider from "context/auth/AuthProvider";
-import StoryProvider from "context/story/StoryProvider";
-import { SocketProvider } from "context/socket/SocketProvider";
-import { ThemeProvider } from "context/Theme/ThemeProvider";
+import { store } from "stores/store";
+import { Provider } from "react-redux";
+import AppWrapper from "./AppWrapper";
 
 function App() {
-  const queryClient = new QueryClient();
   return (
     <>
-      <AuthProvider>
-        <ThemeProvider>
-          <SocketProvider>
-            <StoryProvider>
-              <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router} />
-                <Toaster />
-              </QueryClientProvider>
-            </StoryProvider>
-          </SocketProvider>
-        </ThemeProvider>
-      </AuthProvider>
+      <Provider store={store}>
+        <AppWrapper />
+      </Provider>
     </>
   );
 }

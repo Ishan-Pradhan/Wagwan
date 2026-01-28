@@ -1,8 +1,9 @@
-import { useAuth } from "context/auth/AuthContext";
 import { Link } from "react-router";
+import { useAppSelector } from "stores/hooks";
 
 function RightSideNav() {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
+
   const userAvatar = user?.avatar?.url;
   return (
     <div className="flex justify-between items-center">
