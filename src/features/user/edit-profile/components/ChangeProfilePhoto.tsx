@@ -3,16 +3,13 @@ import { useUpdatePhoto } from "../hooks/useUpdatePhoto";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import Spinner from "@components/ui/Spinner";
+import { useDispatch } from "react-redux";
+import { setUser } from "stores/auth/authSlice";
 
-function ChangeProfilePhoto({
-  user,
-  setUser,
-}: {
-  user: User;
-  setUser: (user: User) => void;
-}) {
+function ChangeProfilePhoto({ user }: { user: User }) {
   const updatePhotoMutation = useUpdatePhoto();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -25,7 +22,8 @@ function ChangeProfilePhoto({
     updatePhotoMutation.mutate(formData, {
       onSuccess: (data) => {
         toast.success("Profile Picture changed");
-        setUser({ ...user, avatar: data.avatar });
+        dispatch(setUser({ ...user, avatar: data.avatar }));
+
         queryClient.invalidateQueries({ queryKey: ["profile"] });
         queryClient.invalidateQueries({ queryKey: ["feed"] });
       },

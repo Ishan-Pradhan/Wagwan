@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AuthProvider from "context/auth/AuthProvider";
 import { SocketProvider } from "context/socket/SocketProvider";
 import StoryProvider from "context/story/StoryProvider";
 import { ThemeProvider } from "context/Theme/ThemeProvider";
@@ -20,18 +19,16 @@ function AppWrapper() {
 
   return (
     <>
-      <AuthProvider>
-        <ThemeProvider>
-          <SocketProvider>
-            <StoryProvider>
-              <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router} />
-                <Toaster />
-              </QueryClientProvider>
-            </StoryProvider>
-          </SocketProvider>
-        </ThemeProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <SocketProvider>
+          <StoryProvider>
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+              <Toaster />
+            </QueryClientProvider>
+          </StoryProvider>
+        </SocketProvider>
+      </ThemeProvider>
     </>
   );
 }

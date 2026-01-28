@@ -6,9 +6,10 @@ import { LoginSchema, type LoginFormInput } from "../schema/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin } from "../hooks/useLogin";
 import Button from "@components/custom-ui/Button";
-import { useAuth } from "context/auth/AuthContext";
 import toast from "react-hot-toast";
 import googleLogo from "@assets/images/googleLogo.svg";
+import { useAppDispatch } from "stores/hooks";
+import { setUser } from "stores/auth/authSlice";
 
 function LoginForm() {
   const methods = useForm<LoginFormInput>({
@@ -24,7 +25,8 @@ function LoginForm() {
 
   const loginMutation = useLogin();
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+
+  const dispatch = useAppDispatch();
 
   const onsubmit = (data: LoginFormInput) => {
     const { usernameOrEmail, password } = data;
@@ -44,7 +46,7 @@ function LoginForm() {
     //mutate payload , if email then payload goes as email and if username then payload goes as username
     loginMutation.mutate(payload, {
       onSuccess: (data) => {
-        setUser(data.data.user);
+        dispatch(setUser(data.data.user));
         toast.success(data.message);
 
         localStorage.setItem("user", JSON.stringify(data.data));

@@ -144,17 +144,23 @@ function MessageSection({
 
   return (
     <div className="flex flex-col lg:h-lvh h-[89vh] overflow-hidden  w-full lg:col-span-4 col-span-5 pb-10 lg:pb-0">
-      <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
-        <img
-          src={user.avatar.url}
-          alt="user profile avatar"
-          className="h-10 w-10 rounded-full"
-        />
-        <div className="flex flex-col">
-          <span className="body-l-semibold">{user.username}</span>
-          <span className="caption-regular text-gray-500">{user.email}</span>
+      {!activeChatUser ? (
+        ""
+      ) : (
+        <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
+          <img
+            src={activeChatUser?.avatar.url}
+            alt="user profile avatar"
+            className="h-10 w-10 rounded-full"
+          />
+          <div className="flex flex-col">
+            <span className="body-l-semibold">{activeChatUser?.username}</span>
+            <span className="caption-regular text-gray-500">
+              {activeChatUser?.email}
+            </span>
+          </div>
         </div>
-      </div>
+      )}
       <div className=" flex-1 min-h-0 overflow-hidden">
         {!activeChatUser ? (
           <div className="flex flex-col gap-2 h-full  items-center justify-center py-10">

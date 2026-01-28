@@ -1,5 +1,4 @@
 import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
-import { useAuth } from "context/auth/AuthContext";
 import { useGetPosts } from "./hooks/useGetPosts";
 import { useParams } from "react-router";
 import { useEffect, useRef } from "react";
@@ -9,9 +8,18 @@ import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
 import { useSearchParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { logoutUser } from "stores/auth/authThunk";
 
 function UserProfile() {
-  const { user, logout } = useAuth();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    window.location.replace("/login");
+  };
+  const { user } = useAppSelector((state) => state.auth);
+
   const { username } = useParams();
   // const [activeTab, setActiveTab] = useState<"posts" | "bookmarks">("posts");
 
@@ -57,7 +65,12 @@ function UserProfile() {
 
   return (
     <div className="container max-w-4xl flex flex-col gap-4 justify-center lg:py-10 py-3 pb-20 px-4">
-      <UserDetail profile={profile} posts={posts} user={user} logout={logout} />
+      <UserDetail
+        profile={profile}
+        posts={posts}
+        user={user}
+        logout={handleLogout}
+      />
 
       {/* posts */}
       <div className="flex flex-col gap-3 h-full">

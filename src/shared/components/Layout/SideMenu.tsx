@@ -18,17 +18,48 @@ import {
   UserCircleIcon,
 } from "@phosphor-icons/react";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
+import { useSocket } from "context/socket/SocketContext";
 import { useTheme } from "context/Theme/ThemeContext";
 import CreatePost from "features/create-post/CreatePost";
-import { useState } from "react";
+import { MESSAGE_RECEIVED_EVENT } from "features/message/const/const";
+import type { Message } from "features/message/types/MessageType";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "stores/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 
 function SideMenu() {
   const { user } = useAppSelector((state) => state.auth);
+  const [hasNewMessage, setHasNewMessage] = useState(false);
   const dispatch = useAppDispatch();
+  const { socketRef } = useSocket();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!socketRef.current) return;
+
+    const socket = socketRef.current;
+
+    const handleNotification = (message: Message) => {
+      if (location.pathname !== "/message") {
+        setHasNewMessage(true);
+        toast.success(`You have message from ${message.sender.username}`);
+      }
+    };
+
+    socket.on(MESSAGE_RECEIVED_EVENT, handleNotification);
+    return () => {
+      socket.off(MESSAGE_RECEIVED_EVENT);
+    };
+  }, [socketRef, location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname === "/message" && hasNewMessage) {
+      //eslint-disable-next-line
+      setHasNewMessage(false);
+    }
+  }, [location.pathname, hasNewMessage]);
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
@@ -76,7 +107,7 @@ function SideMenu() {
               <NavLink
                 to={menu.path}
                 className={({ isActive }) =>
-                  `flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out
+                  `flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out relative
        ${isActive ? "lg:bg-gray-100" : "lg:hover:bg-gray-100 dark:lg:hover:bg-gray-700"}`
                 }
                 onClick={() =>
@@ -89,9 +120,12 @@ function SideMenu() {
               >
                 {({ isActive }) => {
                   const Icon = menu.icon;
-
                   return (
                     <>
+                      {hasNewMessage && menu.menu === "messages" && (
+                        <div className="h-2 w-2 bg-primary-500 absolute top-2 right-2 rounded-full "></div>
+                      )}
+
                       {menu.menu === "profile" ? (
                         <img
                           src={user?.avatar?.url}

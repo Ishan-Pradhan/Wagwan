@@ -1,4 +1,3 @@
-import { useAuth } from "context/auth/AuthContext";
 import { useGetProfile } from "../profile/hooks/useGetProfile";
 import LottieLoading from "@components/ui/LottieLoading";
 import EditProfileForm from "./components/EditProfileForm";
@@ -7,9 +6,11 @@ import api from "api/api";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import Spinner from "@components/ui/Spinner";
+import { useAppSelector } from "stores/hooks";
 
 function EditProfile() {
-  const { user, setUser } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
+
   const { data: profile, isLoading } = useGetProfile(user?.username);
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +53,7 @@ function EditProfile() {
           </button>
         </div>
       )}
-      <ChangeProfilePhoto user={user!} setUser={setUser} />
+      <ChangeProfilePhoto user={user!} />
       <EditProfileForm profile={profile} />
     </div>
   );
