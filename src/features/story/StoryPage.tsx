@@ -44,14 +44,17 @@ function StoryPage() {
             resetProgress: false,
           }}
         >
-          <div className="flex gap-2 items-center mb-8">
+          <Link
+            to={`/user/profile/${username}`}
+            className="flex gap-2 items-center mb-8"
+          >
             <img
               src={profile?.account.avatar.url}
               alt="user avatar"
               className="w-10 h-10 rounded-full border border-gray-100"
             />
             <span className="body-l-semibold text-white">{username}</span>
-          </div>
+          </Link>
           <SplideTrack className="h-full w-full flex flex-col bg-black mx-auto">
             {firstPost.images.map((image, index) => (
               <SplideSlide key={index} className="w-full h-full">

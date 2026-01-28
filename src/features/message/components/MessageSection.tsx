@@ -215,15 +215,17 @@ function MessageSection({
                       className={` flex flex-col ${message?.sender._id === user._id ? "items-end" : ""}`}
                     >
                       <span
-                        className={`${message?.sender._id === user._id ? "bg-primary-500 text-white rounded-md  self-end   px-4  py-2  break-all" : "self-start bg-gray-200 text-black rounded-md px-4 py-2 break-after-all"}`}
+                        className={`${message?.sender._id === user._id ? "bg-primary-500 text-white rounded-md gap-2  self-end   px-4  py-2  break-all" : "self-start bg-gray-200 text-black flex flex-col gap-4 rounded-md px-4 py-2 break-after-all"}`}
                       >
                         {message.attachments?.length > 0 && (
-                          <div className="grid grid-cols-2 gap-2 mt-2">
+                          <div
+                            className={`grid gap-2 mt-2 ${message.attachments?.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}
+                          >
                             {message.attachments.map((img, i) => (
                               <img
                                 key={i}
                                 src={img.url}
-                                className="rounded-md max-w-[200px]"
+                                className="rounded-md w-50 h-50 object-cover"
                               />
                             ))}
                           </div>
@@ -273,24 +275,32 @@ function MessageSection({
                   </div>
                 ))}
                 {isTyping && (
-                  <div className="self-start bg-gray-100 text-gray-500 rounded-full px-4 py-2 italic text-xs">
-                    {/* {activeChatUser?.username} is typing... */}
-                    <div className="flex gap-2">
-                      <CircleIcon
-                        size={10}
-                        weight="fill"
-                        className="animate-[ellipsis-up_1s_ease-in-out_infinite] "
+                  <div className="flex items-center gap-2">
+                    {
+                      <img
+                        src={activeChatUser.avatar.url}
+                        alt={activeChatUser.username}
+                        className="h-7 w-7 border rounded-full"
                       />
-                      <CircleIcon
-                        size={10}
-                        weight="fill"
-                        className="animate-[ellipsis-up_1s_ease-in-out_infinite] delay-75"
-                      />
-                      <CircleIcon
-                        size={10}
-                        weight="fill"
-                        className="animate-[ellipsis-up_1s_ease-in-out_infinite] delay-100"
-                      />
+                    }
+                    <div className="self-start bg-gray-100 text-gray-500 rounded-full px-4 py-2 italic text-xs">
+                      <div className="flex gap-2">
+                        <CircleIcon
+                          size={10}
+                          weight="fill"
+                          className="animate-[ellipsis-up_1s_ease-in-out_infinite] "
+                        />
+                        <CircleIcon
+                          size={10}
+                          weight="fill"
+                          className="animate-[ellipsis-up_1s_ease-in-out_infinite] delay-75"
+                        />
+                        <CircleIcon
+                          size={10}
+                          weight="fill"
+                          className="animate-[ellipsis-up_1s_ease-in-out_infinite] delay-100"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -340,7 +350,7 @@ function MessageSection({
             />
 
             <label htmlFor="attachment-input" className="cursor-pointer">
-              <PlusIcon size={22} />
+              <PlusIcon size={22} className="hover:text-gray-500" />
             </label>
 
             <div className="w-full">

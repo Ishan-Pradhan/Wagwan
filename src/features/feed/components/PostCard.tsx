@@ -40,6 +40,12 @@ function PostCard({
             <CircleIcon weight="fill" size={5} />
             <span>{formatTime(post.createdAt)}</span>
           </div>
+          {post.updatedAt !== post.createdAt && (
+            <div className="flex gap-1 body-s-medium text-gray-400 items-center">
+              <CircleIcon weight="fill" size={5} />
+              <span>Edited</span>
+            </div>
+          )}
         </Link>
 
         {/* menu */}

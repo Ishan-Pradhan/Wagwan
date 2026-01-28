@@ -91,7 +91,7 @@ function AddImage({
           <div className="flex gap-2 items-center">
             <label
               htmlFor="add-image-change"
-              className="text-gray-800 hover:text-gray-600 cursor-pointer text-sm"
+              className="text-gray-800 dark:text-gray-500 dark:hover:text-gray-600 hover:text-gray-600 cursor-pointer text-sm"
             >
               Add more images
             </label>
