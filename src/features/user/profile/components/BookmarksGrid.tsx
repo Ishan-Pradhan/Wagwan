@@ -69,12 +69,12 @@ function BookmarksGrid() {
             className="aspect-square object-cover"
           />
           <div className="absolute top-0 left-0 h-full w-full hidden group-hover:flex gap-4 items-center justify-center p-3 group-hover:bg-gray-800/50 transition-all duration-300 ease-in-out">
-            <div className="flex gap-2 items-center text-white">
-              <HeartIcon weight="fill" size={30} />
+            <div className="flex gap-2 items-center text-white lg:text-4xl text-sm ">
+              <HeartIcon weight="fill" />
               <span className="body-l-semibold">{post.likes}</span>
             </div>
-            <div className="flex gap-2 items-center text-white">
-              <ChatCircleIcon weight="fill" size={30} />
+            <div className="flex gap-2 items-center text-white lg:text-4xl text-sm ">
+              <ChatCircleIcon weight="fill" />
               <span className="body-l-semibold">{post.comments}</span>
             </div>
           </div>

@@ -79,26 +79,26 @@ function UserProfile() {
         >
           <button
             type="button"
-            className={`cursor-pointer w-full flex justify-center items-center  `}
+            className={`cursor-pointer w-full flex justify-center items-center  lg:text-4xl text-2xl`}
             onClick={() => setSearchParams({ tab: "posts" })}
           >
             <div
               className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black dark:border-white" : "border-transparent"}`}
             >
-              <GridNineIcon weight="duotone" size={32} />
+              <GridNineIcon weight="duotone" />
             </div>
           </button>
 
           {user?._id === profile?.account._id && (
             <button
               type="button"
-              className={`cursor-pointer w-full flex justify-center `}
+              className={`cursor-pointer w-full flex justify-center lg:text-4xl text-2xl`}
               onClick={() => setSearchParams({ tab: "bookmarks" })}
             >
               <div
                 className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black dark:border-white" : "border-transparent"}`}
               >
-                <BookmarkIcon weight="duotone" size={32} />
+                <BookmarkIcon weight="duotone" />
               </div>
             </button>
           )}

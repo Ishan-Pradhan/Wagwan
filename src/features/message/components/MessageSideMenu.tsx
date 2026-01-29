@@ -44,11 +44,10 @@ function MessageSideMenu({
   const activeUser = searchParams.get("user");
 
   const isUserActive = Boolean(activeUser);
-  console.log(isUserActive);
 
   return (
     <div
-      className={`lg:col-span-1 col-span-5 p-4 lg:border-r border-gray-200 h-lvh ${isUserActive ? "hidden lg:flex" : "flex"}`}
+      className={`lg:col-span-1 col-span-5 p-4 lg:border-r border-gray-200 dark:border-gray-600 h-lvh ${isUserActive ? "hidden lg:flex" : "flex"}`}
     >
       <div className="flex flex-col gap-4 h-full w-full">
         {/* Search */}
@@ -131,7 +130,7 @@ function MessageSideMenu({
                     }}
                   >
                     <div className="flex justify-between items-center w-full">
-                      <div className="flex gap-4 items-center w-full relative">
+                      <div className="flex gap-4  w-full relative">
                         {chat.hasUnread && (
                           <span className="h-2 w-2 bg-primary-500 rounded-full shrink-0 animate-pulse absolute top-0 right-0" />
                         )}
@@ -141,14 +140,14 @@ function MessageSideMenu({
                           className="w-10 h-10 rounded-full"
                         />
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col ">
                           {/* Username of the receiver */}
-                          <span className="body-m-medium w-20 overflow-hidden text-ellipsis line-clamp-1">
+                          <span className="body-m-medium w-20 text-start overflow-hidden text-ellipsis line-clamp-1">
                             {receiver.username}
                           </span>
 
                           {/* Last message */}
-                          <p className="caption-regular line-clamp-1">
+                          <p className="caption-regular line-clamp-1 text-start">
                             {chat.latestMessage
                               ? `${chat.latestMessage.content}`
                               : "No new message"}

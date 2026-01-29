@@ -126,7 +126,7 @@ function SideMenu() {
   };
 
   return (
-    <div className="flex flex-col dark:bg-gray-900 gap-3 lg:border-r-2 lg:border-gray-200 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5 z-50 bg-gray-50 ">
+    <div className="flex flex-col dark:bg-gray-800 gap-3 lg:border-r   lg:border-gray-200 dark:lg:border-gray-600 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5 z-50 bg-gray-50 ">
       <div className="flex flex-col gap-10 lg:w-full">
         <div className="px-4 lg:flex hidden">
           <Logo />
@@ -138,15 +138,8 @@ function SideMenu() {
               <NavLink
                 to={menu.path}
                 className={({ isActive }) =>
-                  `flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out relative
+                  `flex gap-3 items-center rounded-md px-4 py-3 capitalize  transition-colors duration-100 ease-in-out relative
        ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
-                }
-                onClick={() =>
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
-                  })
                 }
               >
                 {({ isActive }) => {
@@ -168,8 +161,8 @@ function SideMenu() {
                       ) : (
                         <Icon
                           weight={isActive ? "duotone" : "regular"}
-                          size={24}
-                          className={`${isActive ? "text-gray-800 font-bold dark:text-white lg:dark:text-gray-800 rounded-md" : ""}`}
+                          size={20}
+                          className={`shrink-0 flex ${isActive ? "text-gray-800 font-bold dark:text-white lg:dark:text-gray-800 rounded-md " : ""}`}
                         />
                       )}
                       <span
@@ -198,7 +191,7 @@ function SideMenu() {
               }
               className="flex gap-3 w-full cursor-pointer items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:hover:bg-gray-100 dark:lg:hover:bg-gray-700"
             >
-              <PlusIcon weight={"regular"} size={24} />
+              <PlusIcon weight={"regular"} size={20} />
               <span className="hidden lg:flex text-gray-700 body-m-medium dark:text-white">
                 Create
               </span>
@@ -210,8 +203,8 @@ function SideMenu() {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <div className="hidden cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 w-full lg:flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out">
-            <ListIcon size={24} className=" hover:text-gray-500" />
-            <span>More</span>
+            <ListIcon size={20} className=" hover:text-gray-500" />
+            <span className="body-m-medium">More</span>
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-50" align="end">

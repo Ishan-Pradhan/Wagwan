@@ -6,7 +6,7 @@ export const useGetFollowersFollowing = ({
   username,
   type,
 }: {
-  username: string;
+  username: string | undefined;
   type: "followers" | "following";
 }) => {
   return useInfiniteQuery({

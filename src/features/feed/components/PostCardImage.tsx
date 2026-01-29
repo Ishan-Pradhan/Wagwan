@@ -49,7 +49,7 @@ function PostCardImage({ images }: ImagesProps) {
                 <img
                   src={getImageSrc(img)}
                   alt="users posts"
-                  className=" object-cover  overflow-hidden w-full"
+                  className=" object-cover  overflow-hidden w-full "
                   loading="lazy"
                 />
               </div>

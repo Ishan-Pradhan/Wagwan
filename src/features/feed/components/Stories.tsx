@@ -61,7 +61,7 @@ function Stories() {
     navigate(`/story/${user.username}`);
   };
   return (
-    <div className="relative xl:w-150 lg:w-120  w-xs mx-auto">
+    <div className="relative xl:w-150  md:w-120  w-xs mx-auto">
       <Splide
         options={{
           perPage: 1,

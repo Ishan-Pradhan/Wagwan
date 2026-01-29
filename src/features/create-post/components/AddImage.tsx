@@ -1,6 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import PostImagePreview from "./PostImagePreview";
 import type { ImageItem } from "../CreatePost";
+import { ImageIcon } from "@phosphor-icons/react";
 
 interface AddImagePropTypes {
   images: ImageItem[];
@@ -59,8 +60,13 @@ function AddImage({
   return (
     <div className="flex flex-col gap-4 w-full">
       {!hasImages ? (
-        <div className="flex flex-col gap-3 justify-center items-center h-96">
-          <span className="heading-2-regular">Add photos</span>
+        <div className="flex flex-col gap-10 justify-center items-center h-96">
+          <div className="flex flex-col gap-2 items-center">
+            <div className="p-4 bg-gray-200 rounded-full">
+              <ImageIcon size={40} />
+            </div>
+            <span className="heading-2-medium">Add Photos</span>
+          </div>
 
           <label
             htmlFor="add-image"

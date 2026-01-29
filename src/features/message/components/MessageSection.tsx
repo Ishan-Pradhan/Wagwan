@@ -10,7 +10,7 @@ import { Link, useNavigate, useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
 import type { Message } from "../types/MessageType";
 import { useGetMessageInChat } from "./../hooks/useGetMessageInChat";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSocket } from "context/socket/SocketContext";
 import {
   JOIN_CHAT_EVENT,
@@ -81,9 +81,11 @@ function MessageSection({
     const handleTyping = (id: string) => {
       if (id === chatId) setIsTyping(true);
     };
+
     const handleStopTyping = (id: string) => {
       if (id === chatId) setIsTyping(false);
     };
+
     const handleDelete = () => {
       queryClient.invalidateQueries({ queryKey: ["chat_messages", chatId] });
       queryClient.invalidateQueries({ queryKey: ["chats"] });
@@ -145,6 +147,17 @@ function MessageSection({
       },
     );
   };
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div
@@ -245,7 +258,7 @@ function MessageSection({
                     }`}
                   >
                     <span
-                      className={`${
+                      className={`body-m-regular ${
                         message.sender._id === user._id
                           ? "bg-primary-500 text-white rounded-md gap-2 self-end px-4 py-2 break-all"
                           : "self-start bg-gray-200 text-black flex flex-col gap-4 rounded-md px-4 py-2 break-after-all"
@@ -341,6 +354,7 @@ function MessageSection({
               )}
             </div>
           )}
+          <div ref={messagesEndRef} />
         </div>
       )}
 
