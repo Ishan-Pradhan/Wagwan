@@ -21,38 +21,67 @@ import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { useSocket } from "context/socket/SocketContext";
 import { useTheme } from "context/Theme/ThemeContext";
 import CreatePost from "features/create-post/CreatePost";
-import { MESSAGE_RECEIVED_EVENT } from "features/message/const/const";
+import { MESSAGE_RECEIVED_EVENT, NEW_CHAT_EVENT } from "features/message/const/const";
 import type { Message } from "features/message/types/MessageType";
+import type { Chat } from "features/message/types/ChatType";
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "stores/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
-
 function SideMenu() {
   const { user } = useAppSelector((state) => state.auth);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const dispatch = useAppDispatch();
   const { socketRef } = useSocket();
   const location = useLocation();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!socketRef.current) return;
 
     const socket = socketRef.current;
 
+    const handleNewChat = () => {
+      queryClient.invalidateQueries({ queryKey: ["chats"] });
+    };
+
     const handleNotification = (message: Message) => {
       if (location.pathname !== "/message") {
         setHasNewMessage(true);
         toast.success(`You have message from ${message.sender.username}`);
       }
+
+      // Update chats list cache globally
+      const activeChatId = queryClient.getQueryData<string>(["activeChatId"]);
+      
+      queryClient.setQueryData<Chat[]>(["chats"], (old) =>
+        old?.map((chat) => {
+          if (chat._id !== (message as any).chat) return chat;
+
+          return {
+            ...chat,
+            latestMessage: message,
+            hasUnread: (chat._id !== activeChatId) || (location.pathname !== "/message"),
+          };
+        }),
+      );
+
+      // Invalidate specific chat messages if they are currently being viewed
+      queryClient.invalidateQueries({
+        queryKey: ["chat_messages", (message as any).chat],
+      });
     };
 
+    socket.on(NEW_CHAT_EVENT, handleNewChat);
     socket.on(MESSAGE_RECEIVED_EVENT, handleNotification);
+
     return () => {
-      socket.off(MESSAGE_RECEIVED_EVENT);
+      socket.off(NEW_CHAT_EVENT, handleNewChat);
+      socket.off(MESSAGE_RECEIVED_EVENT, handleNotification);
     };
-  }, [socketRef, location.pathname]);
+  }, [socketRef, location.pathname, queryClient]);
 
   useEffect(() => {
     if (location.pathname === "/message" && hasNewMessage) {

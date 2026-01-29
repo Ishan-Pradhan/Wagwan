@@ -24,10 +24,6 @@ import {
 } from "@components/ui/dropdown-menu";
 import { useDeleteChat } from "../hooks/useDeleteChat";
 
-import { useSocket } from "context/socket/SocketContext";
-import { MESSAGE_RECEIVED_EVENT, NEW_CHAT_EVENT } from "../const/const";
-import { useEffect } from "react";
-import type { Message } from "../types/MessageType";
 
 function MessageSideMenu({
   user,
@@ -43,39 +39,7 @@ function MessageSideMenu({
   const createChatMutation = useCreateChat();
   const queryClient = useQueryClient();
   const deleteMutation = useDeleteChat();
-  const { socketRef } = useSocket();
 
-  useEffect(() => {
-    if (!socketRef.current) return;
-
-    const socket = socketRef.current;
-
-    socket.on(NEW_CHAT_EVENT, (chat: Chat) => {
-      console.log("New chat created!", chat);
-      queryClient.invalidateQueries({ queryKey: ["chats"] });
-    });
-
-    socket.on(MESSAGE_RECEIVED_EVENT, (message: Message) => {
-      const activeChatId = queryClient.getQueryData<string>(["activeChatId"]);
-
-      queryClient.setQueryData<Chat[]>(["chats"], (old) =>
-        old?.map((chat) => {
-          if (chat._id !== message.chat) return chat;
-
-          return {
-            ...chat,
-            latestMessage: message,
-            hasUnread: message.chat !== activeChatId,
-          };
-        }),
-      );
-    });
-
-    return () => {
-      socket.off(NEW_CHAT_EVENT);
-      socket.off(MESSAGE_RECEIVED_EVENT);
-    };
-  }, [socketRef, queryClient]);
 
   return (
     <div className="lg:col-span-1 col-span-5  p-4 border-r border-gray-200 h-lvh ">

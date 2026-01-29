@@ -61,7 +61,7 @@ function Stories() {
     navigate(`/story/${user.username}`);
   };
   return (
-    <div className="relative lg:w-2xl w-xs mx-auto">
+    <div className="relative xl:w-150 lg:w-120  w-xs mx-auto">
       <Splide
         options={{
           perPage: 1,
@@ -80,7 +80,7 @@ function Stories() {
               className="flex lg:gap-2 px-5 cursor-grab"
             >
               <div
-                className={`shrink-0 rounded-full  flex flex-col gap-1 items-center justify-center`}
+                className={`shrink-0 rounded-full  flex flex-col gap-2 items-center justify-center`}
               >
                 <img
                   src={user.avatar.url}
@@ -89,7 +89,7 @@ function Stories() {
                   className={`w-20 h-20 rounded-full cursor-pointer ${viewed ? "border-4 border-gray-500" : " p-1 bg-linear-to-r from-primary-500 to-secondary-500"}`}
                 />
                 <span
-                  className={`caption-regular text-center  w-20 overflow-hidden whitespace-nowrap ${user.username.length > 10 ? "text-ellipsis" : ""}`}
+                  className={`caption-semibold text-center  w-20 overflow-hidden whitespace-nowrap ${user.username.length > 10 ? "text-ellipsis" : ""}`}
                 >
                   {user.username}
                 </span>
