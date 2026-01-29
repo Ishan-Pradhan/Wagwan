@@ -21,7 +21,10 @@ import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { useSocket } from "context/socket/SocketContext";
 import { useTheme } from "context/Theme/ThemeContext";
 import CreatePost from "features/create-post/CreatePost";
-import { MESSAGE_RECEIVED_EVENT, NEW_CHAT_EVENT } from "features/message/const/const";
+import {
+  MESSAGE_RECEIVED_EVENT,
+  NEW_CHAT_EVENT,
+} from "features/message/const/const";
 import type { Message } from "features/message/types/MessageType";
 import type { Chat } from "features/message/types/ChatType";
 import { useQueryClient } from "@tanstack/react-query";
@@ -37,6 +40,9 @@ function SideMenu() {
   const { socketRef } = useSocket();
   const location = useLocation();
   const queryClient = useQueryClient();
+  const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const [openCreatePostDialog, setOpenCreatePostDialog] = useState(false);
 
   useEffect(() => {
     if (!socketRef.current) return;
@@ -55,22 +61,23 @@ function SideMenu() {
 
       // Update chats list cache globally
       const activeChatId = queryClient.getQueryData<string>(["activeChatId"]);
-      
+
       queryClient.setQueryData<Chat[]>(["chats"], (old) =>
         old?.map((chat) => {
-          if (chat._id !== (message as any).chat) return chat;
+          if (chat._id !== message.chat) return chat;
 
           return {
             ...chat,
             latestMessage: message,
-            hasUnread: (chat._id !== activeChatId) || (location.pathname !== "/message"),
+            hasUnread:
+              chat._id !== activeChatId || location.pathname !== "/message",
           };
         }),
       );
 
       // Invalidate specific chat messages if they are currently being viewed
       queryClient.invalidateQueries({
-        queryKey: ["chat_messages", (message as any).chat],
+        queryKey: ["chat_messages", message.chat],
       });
     };
 
@@ -95,9 +102,6 @@ function SideMenu() {
     window.location.replace("/login");
   };
 
-  const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-
   const menus = [
     {
       menu: "home",
@@ -117,14 +121,12 @@ function SideMenu() {
     },
   ];
 
-  const [openCreatePostDialog, setOpenCreatePostDialog] = useState(false);
-
   const closeCreatePostDialog = () => {
     setOpenCreatePostDialog(false);
   };
 
   return (
-    <div className="flex flex-col dark:bg-gray-800 gap-3 lg:border-r-2 lg:border-gray-200 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5 z-50 bg-white ">
+    <div className="flex flex-col dark:bg-gray-900 gap-3 lg:border-r-2 lg:border-gray-200 lg:border-t-0 border-t border-gray-200 shadow-md lg:h-lvh lg:justify-between justify-center lg:items-start items-center lg:p-5 z-50 bg-gray-50 ">
       <div className="flex flex-col gap-10 lg:w-full">
         <div className="px-4 lg:flex hidden">
           <Logo />
@@ -137,7 +139,7 @@ function SideMenu() {
                 to={menu.path}
                 className={({ isActive }) =>
                   `flex gap-3 items-center rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out relative
-       ${isActive ? "lg:bg-gray-100" : "lg:hover:bg-gray-100 dark:lg:hover:bg-gray-700"}`
+       ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
                 }
                 onClick={() =>
                   window.scrollTo({

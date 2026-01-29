@@ -21,6 +21,7 @@ function PostCommentInput({ postId }: { postId: string }) {
 
           // this is for refetching
           queryClient.invalidateQueries({ queryKey: ["comment", postId] });
+          queryClient.invalidateQueries({ queryKey: ["feed"] });
         },
         onError: (err) => {
           console.error("Failed to post comment", err);
@@ -37,6 +38,9 @@ function PostCommentInput({ postId }: { postId: string }) {
         className="flex-1 body-s-regular focus:outline-none  peer py-1"
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handlePostComment(postId, newComment);
+        }}
       />
       <button
         className="border cursor-pointer px-2 rounded-sm  justify-center items-center bg-primary-500 body-s-regular text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex"

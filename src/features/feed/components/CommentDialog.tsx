@@ -82,6 +82,8 @@ export default function CommentDialog({
 
           // this is for refetching
           queryClient.invalidateQueries({ queryKey: ["comment", postId] });
+          queryClient.invalidateQueries({ queryKey: ["posts", postId] });
+          queryClient.invalidateQueries({ queryKey: ["feed"] });
         },
         onError: (err) => {
           console.error("Failed to post comment", err);

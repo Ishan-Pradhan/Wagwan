@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { useDeleteChat } from "../hooks/useDeleteChat";
-
+import { useNavigate, useSearchParams } from "react-router";
 
 function MessageSideMenu({
   user,
@@ -39,16 +39,18 @@ function MessageSideMenu({
   const createChatMutation = useCreateChat();
   const queryClient = useQueryClient();
   const deleteMutation = useDeleteChat();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const activeUser = searchParams.get("user");
 
+  const isUserActive = Boolean(activeUser);
+  console.log(isUserActive);
 
   return (
-    <div className="lg:col-span-1 col-span-5  p-4 border-r border-gray-200 h-lvh ">
-      <div className="flex flex-col gap-4 h-full">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <span className="body-m-semibold">{user?.username}</span>
-        </div>
-
+    <div
+      className={`lg:col-span-1 col-span-5 p-4 lg:border-r border-gray-200 h-lvh ${isUserActive ? "hidden lg:flex" : "flex"}`}
+    >
+      <div className="flex flex-col gap-4 h-full w-full">
         {/* Search */}
         <Combobox
           items={chatUsers}
@@ -69,10 +71,10 @@ function MessageSideMenu({
                         queryClient.invalidateQueries({
                           queryKey: ["chats"],
                         });
-                        console.log("data in side nav:", data);
                         setChatId(data.data._id);
                       },
                     });
+                    navigate(`/message?user=${item.username}`);
                     onSelectUser(item);
                   }}
                 >
@@ -93,7 +95,7 @@ function MessageSideMenu({
         </Combobox>
 
         {/* Messages */}
-        <div className="flex flex-col gap-4 h-full overflow-hidden">
+        <div className="flex flex-col gap-4 h-full overflow-hidden ">
           <span className="body-m-bold">Messages</span>
           <div className="flex flex-col gap-6 h-full overflow-y-auto">
             {chats?.length === 0 && (
@@ -104,19 +106,20 @@ function MessageSideMenu({
             {chats
               ?.filter((chat: Chat) => !chat.isGroupChat)
               ?.map((chat: Chat) => {
-                console.log(chat?.latestMessage?.content);
                 const receivers = chat.participants.filter(
                   (p) => p._id !== user._id,
                 );
                 const receiver = receivers[0];
                 if (!receiver) return null;
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={chat._id}
-                    className="flex   hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-md cursor-pointer group  justify-between items-center"
+                    className={` hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-md cursor-pointer group  justify-between items-center ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
                       onSelectUser(receiver);
                       setChatId(chat._id);
+                      navigate(`/message?user=${receiver.username}`);
 
                       queryClient.setQueryData(["activeChatId"], chat._id);
 
@@ -148,7 +151,7 @@ function MessageSideMenu({
                           <p className="caption-regular line-clamp-1">
                             {chat.latestMessage
                               ? `${chat.latestMessage.content}`
-                              : "No messages yet"}
+                              : "No new message"}
                           </p>
                         </div>
                       </div>
@@ -179,7 +182,7 @@ function MessageSideMenu({
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
-                  </div>
+                  </button>
                 );
               })}
           </div>

@@ -6,7 +6,7 @@ import {
   PlusIcon,
 } from "@phosphor-icons/react";
 import type { ChatUserType } from "../types/ChatUserType";
-import { Link } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
 import type { Message } from "../types/MessageType";
 import { useGetMessageInChat } from "./../hooks/useGetMessageInChat";
@@ -32,6 +32,7 @@ import {
 } from "@components/ui/dropdown-menu";
 import { useDeleteMessage } from "../hooks/useDeleteMesssage";
 import toast from "react-hot-toast";
+import { ArrowLeftIcon } from "lucide-react";
 
 function MessageSection({
   user,
@@ -55,6 +56,12 @@ function MessageSection({
 
   const sendMessageMutation = useSendMessage();
   const deleteMessageMutation = useDeleteMessage();
+
+  const [searchParams] = useSearchParams();
+  const activeUser = searchParams.get("user");
+
+  const isUserActive = Boolean(activeUser);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!chatId) return;
@@ -140,21 +147,33 @@ function MessageSection({
   };
 
   return (
-    <div className="flex flex-col lg:h-lvh h-[89vh] overflow-hidden w-full lg:col-span-4 col-span-5 pb-10 lg:pb-0">
+    <div
+      className={` flex-col lg:h-lvh h-[89vh] overflow-hidden w-full lg:col-span-4 col-span-5 pb-10 lg:pb-0 ${isUserActive ? "flex" : "hidden lg:flex"}`}
+    >
       {!activeChatUser ? (
         ""
       ) : (
-        <div className="py-3 shrink-0 flex gap-4 items-center border-b border-gray-200 w-full px-4">
-          <img
-            src={activeChatUser?.avatar.url}
-            alt="user profile avatar"
-            className="h-10 w-10 rounded-full"
+        <div className="py-3 shrink-0 items-center border-b border-gray-200 w-full px-4 flex gap-5 ">
+          <ArrowLeftIcon
+            size={30}
+            className="cursor-pointer text-primary-500 dark:text-white lg:hidden"
+            onClick={() => navigate(-1)}
           />
-          <div className="flex flex-col">
-            <span className="body-l-semibold">{activeChatUser?.username}</span>
-            <span className="caption-regular text-gray-500">
-              {activeChatUser?.email}
-            </span>
+
+          <div className="flex gap-4 items-center">
+            <img
+              src={activeChatUser?.avatar.url}
+              alt="user profile avatar"
+              className="h-10 w-10 rounded-full"
+            />
+            <div className="flex flex-col">
+              <span className="body-l-semibold">
+                {activeChatUser?.username}
+              </span>
+              <span className="caption-regular text-gray-500">
+                {activeChatUser?.email}
+              </span>
+            </div>
           </div>
         </div>
       )}
@@ -200,10 +219,10 @@ function MessageSection({
           {isPending ? (
             <LottieLoading />
           ) : (
-            <div className="flex flex-col gap-3 container">
+            <div className="flex flex-col gap-8 container">
               {messages?.map((message: Message) => (
                 <div
-                  className={`flex gap-2 ${
+                  className={`flex gap-3 ${
                     user._id === message.sender._id
                       ? "flex-row-reverse items-center"
                       : ""
@@ -221,7 +240,7 @@ function MessageSection({
                   )}
 
                   <div
-                    className={`flex flex-col ${
+                    className={`flex flex-col gap-2 ${
                       message.sender._id === user._id ? "items-end" : ""
                     }`}
                   >

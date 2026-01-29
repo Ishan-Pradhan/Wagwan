@@ -17,9 +17,9 @@ function PostCardImage({ images }: ImagesProps) {
 
   if (images.length === 1) {
     return (
-      <div className="w-full h-full  flex items-center justify-center bg-primary-50 border border-gray-400   mx-auto rounded-md overflow-hidden">
+      <div className="w-full h-full  flex items-center justify-center dark:bg-gray-700 bg-primary-50 border border-gray-300 dark:border-gray-600   mx-auto rounded-md overflow-hidden">
         <img
-          className="h-full w-full  object-contain"
+          className="h-full w-full  object-cover"
           src={getImageSrc(images[0])}
           alt="user post"
           loading="lazy"
@@ -29,7 +29,7 @@ function PostCardImage({ images }: ImagesProps) {
   }
 
   return (
-    <div className="w-full h-full border border-gray-300   mx-auto rounded-md overflow-hidden">
+    <div className="w-full h-full border border-gray-300 dark:border-gray-600  mx-auto rounded-md overflow-hidden">
       <Splide
         options={{
           perPage: 1,
