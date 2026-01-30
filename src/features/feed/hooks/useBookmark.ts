@@ -1,10 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { FeedType, Post } from "../types/FeedTypes";
+import type { FeedData, Post } from "../types/FeedTypes";
 import { bookmarkPost } from "../api/bookmarkPost";
-
-type FeedData = {
-  pages: FeedType[];
-};
 
 export const useBookmark = () => {
   const queryClient = useQueryClient();
@@ -28,7 +24,7 @@ export const useBookmark = () => {
                     ...post,
                     isBookmarked: !post.isBookmarked,
                   }
-                : post
+                : post,
             ),
           })),
         };

@@ -19,24 +19,26 @@ import toast from "react-hot-toast";
 import { useAppSelector } from "stores/hooks";
 
 function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
-  const { user } = useAppSelector((state) => state.auth);
-
   const [commentLike, setCommentLike] = useState(comment.isLiked);
   const [likes, setLikes] = useState(comment.likes);
+
+  const { user } = useAppSelector((state) => state.auth);
+
   const likeCommentMutation = useLikeComment(comment.postId);
+
+  const queryClient = useQueryClient();
+  const deleteCommentMutation = useCommentDelete();
+
   const handleCommentLike = (commentId: string) => {
     setCommentLike(!commentLike);
     setLikes(commentLike ? likes - 1 : likes + 1);
     likeCommentMutation.mutate(commentId);
   };
-  const queryClient = useQueryClient();
-  const deleteCommentMutation = useCommentDelete();
 
   const handleCommentDelete = (commentId: string) => {
     deleteCommentMutation.mutate(commentId, {
       onSuccess: () => {
         toast.success("Comment deleted");
-        // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["comment", post._id] });
         queryClient.invalidateQueries({ queryKey: ["feed"] });
       },

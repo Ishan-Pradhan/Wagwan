@@ -7,20 +7,18 @@ import { useGetFollowersFollowing } from "features/user/profile/hooks/useGetFoll
 
 function RightSideNav() {
   const { user } = useAppSelector((state) => state.auth);
-  const followMutation = useFollow(user?.username);
 
-  const userAvatar = user?.avatar?.url;
-
+  const queryClient = useQueryClient();
   const { data, isLoading } = useGetFollowersFollowing({
     username: user?.username,
     type: "followers",
   });
+  const followMutation = useFollow(user?.username);
 
   const followers = data?.pages.flatMap((p) => p.users ?? []) ?? [];
-
-  const queryClient = useQueryClient();
-
   const noSuggestion = followers?.filter((user) => !user.isFollowing) ?? [];
+
+  const userAvatar = user?.avatar?.url;
 
   if (!user) return;
 
@@ -119,7 +117,6 @@ function RightSideNav() {
                   onClick={() =>
                     followMutation.mutate(follower._id, {
                       onSuccess: () => {
-                        // this is for refetching
                         queryClient.invalidateQueries({
                           queryKey: [
                             "follow-list",

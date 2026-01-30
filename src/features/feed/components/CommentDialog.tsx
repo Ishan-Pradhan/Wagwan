@@ -18,12 +18,7 @@ import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePostComments } from "../hooks/usePostComments";
 import PostMenu from "features/post-menu/PostMenu";
-
-interface CommentDialogProps {
-  postId: string;
-  open: boolean;
-  onClose: () => void;
-}
+import type { CommentDialogProps } from "../types/CommentTypes";
 
 export default function CommentDialog({
   postId,
@@ -47,6 +42,8 @@ export default function CommentDialog({
       return page?.comments ?? [];
     }) ?? [];
 
+  const postCommentMutation = usePostComments();
+
   const latestComments = comments.slice().reverse();
   console.log("latest comments", latestComments);
 
@@ -69,8 +66,6 @@ export default function CommentDialog({
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const postCommentMutation = usePostComments();
-
   const handlePostComment = (postId: string, comment: string) => {
     if (!comment.trim()) return;
 
@@ -79,8 +74,6 @@ export default function CommentDialog({
       {
         onSuccess: () => {
           setNewComment("");
-
-          // this is for refetching
           queryClient.invalidateQueries({ queryKey: ["comment", postId] });
           queryClient.invalidateQueries({ queryKey: ["posts", postId] });
           queryClient.invalidateQueries({ queryKey: ["feed"] });

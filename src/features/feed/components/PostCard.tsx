@@ -5,7 +5,6 @@ import { Link } from "react-router";
 import { useState } from "react";
 import type { Post } from "../types/FeedTypes";
 import InteractionContainer from "./InteractionContainer";
-
 import PostCommentInput from "./PostCommentInput";
 import PostMenu from "features/post-menu/PostMenu";
 

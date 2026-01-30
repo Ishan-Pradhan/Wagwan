@@ -18,8 +18,6 @@ function PostCommentInput({ postId }: { postId: string }) {
       {
         onSuccess: () => {
           setNewComment("");
-
-          // this is for refetching
           queryClient.invalidateQueries({ queryKey: ["comment", postId] });
           queryClient.invalidateQueries({ queryKey: ["feed"] });
         },

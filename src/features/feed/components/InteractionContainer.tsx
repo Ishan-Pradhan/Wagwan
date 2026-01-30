@@ -21,6 +21,7 @@ function InteractionContainer({
 }) {
   const likeMutation = useLike();
   const queryClient = useQueryClient();
+
   const { theme } = useTheme();
 
   const bookmarkMutation = useBookmark();
@@ -28,7 +29,6 @@ function InteractionContainer({
   const handleLike = (postId: string) => {
     likeMutation.mutate(postId, {
       onSuccess: () => {
-        // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["post", postId] });
         queryClient.invalidateQueries({ queryKey: ["tags"] });
       },
@@ -38,7 +38,6 @@ function InteractionContainer({
   const handleBookmark = (postId: string) => {
     bookmarkMutation.mutate(postId, {
       onSuccess: () => {
-        // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["post", postId] });
         queryClient.invalidateQueries({ queryKey: ["tags"] });
         queryClient.invalidateQueries({ queryKey: ["bookmarks"] });

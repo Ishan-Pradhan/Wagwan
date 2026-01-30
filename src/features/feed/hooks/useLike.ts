@@ -1,10 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { likePost } from "../api/likePost";
-import type { FeedType, Post } from "../types/FeedTypes";
-
-type FeedData = {
-  pages: FeedType[];
-};
+import type { FeedData, Post } from "../types/FeedTypes";
 
 export const useLike = () => {
   const queryClient = useQueryClient();
@@ -29,7 +25,7 @@ export const useLike = () => {
                     isLiked: !post.isLiked,
                     likes: post.isLiked ? post.likes - 1 : post.likes + 1,
                   }
-                : post
+                : post,
             ),
           })),
         };

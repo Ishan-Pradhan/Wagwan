@@ -3,19 +3,22 @@ import { useEffect, useRef } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useNavigate } from "react-router";
-
 import type { Followers } from "features/user/profile/api/getFollowers";
 import { useStory } from "context/story/StoryContext";
 import { useAppSelector } from "stores/hooks";
+import StoriesSkeletonLoading from "./StoriesSkeletonLoading";
 
 function Stories() {
   const { user } = useAppSelector((state) => state.auth);
+
   const { viewedIds, setViewedIds } = useStory();
-  const username = user?.username as string;
-  const navigate = useNavigate();
+
+  const username = user?.username;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useGetFollowersFollowing({ username, type: "following" });
+
+  const navigate = useNavigate();
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 
@@ -37,16 +40,7 @@ function Stories() {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) {
-    return (
-      <div className="flex gap-5 w-full px-25   ">
-        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
-        <div className=" shrink-0 w-20 h-20 rounded-full bg-gray-500 animate-pulse"></div>
-      </div>
-    );
+    return <StoriesSkeletonLoading />;
   }
 
   const users =
@@ -60,6 +54,7 @@ function Stories() {
     );
     navigate(`/story/${user.username}`);
   };
+
   return (
     <div className="relative xl:w-150  md:w-120  w-xs mx-auto">
       <Splide

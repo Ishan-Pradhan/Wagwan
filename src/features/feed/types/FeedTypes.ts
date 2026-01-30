@@ -28,3 +28,7 @@ export type FeedType = {
   hasNextPage: boolean;
   nextPage: number | null;
 };
+
+export type FeedData = {
+  pages: FeedType[];
+};

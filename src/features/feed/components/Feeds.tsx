@@ -9,11 +9,18 @@ import { SealCheckIcon } from "@phosphor-icons/react";
 import CommentDialog from "./CommentDialog";
 
 function Feeds() {
+  const [activePost, setActivePost] = useState<Post | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useFeed();
 
-  const [activePost, setActivePost] = useState<Post | null>(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const posts =
+    data?.pages?.flatMap((page) => {
+      return page?.posts ?? [];
+    }) ?? [];
 
   const openComments = (post: Post) => {
     setDialogOpen(true);
@@ -24,12 +31,6 @@ function Feeds() {
     setDialogOpen(false);
     setActivePost(null);
   };
-  const posts =
-    data?.pages?.flatMap((page) => {
-      return page?.posts ?? [];
-    }) ?? [];
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!hasNextPage) return;

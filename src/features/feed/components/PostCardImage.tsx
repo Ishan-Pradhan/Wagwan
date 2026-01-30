@@ -1,16 +1,7 @@
 import { getImageSrc } from "utils/getImageSrc";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-
-type Image = {
-  _id: string;
-  url: string;
-  localPath: string;
-};
-
-type ImagesProps = {
-  images: Image[];
-};
+import type { ImagesProps } from "../types/PostCardImageTypes";
 
 function PostCardImage({ images }: ImagesProps) {
   if (!images.length) return null;

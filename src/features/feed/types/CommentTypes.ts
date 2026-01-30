@@ -1,5 +1,11 @@
 import type { Author } from "./AuthorTypes";
 
+export interface CommentDialogProps {
+  postId: string;
+  open: boolean;
+  onClose: () => void;
+}
+
 export type CommentType = {
   comments: Comment;
   totalComments: number;
