@@ -55,9 +55,8 @@ function LoginForm() {
     });
   };
 
-  const handleGooglebutton = () => {
+  const handleGoogleButton = () => {
     window.location.href = "http://localhost:8080/api/v1/users/google";
-    // navigate("http://localhost:8080/api/v1/users/google");
   };
 
   return (
@@ -100,7 +99,7 @@ function LoginForm() {
       <button
         type="button"
         className="flex gap-3 justify-center items-center bg-white py-3 shadow-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-200 cursor-pointer transition-all duration-150 ease-in-out"
-        onClick={handleGooglebutton}
+        onClick={handleGoogleButton}
       >
         <img src={googleLogo} alt="google logo" />
         <span className="body-m-medium dark:text-gray-800">
