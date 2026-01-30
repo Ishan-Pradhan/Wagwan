@@ -18,29 +18,29 @@ function PostCard({
   const [seeMore, setSeeMore] = useState(false);
 
   return (
-    <div className="w-full flex flex-col gap-3 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
-      <div className="flex justify-between px-4 items-center">
+    <div className="mx-auto flex w-full max-w-md flex-col gap-3 p-3 sm:max-w-lg md:max-w-md">
+      <div className="flex items-center justify-between px-4">
         {/* user info and created time */}
         <Link
           to={`/user/profile/${post.author.account.username}`}
-          className="flex gap-3 items-center"
+          className="flex items-center gap-3"
         >
           <img
             src={post.author.account.avatar.url}
             alt={post.author.account.username}
-            className="w-9 h-9 rounded-full border border-gray-500 cursor-pointer"
+            className="h-9 w-9 cursor-pointer rounded-full border border-gray-500"
           />
 
           <span className="body-s-semibold cursor-pointer">
             {post.author.account.username}
           </span>
 
-          <div className="flex gap-2 caption-medium text-gray-400 items-center">
+          <div className="caption-medium flex items-center gap-2 text-gray-400">
             <CircleIcon weight="fill" size={5} />
             <span>{formatTime(post.createdAt)}</span>
           </div>
           {post.updatedAt !== post.createdAt && (
-            <div className="flex gap-2 caption-medium text-gray-400 items-center">
+            <div className="caption-medium flex items-center gap-2 text-gray-400">
               <CircleIcon weight="fill" size={5} />
               <span>Edited</span>
             </div>
@@ -52,7 +52,7 @@ function PostCard({
       </div>
 
       {/* post */}
-      <div className="flex flex-col h-full gap-3 aspect-4/5 ">
+      <div className="flex aspect-4/5 h-full flex-col gap-3">
         <PostCardImage images={post.images} />
 
         {/* like comment share and save */}
@@ -68,7 +68,7 @@ function PostCard({
         >
           <Link
             to={`/user/profile/${post.author.account.username}`}
-            className="body-s-bold cursor-pointer inline"
+            className="body-s-bold inline cursor-pointer"
           >
             {post.author.account.username}&nbsp;
           </Link>
@@ -76,7 +76,7 @@ function PostCard({
         </p>
 
         <button
-          className={` self-start text-gray-400 cursor-pointer caption-semibold ${
+          className={`caption-semibold cursor-pointer self-start text-gray-400 ${
             post.content.length < 50 ? "hidden" : "flex"
           } `}
           onClick={() => setSeeMore(!seeMore)}
@@ -97,7 +97,7 @@ function PostCard({
       </div>
 
       {/* comments */}
-      <div className="flex flex-col gap-3 justify-start">
+      <div className="flex flex-col justify-start gap-3">
         {/* <button
           className={`body-s-regular text-gray-400 cursor-pointer  self-start ${
             post.comments === 0 ? "hidden" : "flex"

@@ -5,14 +5,14 @@ import type { ChatUserType } from "../types/ChatUserType";
 function MessageHeader({ activeChatUser }: { activeChatUser: ChatUserType }) {
   const navigate = useNavigate();
   return (
-    <div className="py-3 shrink-0 items-center border-b border-gray-200 w-full px-4 flex gap-5 ">
+    <div className="flex w-full shrink-0 items-center gap-5 border-b border-gray-200 px-4 py-3">
       <ArrowLeftIcon
         size={30}
-        className="cursor-pointer text-primary-500 dark:text-white lg:hidden"
+        className="text-primary-500 cursor-pointer lg:hidden dark:text-white"
         onClick={() => navigate(-1)}
       />
 
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <img
           src={activeChatUser?.avatar.url}
           alt="user profile avatar"

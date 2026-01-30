@@ -17,12 +17,12 @@ function LoginPage() {
   if (loading) return null;
 
   return (
-    <div className="container grid grid-cols-1 md:grid-cols-2 items-center justify-center h-lvh xl:px-50 my-10 mb-20">
+    <div className="container my-10 mb-20 grid h-lvh grid-cols-1 items-center justify-center md:grid-cols-2 xl:px-50">
       <div className="col-span-1">
         <img
           src={loginImage}
           alt="login page image"
-          className="bounce-up-down  drop-shadow-2xl "
+          className="bounce-up-down drop-shadow-2xl"
         />
       </div>
       <div className="col-span-1 flex flex-col gap-10">

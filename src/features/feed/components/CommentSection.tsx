@@ -49,36 +49,36 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
   };
 
   return (
-    <div className="flex gap-8  items-start group px-3">
+    <div className="group flex items-start gap-8 px-3">
       <Link to={`/user/profile/${comment.author?.account.username}`}>
         <img
           src={comment.author.account.avatar.url}
           alt="user avatar"
-          className="w-10 h-10 rounded-full"
+          className="h-10 w-10 rounded-full"
         />
       </Link>
-      <div className="flex-1 flex flex-col gap-1  ">
-        <p className={`body-s-regular `}>
+      <div className="flex flex-1 flex-col gap-1">
+        <p className={`body-s-regular`}>
           <Link
             to={`/user/profile/${comment.author?.account.username}`}
-            className="body-s-bold cursor-pointer inline"
+            className="body-s-bold inline cursor-pointer"
           >
             {comment.author?.account.username}&nbsp;
           </Link>
           {comment.content}
         </p>
-        <div className="flex gap-3 items-center">
-          <span className="text-gray-700 caption-regular">
+        <div className="flex items-center gap-3">
+          <span className="caption-regular text-gray-700">
             {formatTime(comment.createdAt)}
           </span>
           <span className="body-s-medium text-gray-600">likes {likes}</span>
-          <div className=" cursor-pointer text-gray-500">
+          <div className="cursor-pointer text-gray-500">
             {/* menu */}
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <DotsThreeIcon
                   size={28}
-                  className="cursor-pointer hover:text-gray-500 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+                  className="pointer-events-none cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40" align="end">

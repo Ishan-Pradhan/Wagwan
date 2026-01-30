@@ -10,7 +10,7 @@ export const resetPassword = async ({
     const res = await api.post(
       `/users/reset-password/${token}`,
       { newPassword },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return res.data;
   } catch (err) {

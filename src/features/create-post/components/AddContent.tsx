@@ -67,7 +67,7 @@ function AddContent({
   };
 
   return (
-    <div className="flex gap-4 lg:flex-row flex-col">
+    <div className="flex flex-col gap-4 lg:flex-row">
       <div className="flex-1">
         <PostImagePreview
           images={images}
@@ -77,17 +77,17 @@ function AddContent({
         />
       </div>
 
-      <div className="flex-1 flex flex-col gap-3">
+      <div className="flex flex-1 flex-col gap-3">
         <textarea
           {...register("content")}
           placeholder="Write something..."
-          className={`border p-2 flex-1 ${errors.content ? "border-red-500" : ""}`}
+          className={`flex-1 border p-2 ${errors.content ? "border-red-500" : ""}`}
           onKeyDown={(e) => {
             if (e.key === "Enter") handleSubmit();
           }}
         />
         {errors.content && (
-          <p className="text-red-500 text-xs">
+          <p className="text-xs text-red-500">
             {errors.content.message as string}
           </p>
         )}
@@ -109,23 +109,23 @@ function AddContent({
           }}
         />
         {errors.tags && (
-          <p className="text-red-500 text-xs">
+          <p className="text-xs text-red-500">
             {errors.tags.message as string}
           </p>
         )}
 
-        <div className="flex justify-between items-center mt-auto">
+        <div className="mt-auto flex items-center justify-between">
           <button
             type="button"
             onClick={onBack}
-            className="text-gray-600 hover:text-gray-900 font-medium"
+            className="font-medium text-gray-600 hover:text-gray-900"
           >
             Back
           </button>
           <Button
             type="button"
             onClick={handleSubmit}
-            className="self-end flex justify-center  bg-primary-500 px-4 py-2 text-white  gap-2"
+            className="bg-primary-500 flex justify-center gap-2 self-end px-4 py-2 text-white"
           >
             {mode === "edit" ? "Update" : "Post"}
             {mutation.isPending && <Spinner />}

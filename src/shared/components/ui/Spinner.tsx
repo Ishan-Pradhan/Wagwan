@@ -2,7 +2,7 @@ function Spinner() {
   return (
     <div className="">
       <svg
-        className="text-gray-300 animate-spin"
+        className="animate-spin text-gray-300"
         viewBox="0 0 64 64"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

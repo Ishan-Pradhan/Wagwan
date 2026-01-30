@@ -8,9 +8,9 @@ function PostCardImage({ images }: ImagesProps) {
 
   if (images.length === 1) {
     return (
-      <div className="w-full h-full  flex items-center justify-center dark:bg-gray-700 bg-primary-50 border border-gray-300 dark:border-gray-600   mx-auto rounded-md overflow-hidden">
+      <div className="bg-primary-50 mx-auto flex h-full w-full items-center justify-center overflow-hidden rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700">
         <img
-          className="h-full w-full  object-cover"
+          className="h-full w-full object-cover"
           src={getImageSrc(images[0])}
           alt="user post"
           loading="lazy"
@@ -20,7 +20,7 @@ function PostCardImage({ images }: ImagesProps) {
   }
 
   return (
-    <div className="w-full h-full border border-gray-300 dark:border-gray-600  mx-auto rounded-md overflow-hidden">
+    <div className="mx-auto h-full w-full overflow-hidden rounded-md border border-gray-300 dark:border-gray-600">
       <Splide
         options={{
           perPage: 1,
@@ -34,13 +34,13 @@ function PostCardImage({ images }: ImagesProps) {
           return (
             <SplideSlide
               key={img._id}
-              className="overflow-hidden h-full  w-full rounded-l-md"
+              className="h-full w-full overflow-hidden rounded-l-md"
             >
-              <div className="flex h-full bg-primary-50    w-full rounded-l-md overflow-hidden">
+              <div className="bg-primary-50 flex h-full w-full overflow-hidden rounded-l-md">
                 <img
                   src={getImageSrc(img)}
                   alt="users posts"
-                  className=" object-cover  overflow-hidden w-full "
+                  className="w-full overflow-hidden object-cover"
                   loading="lazy"
                 />
               </div>

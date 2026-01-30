@@ -41,7 +41,7 @@ function ResetPasswordForm({ token }: ResetPasswordProps) {
       />
       <Button type="submit" disabled={resetPasswordMutation.isPending}>
         {resetPasswordMutation.isPending ? (
-          <div className="flex gap-2 items-center justify-center">
+          <div className="flex items-center justify-center gap-2">
             <span>Changing password</span> <Spinner />
           </div>
         ) : (

@@ -34,33 +34,33 @@ function ChangeProfilePhoto({ user }: { user: User }) {
     });
   };
   return (
-    <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-center bg-gray-100 dark:bg-gray-700 p-3 rounded-md">
-      <div className="flex gap-4 items-center ">
+    <div className="flex flex-col items-center gap-4 rounded-md bg-gray-100 p-3 lg:flex-row lg:justify-between dark:bg-gray-700">
+      <div className="flex items-center gap-4">
         <img
           src={user?.avatar.url}
           alt="user avatar"
-          className="w-15 h-15 rounded-full"
+          className="h-15 w-15 rounded-full"
         />
 
-        <div className="flex flex-col ">
-          <span className="body-m-semibold ">{user?.username}</span>
+        <div className="flex flex-col">
+          <span className="body-m-semibold">{user?.username}</span>
           <span className="body-s-regular text-gray-500 dark:text-gray-400">
             {user?.email}
           </span>
         </div>
         {user.isEmailVerified ? (
-          <div className="border border-green-500 bg-green-50 dark:bg-gray-800 text-green-500 px-2 py-1 caption-regular rounded-full">
+          <div className="caption-regular rounded-full border border-green-500 bg-green-50 px-2 py-1 text-green-500 dark:bg-gray-800">
             Verified
           </div>
         ) : (
-          <div className="border border-warning-500 bg-warning-50 text-warning-500 px-2 py-1 caption-regular rounded-full">
+          <div className="border-warning-500 bg-warning-50 text-warning-500 caption-regular rounded-full border px-2 py-1">
             Not Verified
           </div>
         )}
       </div>
       <form>
         <label
-          className="rounded-sm w-full bg-primary-700 text-white px-4 py-2 cursor-pointer hover:bg-primary-500"
+          className="bg-primary-700 hover:bg-primary-500 w-full cursor-pointer rounded-sm px-4 py-2 text-white"
           htmlFor="avatar"
         >
           <span>Change Photo</span>

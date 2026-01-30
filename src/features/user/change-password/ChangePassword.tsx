@@ -57,7 +57,7 @@ function ChangePassword() {
   } = methods;
 
   return (
-    <div className="flex flex-col gap-6 container py-10">
+    <div className="container flex flex-col gap-6 py-10">
       <h3 className="body-l-medium">Change Password</h3>
 
       <FormProvider {...methods}>
@@ -74,7 +74,7 @@ function ChangePassword() {
               name="oldPassword"
             />
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
+            <div className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
               {seeOldPassword ? (
                 <EyeIcon onClick={() => setSeeOldPassword(!seeOldPassword)} />
               ) : (
@@ -92,7 +92,7 @@ function ChangePassword() {
               name="newPassword"
             />
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
+            <div className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
               {seeNewPassword ? (
                 <EyeIcon onClick={() => setSeeNewPassword(!seeNewPassword)} />
               ) : (
@@ -110,7 +110,7 @@ function ChangePassword() {
               name="confirmPassword"
             />
 
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
+            <div className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-xl dark:text-black">
               {seeConfirmPassword ? (
                 <EyeIcon
                   onClick={() => setSeeConfirmPassword(!seeConfirmPassword)}
@@ -124,7 +124,7 @@ function ChangePassword() {
           </div>
 
           <button
-            className="bg-primary-500 text-white py-3 rounded-md self-end px-10 cursor-pointer hover:bg-primary-600 body-m-regular"
+            className="bg-primary-500 hover:bg-primary-600 body-m-regular cursor-pointer self-end rounded-md px-10 py-3 text-white"
             type="submit"
             disabled={isSubmitting}
           >

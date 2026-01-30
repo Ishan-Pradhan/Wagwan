@@ -25,7 +25,6 @@ function AppWrapper() {
           <StoryProvider>
             <QueryClientProvider client={queryClient}>
               <ReactQueryDevtools initialIsOpen={false} />
-
               <RouterProvider router={router} />
               <Toaster />
             </QueryClientProvider>

@@ -46,24 +46,24 @@ function InteractionContainer({
   };
 
   return (
-    <div className="flex flex-col  gap-2">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-3 items-center dark:text-white ">
-          <div className="flex gap-1 items-center">
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3 dark:text-white">
+          <div className="flex items-center gap-1">
             <HeartIcon
               size={28}
               weight={post.isLiked ? "fill" : "regular"}
               fill={post.isLiked ? "red" : theme === "dark" ? "white" : ""}
-              className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer "
+              className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
               onClick={() => handleLike(post._id)}
             />
             <span className="body-m-bold">{post.likes}</span>
           </div>
           {!hideComment && (
-            <div className="flex gap-1 items-center">
+            <div className="flex items-center gap-1">
               <ChatCircleIcon
                 size={28}
-                className={`hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer `}
+                className={`cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105`}
                 onClick={() => onOpenComments(post)}
               />
               <span
@@ -75,12 +75,12 @@ function InteractionContainer({
           )}
           <ShareFatIcon
             size={28}
-            className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+            className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
           />
         </div>
         <BookmarkSimpleIcon
           size={28}
-          className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
+          className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
           onClick={() => handleBookmark(post._id)}
           weight={post.isBookmarked ? "fill" : "regular"}
         />

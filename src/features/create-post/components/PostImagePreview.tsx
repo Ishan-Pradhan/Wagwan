@@ -73,12 +73,12 @@ function PostImagePreview({
 
   if (images.length === 1) {
     return (
-      <div className="h-full relative  flex items-center justify-center bg-gray-200 border border-gray-400 mx-auto rounded-md overflow-hidden">
-        <div className="flex h-full bg-gray-200  overflow-hidden">
+      <div className="relative mx-auto flex h-full items-center justify-center overflow-hidden rounded-md border border-gray-400 bg-gray-200">
+        <div className="flex h-full overflow-hidden bg-gray-200">
           <img
             src={previews[0]}
             alt="preview"
-            className="object-contain w-full"
+            className="w-full object-contain"
           />
         </div>
       </div>
@@ -87,7 +87,7 @@ function PostImagePreview({
 
   return (
     <div
-      className={`${forAddImage ? "lg:h-full h-auto" : ""} aspect-square border border-gray-300 mx-auto rounded-md overflow-hidden`}
+      className={`${forAddImage ? "h-auto lg:h-full" : ""} mx-auto aspect-square overflow-hidden rounded-md border border-gray-300`}
     >
       <Splide
         options={{
@@ -101,12 +101,12 @@ function PostImagePreview({
           const image = images[index];
           if (!image) return null;
           return (
-            <SplideSlide key={index} className="overflow-hidden h-full w-full">
-              <div className="flex h-full bg-gray-200 w-full overflow-hidden">
+            <SplideSlide key={index} className="h-full w-full overflow-hidden">
+              <div className="flex h-full w-full overflow-hidden bg-gray-200">
                 <img
                   src={src}
                   alt={`preview-${index}`}
-                  className="object-contain w-full"
+                  className="w-full object-contain"
                 />
                 {!forAddImage &&
                   images[index].type === "existing" &&

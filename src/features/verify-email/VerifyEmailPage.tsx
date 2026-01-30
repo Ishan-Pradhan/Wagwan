@@ -7,17 +7,17 @@ function VerifyEmailPage() {
   const email = location.state?.email;
 
   return (
-    <div className="container flex items-center justify-center h-lvh">
-      <div className="flex flex-col gap-4 relative border-2 border-gray-300 rounded-xl bg-white p-10 max-w-xl">
-        <div className="absolute rounded-full p-2 flex items-center justify-center -top-5 left-1/2 -translate-x-1/2 bg-white border-2 border-gray-300">
+    <div className="container flex h-lvh items-center justify-center">
+      <div className="relative flex max-w-xl flex-col gap-4 rounded-xl border-2 border-gray-300 bg-white p-10">
+        <div className="absolute -top-5 left-1/2 flex -translate-x-1/2 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-2">
           <EnvelopeIcon size={24} className="dark:text-gray-700" />
         </div>
-        <div className="flex flex-col gap-2 items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-2">
           <p className="body-m-regular text-gray-600">
             We’ve sent a verification email to
           </p>
           <span className="body-l-semibold">{email}</span>
-          <p className="body-m-regular text-gray-600 text-center">
+          <p className="body-m-regular text-center text-gray-600">
             Please open the email and click the verification link to complete
             the signup process. If you don’t see the email within a few minutes,
             check your spam or junk folder.

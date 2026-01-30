@@ -56,7 +56,7 @@ function Stories() {
   };
 
   return (
-    <div className="relative xl:w-150  md:w-120  w-xs mx-auto">
+    <div className="relative mx-auto w-xs md:w-120 xl:w-150">
       <Splide
         options={{
           perPage: 1,
@@ -72,19 +72,19 @@ function Stories() {
             <SplideSlide
               key={user?._id}
               ref={observerRef}
-              className="flex lg:gap-2 px-5 cursor-grab"
+              className="flex cursor-grab px-5 lg:gap-2"
             >
               <div
-                className={`shrink-0 rounded-full  flex flex-col gap-2 items-center justify-center`}
+                className={`flex shrink-0 flex-col items-center justify-center gap-2 rounded-full`}
               >
                 <img
                   src={user.avatar.url}
                   alt="user avatar"
                   onClick={() => markViewed(user)}
-                  className={`w-20 h-20 rounded-full cursor-pointer ${viewed ? "border-4 border-gray-500" : " p-1 bg-linear-to-r from-primary-500 to-secondary-500"}`}
+                  className={`h-20 w-20 cursor-pointer rounded-full ${viewed ? "border-4 border-gray-500" : "from-primary-500 to-secondary-500 bg-linear-to-r p-1"}`}
                 />
                 <span
-                  className={`caption-semibold text-center  w-20 overflow-hidden whitespace-nowrap ${user.username.length > 10 ? "text-ellipsis" : ""}`}
+                  className={`caption-semibold w-20 overflow-hidden text-center whitespace-nowrap ${user.username.length > 10 ? "text-ellipsis" : ""}`}
                 >
                   {user.username}
                 </span>
@@ -93,9 +93,9 @@ function Stories() {
           );
         })}
         {hasNextPage && (
-          <div ref={observerRef} className="h-10 flex justify-center">
+          <div ref={observerRef} className="flex h-10 justify-center">
             {isFetchingNextPage && (
-              <div className="w-30 h-40 rounded-full bg-gray-500 animate-pulse"></div>
+              <div className="h-40 w-30 animate-pulse rounded-full bg-gray-500"></div>
             )}
           </div>
         )}

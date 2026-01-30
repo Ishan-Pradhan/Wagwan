@@ -14,7 +14,7 @@ function MessageInput({
   handleTypingInput: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div className="shrink-0 flex items-center gap-4 p-4">
+    <div className="flex shrink-0 items-center gap-4 p-4">
       <input
         type="file"
         accept="image/*"
@@ -32,7 +32,7 @@ function MessageInput({
       <div className="w-full">
         <input
           type="text"
-          className="border border-gray-200 rounded-full w-full h-full py-3 px-3"
+          className="h-full w-full rounded-full border border-gray-200 px-3 py-3"
           placeholder="Message"
           value={messageToBeSent}
           onKeyDown={(e) => {

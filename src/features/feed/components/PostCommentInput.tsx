@@ -33,7 +33,7 @@ function PostCommentInput({ postId }: { postId: string }) {
       <input
         type="text"
         placeholder="Add a comment..."
-        className="flex-1 body-s-regular focus:outline-none  peer py-1"
+        className="body-s-regular peer flex-1 py-1 focus:outline-none"
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
         onKeyDown={(e) => {
@@ -41,7 +41,7 @@ function PostCommentInput({ postId }: { postId: string }) {
         }}
       />
       <button
-        className="border cursor-pointer px-2 rounded-sm  justify-center items-center bg-primary-500 body-s-regular text-white hidden hover:bg-primary-600  peer-not-placeholder-shown:flex"
+        className="bg-primary-500 body-s-regular hover:bg-primary-600 hidden cursor-pointer items-center justify-center rounded-sm border px-2 text-white peer-not-placeholder-shown:flex"
         onClick={() => handlePostComment(postId, newComment)}
       >
         <span>Post</span> {postCommentMutation.isPending && <Spinner />}

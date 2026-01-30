@@ -7,9 +7,9 @@ function IsTypingUI({ activeChatUser }: { activeChatUser: ChatUserType }) {
       <img
         src={activeChatUser.avatar.url}
         alt={activeChatUser.username}
-        className="h-7 w-7 border rounded-full"
+        className="h-7 w-7 rounded-full border"
       />
-      <div className="self-start bg-gray-100 text-gray-500 rounded-full p-2 italic text-xs">
+      <div className="self-start rounded-full bg-gray-100 p-2 text-xs text-gray-500 italic">
         <div className="flex gap-2">
           <CircleIcon
             size={10}

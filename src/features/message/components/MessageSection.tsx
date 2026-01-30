@@ -146,17 +146,17 @@ function MessageSection({
 
   return (
     <div
-      className={` flex-col lg:h-lvh h-[89vh] overflow-hidden w-full lg:col-span-4 col-span-5 pb-10 lg:pb-0 ${isUserActive ? "flex" : "hidden lg:flex"}`}
+      className={`col-span-5 h-[89vh] w-full flex-col overflow-hidden pb-10 lg:col-span-4 lg:h-lvh lg:pb-0 ${isUserActive ? "flex" : "hidden lg:flex"}`}
     >
       {activeChatUser && <MessageHeader activeChatUser={activeChatUser} />}
 
       {!activeChatUser ? (
-        <div className="flex flex-col gap-2 h-full items-center justify-center py-10">
-          <div className="flex justify-center items-center p-3 border rounded-full ">
+        <div className="flex h-full flex-col items-center justify-center gap-2 py-10">
+          <div className="flex items-center justify-center rounded-full border p-3">
             <ChatsIcon size={24} />
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-center w-full body-l-medium">
+            <span className="body-l-medium w-full text-center">
               Your Messages
             </span>
             <p className="body-s-regular text-gray-500">
@@ -165,7 +165,7 @@ function MessageSection({
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-10 h-full overflow-y-auto py-10">
+        <div className="flex h-full flex-col gap-10 overflow-y-auto py-10">
           {/* User info */}
           <ReceiverInfo activeChatUser={activeChatUser} />
           {isPending ? (

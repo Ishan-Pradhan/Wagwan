@@ -48,9 +48,9 @@ function MessageSideMenu({
 
   return (
     <div
-      className={`lg:col-span-1 col-span-5 p-4 lg:border-r border-gray-200 dark:border-gray-600 h-lvh ${isUserActive ? "hidden lg:flex" : "flex"}`}
+      className={`col-span-5 h-lvh border-gray-200 p-4 lg:col-span-1 lg:border-r dark:border-gray-600 ${isUserActive ? "hidden lg:flex" : "flex"}`}
     >
-      <div className="flex flex-col gap-4 h-full w-full">
+      <div className="flex h-full w-full flex-col gap-4">
         {/* Search */}
         <Combobox
           items={chatUsers}
@@ -79,12 +79,12 @@ function MessageSideMenu({
                     onSelectUser(item);
                   }}
                 >
-                  <div className="flex gap-2 items-center justify-between group">
-                    <div className="flex gap-2 items-center">
+                  <div className="group flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
                       <img
                         src={item.avatar.url}
                         alt={item.username}
-                        className="rounded-full h-10 w-10"
+                        className="h-10 w-10 rounded-full"
                       />
                       <span>{item.username}</span>
                     </div>
@@ -96,9 +96,9 @@ function MessageSideMenu({
         </Combobox>
 
         {/* Messages */}
-        <div className="flex flex-col gap-4 h-full overflow-hidden ">
+        <div className="flex h-full flex-col gap-4 overflow-hidden">
           <span className="body-m-bold">Messages</span>
-          <div className="flex flex-col gap-6 h-full overflow-y-auto">
+          <div className="flex h-full flex-col gap-6 overflow-y-auto">
             {chats?.length === 0 && (
               <div className="text-sm text-gray-500">
                 You have not messaged any one yet.
@@ -123,7 +123,7 @@ function MessageSideMenu({
                   <button
                     type="button"
                     key={chat._id}
-                    className={` hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-md cursor-pointer group  justify-between items-center ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
+                    className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
                       onSelectUser(receiver);
                       setChatId(chat._id);
@@ -138,20 +138,20 @@ function MessageSideMenu({
                       );
                     }}
                   >
-                    <div className="flex justify-between items-center w-full">
-                      <div className="flex gap-4  w-full relative">
+                    <div className="flex w-full items-center justify-between">
+                      <div className="relative flex w-full gap-4">
                         {chat.hasUnread && (
-                          <span className="h-2 w-2 bg-primary-500 rounded-full shrink-0 animate-pulse absolute top-0 right-0" />
+                          <span className="bg-primary-500 absolute top-0 right-0 h-2 w-2 shrink-0 animate-pulse rounded-full" />
                         )}
                         <img
                           src={receiver.avatar.url}
                           alt={receiver.username}
-                          className="w-10 h-10 rounded-full"
+                          className="h-10 w-10 rounded-full"
                         />
 
-                        <div className="flex flex-col ">
+                        <div className="flex flex-col">
                           {/* Username of the receiver */}
-                          <span className="body-m-medium w-20 text-start overflow-hidden text-ellipsis line-clamp-1">
+                          <span className="body-m-medium line-clamp-1 w-20 overflow-hidden text-start text-ellipsis">
                             {receiver.username}
                           </span>
 
@@ -167,7 +167,7 @@ function MessageSideMenu({
                         <DropdownMenuTrigger asChild>
                           <DotsThreeIcon
                             size={28}
-                            className="cursor-pointer shrink-0 hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                            className="pointer-events-none shrink-0 cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
                           />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-40" align="end">

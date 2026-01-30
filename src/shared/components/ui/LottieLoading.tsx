@@ -11,5 +11,5 @@ export default function LottieLoading() {
   };
 
   const { View } = useLottie(options);
-  return <div className="h-lvh flex justify-center items-center">{View}</div>;
+  return <div className="flex h-lvh items-center justify-center">{View}</div>;
 }

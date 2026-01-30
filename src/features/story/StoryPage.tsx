@@ -17,11 +17,11 @@ function StoryPage() {
   const firstPost = data?.pages?.[0]?.posts?.[0];
   if (!firstPost)
     return (
-      <div className="bg-gray-800 h-lvh w-full text-white flex items-center justify-center relative">
+      <div className="relative flex h-lvh w-full items-center justify-center bg-gray-800 text-white">
         <span>User doesn't have story</span>
         <Link
           to="/"
-          className="text-white absolute lg:top-10 lg:right-10 right-5 top-5 text-3xl"
+          className="absolute top-5 right-5 text-3xl text-white lg:top-10 lg:right-10"
         >
           <XIcon />
         </Link>
@@ -29,8 +29,8 @@ function StoryPage() {
     );
 
   return (
-    <div className="bg-gray-800 h-lvh flex justify-center items-center relative">
-      <div className="h-[80vh] w-sm mx-auto flex flex-col ">
+    <div className="relative flex h-lvh items-center justify-center bg-gray-800">
+      <div className="mx-auto flex h-[80vh] w-sm flex-col">
         <Splide
           hasTrack={false}
           aria-label="Story"
@@ -46,18 +46,18 @@ function StoryPage() {
         >
           <Link
             to={`/user/profile/${username}`}
-            className="flex gap-2 items-center mb-8"
+            className="mb-8 flex items-center gap-2"
           >
             <img
               src={profile?.account.avatar.url}
               alt="user avatar"
-              className="w-10 h-10 rounded-full border border-gray-100"
+              className="h-10 w-10 rounded-full border border-gray-100"
             />
             <span className="body-l-semibold text-white">{username}</span>
           </Link>
-          <SplideTrack className="h-full w-full flex flex-col bg-black mx-auto">
+          <SplideTrack className="mx-auto flex h-full w-full flex-col bg-black">
             {firstPost.images.map((image, index) => (
-              <SplideSlide key={index} className="w-full h-full">
+              <SplideSlide key={index} className="h-full w-full">
                 <img
                   src={image.url}
                   alt="user story"
@@ -82,7 +82,7 @@ function StoryPage() {
       </div>
       <Link
         to="/"
-        className="text-white absolute lg:top-10 lg:right-10 right-5 top-5 text-3xl"
+        className="absolute top-5 right-5 text-3xl text-white lg:top-10 lg:right-10"
       >
         <XIcon />
       </Link>

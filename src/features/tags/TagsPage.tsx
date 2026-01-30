@@ -55,13 +55,13 @@ function TagsPage() {
 
   if (!data) {
     return (
-      <div className="h-[80vh] flex items-center justify-center">
+      <div className="flex h-[80vh] items-center justify-center">
         <LottieLoading />
       </div>
     );
   }
   return (
-    <div className="flex flex-col gap-6 mb-20 container py-5">
+    <div className="container mb-20 flex flex-col gap-6 py-5">
       <span className="body-l-medium">All results for Tag: {tag}</span>
 
       {posts.map((post: Post) => {
@@ -79,15 +79,15 @@ function TagsPage() {
       )}
 
       {hasNextPage && (
-        <div ref={observerRef} className="h-10 flex justify-center">
+        <div ref={observerRef} className="flex h-10 justify-center">
           {isFetchingNextPage && <Spinner />}
         </div>
       )}
 
       {!hasNextPage && (
-        <div className="flex flex-col gap-3 justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-3">
           <SealCheckIcon weight="duotone" size={32} fill="green" />
-          <span className="text-gray-500 body-l-medium">
+          <span className="body-l-medium text-gray-500">
             You are all caught up
           </span>
         </div>

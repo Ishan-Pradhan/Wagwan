@@ -28,10 +28,10 @@ function ForgotPasswordForm() {
     });
   };
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6 items-center">
+    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-6">
       {success && <Confirmation isSuccess={true} message={message} />}
 
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex w-full flex-col gap-3">
         <SimpleInput
           name="forgot-password"
           type="text"
@@ -41,7 +41,7 @@ function ForgotPasswordForm() {
         />
         <Button type="submit">
           {forgotPasswordMutation.isPending ? (
-            <div className="flex gap-2 items-center justify-center">
+            <div className="flex items-center justify-center gap-2">
               <span>Sending Please wait</span> <Spinner />
             </div>
           ) : (

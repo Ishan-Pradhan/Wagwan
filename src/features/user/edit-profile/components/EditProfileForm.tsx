@@ -34,29 +34,29 @@ function EditProfileForm({ profile }: { profile: UserProfile }) {
   };
 
   return (
-    <form action="" className="flex flex-col  gap-3 w-full">
-      <div className="flex-1 flex gap-3 w-full ">
-        <div className="flex flex-1 flex-col gap-1 w-full">
+    <form action="" className="flex w-full flex-col gap-3">
+      <div className="flex w-full flex-1 gap-3">
+        <div className="flex w-full flex-1 flex-col gap-1">
           <label htmlFor="firstName" className="body-m-medium">
             First Name
           </label>
           <input
             id="firstName"
             placeholder="firstName"
-            className="p-2 border w-full border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             name="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
-        <div className="flex flex-1 flex-col gap-1 w-full">
+        <div className="flex w-full flex-1 flex-col gap-1">
           <label htmlFor="lastName" className="body-m-medium">
             Last Name
           </label>
           <input
             id="lastName"
             placeholder="lastName"
-            className="p-2 border w-full border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             name="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -70,7 +70,7 @@ function EditProfileForm({ profile }: { profile: UserProfile }) {
         <textarea
           id="bio"
           placeholder="Bio"
-          className="p-2 border border-gray-300 rounded-md"
+          className="rounded-md border border-gray-300 p-2"
           name="bio"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
@@ -78,7 +78,7 @@ function EditProfileForm({ profile }: { profile: UserProfile }) {
       </div>
       <Button
         type="button"
-        className="lg:self-end px-20 body-l-medium flex gap-2 items-center justify-center"
+        className="body-l-medium flex items-center justify-center gap-2 px-20 lg:self-end"
         onClick={handleSubmit}
         disabled={updateProfileMutation.isPending}
       >

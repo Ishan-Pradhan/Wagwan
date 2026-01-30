@@ -80,7 +80,7 @@ function CreatePost({
         if (!isOpen) onClose();
       }}
     >
-      <DialogContent className="sm:max-w-5xl p-5 ">
+      <DialogContent className="p-5 sm:max-w-5xl">
         <DialogHeader className="sr-only">
           <DialogTitle>Create Post</DialogTitle>
           <DialogDescription>Create a new post</DialogDescription>

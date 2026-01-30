@@ -4,13 +4,13 @@ import { Link } from "react-router";
 
 function ReceiverInfo({ activeChatUser }: { activeChatUser: ChatUserType }) {
   return (
-    <div className="flex flex-col gap-2 justify-center items-center">
+    <div className="flex flex-col items-center justify-center gap-2">
       <img
         src={activeChatUser?.avatar.url}
         alt="user profile avatar"
-        className="w-15 h-15 rounded-full"
+        className="h-15 w-15 rounded-full"
       />
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         <span className="body-s-regular text-gray-500">
           {activeChatUser?.username}
         </span>
@@ -19,7 +19,7 @@ function ReceiverInfo({ activeChatUser }: { activeChatUser: ChatUserType }) {
       </div>
       <Link
         to={`/user/profile/${activeChatUser?.username}`}
-        className="body-s-medium px-3 py-1 bg-primary-500 text-white cursor-pointer rounded-sm hover:bg-primary-600"
+        className="body-s-medium bg-primary-500 hover:bg-primary-600 cursor-pointer rounded-sm px-3 py-1 text-white"
       >
         View Profile
       </Link>

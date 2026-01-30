@@ -60,11 +60,11 @@ function AddImage({
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex w-full flex-col gap-4">
       {!hasImages ? (
-        <div className="flex flex-col gap-10 justify-center items-center h-96">
-          <div className="flex flex-col gap-2 items-center">
-            <div className="p-4 bg-gray-200 rounded-full">
+        <div className="flex h-96 flex-col items-center justify-center gap-10">
+          <div className="flex flex-col items-center gap-2">
+            <div className="rounded-full bg-gray-200 p-4">
               <ImageIcon size={40} />
             </div>
             <span className="heading-2-medium">Add Photos</span>
@@ -72,7 +72,7 @@ function AddImage({
 
           <label
             htmlFor="add-image"
-            className="bg-primary-500 text-white px-4 py-2 hover:bg-primary-600 cursor-pointer rounded-md"
+            className="bg-primary-500 hover:bg-primary-600 cursor-pointer rounded-md px-4 py-2 text-white"
           >
             Select from device
           </label>
@@ -88,7 +88,7 @@ function AddImage({
         </div>
       ) : (
         <>
-          <div className="lg:aspect-square h-96 overflow-hidden">
+          <div className="h-96 overflow-hidden lg:aspect-square">
             <PostImagePreview
               images={images}
               forAddImage
@@ -96,10 +96,10 @@ function AddImage({
             />
           </div>
 
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <label
               htmlFor="add-image-change"
-              className="text-gray-800 dark:text-gray-500 dark:hover:text-gray-600 hover:text-gray-600 cursor-pointer text-sm"
+              className="cursor-pointer text-sm text-gray-800 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-600"
             >
               Add more images
             </label>
@@ -117,7 +117,7 @@ function AddImage({
       )}
 
       {errors.images && (
-        <p className="text-red-500 text-sm">
+        <p className="text-sm text-red-500">
           {errors.images.message as string}
         </p>
       )}
@@ -126,7 +126,7 @@ function AddImage({
         <button
           type="button"
           onClick={handleNext}
-          className="self-end cursor-pointer bg-primary-500 text-white px-6 py-2 rounded-md hover:bg-primary-600"
+          className="bg-primary-500 hover:bg-primary-600 cursor-pointer self-end rounded-md px-6 py-2 text-white"
         >
           Next
         </button>

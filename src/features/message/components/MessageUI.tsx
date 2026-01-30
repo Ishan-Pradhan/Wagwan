@@ -31,14 +31,14 @@ function MessageUI({
   const deleteMessageMutation = useDeleteMessage();
 
   return (
-    <div className="flex flex-col gap-8 container">
+    <div className="container flex flex-col gap-8">
       {messages?.map((message: Message) => (
         <div
           className={`flex gap-3 ${
             user._id === message.sender._id
               ? "flex-row-reverse items-center"
               : ""
-          } relative group ${
+          } group relative ${
             message.sender._id === user._id ? "self-end" : "self-start"
           }`}
           key={message._id}
@@ -47,7 +47,7 @@ function MessageUI({
             <img
               src={message.sender.avatar.url}
               alt={message.sender.username}
-              className="h-7 w-7 border rounded-full"
+              className="h-7 w-7 rounded-full border"
             />
           )}
 
@@ -59,13 +59,13 @@ function MessageUI({
             <span
               className={`body-m-regular ${
                 message.sender._id === user._id
-                  ? "bg-primary-500 text-white rounded-md gap-2 self-end px-4 py-2 break-all"
-                  : "self-start bg-gray-200 text-black flex flex-col gap-4 rounded-md px-4 py-2 break-after-all"
+                  ? "bg-primary-500 gap-2 self-end rounded-md px-4 py-2 break-all text-white"
+                  : "flex break-after-all flex-col gap-4 self-start rounded-md bg-gray-200 px-4 py-2 text-black"
               }`}
             >
               {message.attachments?.length > 0 && (
                 <div
-                  className={`grid gap-2 mt-2 ${
+                  className={`mt-2 grid gap-2 ${
                     message.attachments.length > 1
                       ? "grid-cols-2"
                       : "grid-cols-1"
@@ -75,7 +75,7 @@ function MessageUI({
                     <img
                       key={i}
                       src={img.url}
-                      className="rounded-md w-50 h-50 object-cover"
+                      className="h-50 w-50 rounded-md object-cover"
                     />
                   ))}
                 </div>
@@ -92,7 +92,7 @@ function MessageUI({
               <DropdownMenuTrigger asChild>
                 <DotsThreeIcon
                   size={28}
-                  className="cursor-pointer shrink-0 hover:text-gray-500 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
+                  className="pointer-events-none shrink-0 cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40" align="end">

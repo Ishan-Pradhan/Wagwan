@@ -94,29 +94,18 @@ export default function CommentDialog({
         <DialogDescription>Comments Section</DialogDescription>
       </DialogHeader>
 
-      <DialogContent
-        className="
-    w-full
-    max-w-sm
-    sm:max-w-lg
-    lg:max-w-3xl
-    xl:max-w-7xl
-    grid grid-cols-1 lg:grid-cols-2 gap-0
-    p-0 lg:max-h-[80vh]
-    overflow-hidden
-  "
-      >
+      <DialogContent className="grid w-full max-w-sm grid-cols-1 gap-0 overflow-hidden p-0 sm:max-w-lg lg:max-h-[80vh] lg:max-w-3xl lg:grid-cols-2 xl:max-w-7xl">
         {/* image content */}
-        <div className="hidden lg:flex w-full  h-[80vh] flex-col overflow-hidden">
+        <div className="hidden h-[80vh] w-full flex-col overflow-hidden lg:flex">
           <PostCardImage images={post.images} />
         </div>
 
         {/* comment section */}
-        <div className="flex flex-col gap-2 h-[80vh] overflow-auto p-5">
-          <div className="justify-between items-center pb-4 border-b border-gray-300 lg:flex hidden">
-            <div className="flex gap-2 items-center">
+        <div className="flex h-[80vh] flex-col gap-2 overflow-auto p-5">
+          <div className="hidden items-center justify-between border-b border-gray-300 pb-4 lg:flex">
+            <div className="flex items-center gap-2">
               <img
-                className="w-10 h-10 rounded-full "
+                className="h-10 w-10 rounded-full"
                 src={post.author?.account.avatar.url}
                 alt="user avatar"
               />
@@ -126,21 +115,21 @@ export default function CommentDialog({
             </div>
             <PostMenu post={post} />{" "}
           </div>
-          <div className="lg:flex gap-4 hidden">
+          <div className="hidden gap-4 lg:flex">
             <img
-              className="w-10 h-10 rounded-full "
+              className="h-10 w-10 rounded-full"
               src={post.author?.account.avatar.url}
               alt="user avatar"
             />
             <p className={`body-s-regular`}>
-              <Link to="" className="body-s-bold cursor-pointer inline">
+              <Link to="" className="body-s-bold inline cursor-pointer">
                 {post.author?.account.username}&nbsp;
               </Link>
               {post.content}
             </p>
           </div>
 
-          <div className="flex flex-col gap-8 xl:h-80 md:h-100 h-full overflow-y-auto py-4 relative">
+          <div className="relative flex h-full flex-col gap-8 overflow-y-auto py-4 md:h-100 xl:h-80">
             {isLoading ? (
               <div className="absolute inset-0 flex items-center justify-center">
                 <Spinner />
@@ -148,7 +137,7 @@ export default function CommentDialog({
             ) : (
               <>
                 {latestComments.length === 0 && (
-                  <div className="heading-2-medium  flex flex-col gap-1 items-center justify-center h-full">
+                  <div className="heading-2-medium flex h-full flex-col items-center justify-center gap-1">
                     <span> No Comments yet.</span>
                     <span className="body-s-regular text-gray-400">
                       Start the conversation.
@@ -166,14 +155,14 @@ export default function CommentDialog({
                 })}
 
                 {hasNextPage && (
-                  <div ref={observerRef} className="h-10 flex justify-center">
+                  <div ref={observerRef} className="flex h-10 justify-center">
                     {isFetchingNextPage && <Spinner />}
                   </div>
                 )}
               </>
             )}
           </div>
-          <div className="flex flex-col gap-4 border-t py-2 border-gray-300 mt-auto">
+          <div className="mt-auto flex flex-col gap-4 border-t border-gray-300 py-2">
             <div className="flex flex-col gap-2">
               <InteractionContainer
                 post={post}
@@ -191,7 +180,7 @@ export default function CommentDialog({
               <input
                 type="text"
                 placeholder="Add a comment..."
-                className="w-full px-2 py-1 border rounded"
+                className="w-full rounded border px-2 py-1"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyDown={(e) => {
@@ -199,7 +188,7 @@ export default function CommentDialog({
                 }}
               />
               <button
-                className="px-3 py-1 text-primary-500 hover:text-primary-600 cursor-pointer flex-1 flex gap-2 items-center"
+                className="text-primary-500 hover:text-primary-600 flex flex-1 cursor-pointer items-center gap-2 px-3 py-1"
                 onClick={() => handlePostComment(postId, newComment)}
               >
                 <span>Post</span> {postCommentMutation.isPending && <Spinner />}

@@ -39,9 +39,9 @@ function VerificationResultPage() {
   }, [token]);
 
   return (
-    <div className="container flex items-center justify-center h-lvh">
-      <div className="flex flex-col gap-4 relative border-2 border-gray-300 rounded-xl bg-white lg:p-10 p-10 max-w-xl">
-        <div className="absolute rounded-full p-2 flex items-center justify-center -top-5 left-1/2 -translate-x-1/2 bg-white border-2 border-gray-300">
+    <div className="container flex h-lvh items-center justify-center">
+      <div className="relative flex max-w-xl flex-col gap-4 rounded-xl border-2 border-gray-300 bg-white p-10 lg:p-10">
+        <div className="absolute -top-5 left-1/2 flex -translate-x-1/2 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-2">
           {status === "success" ? (
             <SealCheckIcon weight="duotone" fill="green" size={32} />
           ) : status === "error" ? (
@@ -54,16 +54,16 @@ function VerificationResultPage() {
         </div>
 
         {status === "success" && (
-          <div className="flex flex-col gap-2 items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-2">
             <p className="body-m-bold">You’re all set!</p>
-            <p className="body-m-regular text-gray-600 text-center">
+            <p className="body-m-regular text-center text-gray-600">
               Congratulations! Your email verification is complete. Please
               proceed to the login page to access your account.
             </p>
           </div>
         )}
         {status === "error" && (
-          <div className="flex flex-col gap-2 items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-2">
             <p className="body-m-bold">Verification failed!</p>
             <p>{error}</p>
           </div>
