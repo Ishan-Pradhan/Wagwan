@@ -31,3 +31,10 @@ export type PostType = {
   prevPage: number | null;
   nextPage: number | null;
 };
+
+export interface PostsGridPropTypes {
+  posts: Post[];
+  hasNextPage: boolean;
+  observerRef: React.RefObject<HTMLDivElement | null>;
+  isFetchingNextPage: boolean;
+}

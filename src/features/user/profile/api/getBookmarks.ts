@@ -1,18 +1,5 @@
 import api from "api/api";
-import type { Post } from "../types/PostTypes";
-
-interface BookmarkType {
-  bookmarkedPosts: Post[];
-  totalBookmarkedPosts: number;
-  limit: number;
-  page: number;
-  serialNumberStartFrom: number;
-  hasPrevPage: boolean;
-  hasNextPage: boolean;
-  totalPages: number;
-  prevPage: number | null;
-  nextPage: number | null;
-}
+import type { BookmarkType } from "../types/BookmarkTypes";
 
 export const getBookmarks = async ({
   page = 1,

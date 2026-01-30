@@ -1,27 +1,5 @@
 import api from "api/api";
-import type { Media, UserProfile } from "../components/UserDetail";
-
-export interface Followers {
-  _id: string;
-  username: string;
-  email: string;
-  avatar: Media;
-  isFollowing: boolean; // relative to current logged-in user
-  profile: UserProfile;
-}
-
-export interface FollowersUserType {
-  users: Followers[];
-  total: number;
-  limit: number;
-  page: number;
-  serialNumberStartFrom: number;
-  hasPrevPage: boolean;
-  hasNextPage: boolean;
-  totalPages: number;
-  prevPage: number | null;
-  nextPage: number | null;
-}
+import type { FollowersUserType } from "../types/UserDetailsTypes";
 
 export const getFollowers = async ({
   page = 1,

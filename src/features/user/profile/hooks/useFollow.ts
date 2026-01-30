@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { follow } from "../api/follow";
-import type { UserProfile } from "../components/UserDetail";
+import type { UserProfile } from "../types/UserDetailsTypes";
 
 export const useFollow = (username: string | undefined) => {
   const queryClient = useQueryClient();
@@ -45,7 +45,6 @@ export const useFollow = (username: string | undefined) => {
     },
 
     onSettled: () => {
-      // Sync with server truth
       queryClient.invalidateQueries({ queryKey: ["profile", username] });
     },
   });

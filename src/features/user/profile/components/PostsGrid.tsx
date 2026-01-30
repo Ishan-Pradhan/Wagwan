@@ -1,14 +1,7 @@
 import Spinner from "@components/ui/Spinner";
 import { Link } from "react-router";
-import type { Post } from "../types/PostTypes";
+import type { PostsGridPropTypes } from "../types/PostTypes";
 import { CameraIcon, HeartIcon, ChatCircleIcon } from "@phosphor-icons/react";
-
-interface PostsGridPropTypes {
-  posts: Post[];
-  hasNextPage: boolean;
-  observerRef: React.RefObject<HTMLDivElement | null>;
-  isFetchingNextPage: boolean;
-}
 
 function PostsGrid({
   posts,

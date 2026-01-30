@@ -7,8 +7,6 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { GearIcon } from "@phosphor-icons/react";
-import type { Post } from "../types/PostTypes";
-import type { User } from "types/LoginTypes";
 import { useFollow } from "../hooks/useFollow";
 import { useState } from "react";
 import FollowersFollowingDialog from "./FollowersFollowingDialog";
@@ -16,56 +14,7 @@ import { Link, useNavigate } from "react-router";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { Switch } from "@components/ui/switch";
 import { useTheme } from "context/Theme/ThemeContext";
-
-export interface Media {
-  _id: string;
-  url: string;
-  localPath: string;
-}
-
-export interface Account {
-  _id: string;
-  email: string;
-  username: string;
-  isEmailVerified: boolean;
-  avatar: Media;
-}
-
-export interface UserProfile {
-  _id: string;
-  owner: string;
-
-  account: Account;
-
-  firstName: string;
-  lastName: string;
-  bio: string;
-
-  dob: string | null;
-
-  phoneNumber: string;
-  countryCode: string;
-  location: string;
-
-  coverImage: Media;
-
-  followersCount: number;
-  followingCount: number;
-  isFollowing: boolean;
-
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-
-interface UserDetailProps {
-  posts: Post[];
-  user: User | null;
-  logout: () => void;
-  profile: UserProfile;
-}
-
-type DialogType = "followers" | "following" | null;
+import type { DialogType, UserDetailProps } from "../types/UserDetailsTypes";
 
 function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   const followMutation = useFollow(profile?.account.username);
