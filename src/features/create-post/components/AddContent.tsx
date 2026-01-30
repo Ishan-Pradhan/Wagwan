@@ -4,18 +4,9 @@ import Spinner from "@components/ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import PostImagePreview from "./PostImagePreview";
 import { useCreatePost } from "../hooks/useCreatePost";
-import type { ImageItem } from "../CreatePost";
 import { useUpdatePost } from "../hooks/useUpdatePost";
 import Button from "@components/custom-ui/Button";
-
-interface Props {
-  images: ImageItem[];
-  setImages: React.Dispatch<React.SetStateAction<ImageItem[]>>;
-  mode: "create" | "edit";
-  postId?: string;
-  onBack: () => void;
-  onClose: () => void;
-}
+import type { AddContentPropTypes } from "../types/CreatePostTypes";
 
 function AddContent({
   images,
@@ -24,7 +15,7 @@ function AddContent({
   onBack,
   onClose,
   setImages,
-}: Props) {
+}: AddContentPropTypes) {
   const {
     register,
     trigger,

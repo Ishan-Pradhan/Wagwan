@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import type { ImageItem } from "../CreatePost";
 import { TrashIcon } from "@phosphor-icons/react";
 import toast from "react-hot-toast";
 import { useDeleteImage } from "../hooks/useDeleteImage";
 import { useQueryClient } from "@tanstack/react-query";
-
-interface PostImagePreviewProps {
-  images: ImageItem[];
-  forAddImage?: boolean;
-  postId?: string;
-  setImages: React.Dispatch<React.SetStateAction<ImageItem[]>>;
-}
+import type {
+  ImageItem,
+  PostImagePreviewProps,
+} from "../types/CreatePostTypes";
 
 function PostImagePreview({
   images,

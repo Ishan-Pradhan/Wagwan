@@ -1,14 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import PostImagePreview from "./PostImagePreview";
-import type { ImageItem } from "../CreatePost";
 import { ImageIcon } from "@phosphor-icons/react";
-
-interface AddImagePropTypes {
-  images: ImageItem[];
-  setImages: React.Dispatch<React.SetStateAction<ImageItem[]>>;
-  onNext: () => void;
-  mode: "edit" | "create";
-}
+import type { AddImagePropTypes, ImageItem } from "../types/CreatePostTypes";
+import { useEffect } from "react";
 
 function AddImage({
   images,
@@ -22,6 +16,18 @@ function AddImage({
     setValue,
   } = useFormContext();
 
+  const hasImages =
+    mode === "edit" ? true : images.some((i) => i.type === "new");
+
+  // to remove persisted url in the memory
+  useEffect(() => {
+    return () => {
+      images.forEach((img) => {
+        if (img.type === "new") URL.revokeObjectURL(img.preview);
+      });
+    };
+  }, [images]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
@@ -34,7 +40,6 @@ function AddImage({
 
     setImages((prev) => [...prev, ...newImages]);
 
-    // RHF only needs files for validation
     setValue(
       "images",
       [...images, ...newImages]
@@ -53,9 +58,6 @@ function AddImage({
     const isValid = await trigger("images");
     if (isValid) onNext();
   };
-
-  const hasImages =
-    mode === "edit" ? true : images.some((i) => i.type === "new");
 
   return (
     <div className="flex flex-col gap-4 w-full">

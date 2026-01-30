@@ -1,11 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { deleteImage } from "../api/deleteImage";
-import type { ImageItem } from "../CreatePost";
-
-type DeleteImageVars = {
-  image: Extract<ImageItem, { type: "existing" }>;
-  postId: string;
-};
+import type { DeleteImageVars } from "../types/CreatePostTypes";
 
 export const useDeleteImage = () => {
   return useMutation({

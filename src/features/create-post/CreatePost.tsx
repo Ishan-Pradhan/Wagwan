@@ -14,27 +14,10 @@ import {
 } from "./schema/CreatePostSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-
-type PostMode = "create" | "edit";
-
-interface CreatePostDialogPropTypes {
-  open: boolean;
-  onClose: () => void;
-  mode?: PostMode;
-  post?: {
-    _id: string;
-    content: string;
-    images: { _id: string; url: string }[];
-    tags: string[];
-  };
-}
-export type ImageItem =
-  | { type: "existing"; _id: string; url: string }
-  | {
-      type: "new";
-      file: File;
-      preview: string;
-    };
+import type {
+  CreatePostDialogPropTypes,
+  ImageItem,
+} from "./types/CreatePostTypes";
 
 function CreatePost({
   open,
