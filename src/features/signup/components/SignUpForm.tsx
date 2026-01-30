@@ -7,8 +7,6 @@ import Button from "@components/custom-ui/Button";
 import toast from "react-hot-toast";
 import { SignUpSchema, type SignUpFormInput } from "../schema/SignUpSchema";
 import { useSignUp } from "../hooks/useSignUp";
-import { useState } from "react";
-import { EyeClosedIcon, EyeIcon } from "@phosphor-icons/react";
 
 function SignUpForm() {
   const methods = useForm<SignUpFormInput>({
@@ -26,8 +24,6 @@ function SignUpForm() {
 
   const signUpMutation = useSignUp();
   const navigate = useNavigate();
-  const [togglePassword, setTogglePassword] = useState(true);
-  const [toggleConfirmPassword, setToggleConfirmPassword] = useState(true);
 
   const onsubmit = (data: SignUpFormInput) => {
     const { ...payload } = data;
@@ -67,53 +63,18 @@ function SignUpForm() {
               type="text"
               placeholder="username"
             />
-            <div className="relative w-full">
-              <Input
-                id="password"
-                name="password"
-                type={togglePassword ? "password" : "text"}
-                placeholder="password"
-              />
-              <div className="absolute top-1/2 right-4 -translate-y-1/2">
-                {togglePassword ? (
-                  <EyeClosedIcon
-                    onClick={() => setTogglePassword(!togglePassword)}
-                    className="cursor-pointer hover:text-gray-500"
-                  />
-                ) : (
-                  <EyeIcon
-                    onClick={() => setTogglePassword(!togglePassword)}
-                    className="cursor-pointer hover:text-gray-500"
-                  />
-                )}
-              </div>
-            </div>
-            <div className="relative w-full">
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type={toggleConfirmPassword ? "password" : "text"}
-                placeholder="confirm password"
-              />{" "}
-              <div className="absolute top-1/2 right-4 -translate-y-1/2">
-                {toggleConfirmPassword ? (
-                  <EyeClosedIcon
-                    onClick={() =>
-                      setToggleConfirmPassword(!toggleConfirmPassword)
-                    }
-                    className="cursor-pointer hover:text-gray-500"
-                  />
-                ) : (
-                  <EyeIcon
-                    onClick={() =>
-                      setToggleConfirmPassword(!toggleConfirmPassword)
-                    }
-                    className="cursor-pointer hover:text-gray-500"
-                  />
-                )}
-              </div>
-            </div>
-
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="password"
+            />
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="confirm password"
+            />
             <Button type="submit" disabled={signUpMutation.isPending}>
               {signUpMutation.isPending ? "Signing up..." : "Sign up"}{" "}
             </Button>
