@@ -15,10 +15,10 @@ import CreatePost from "features/create-post/CreatePost";
 import { useAppSelector } from "stores/hooks";
 
 function PostMenu({ post }: { post: Post }) {
-  const queryClient = useQueryClient();
   const { user } = useAppSelector((state) => state.auth);
   const [openEditPostDialog, setOpenEditPostDialog] = useState(false);
 
+  const queryClient = useQueryClient();
   const deletePostMutation = usePostDelete();
 
   const closeEditPostDialog = () => {
@@ -29,7 +29,6 @@ function PostMenu({ post }: { post: Post }) {
     deletePostMutation.mutate(postId, {
       onSuccess: () => {
         toast.success("Post deleted");
-        // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["feed"] });
         queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
         queryClient.invalidateQueries({ queryKey: ["posts"] });
