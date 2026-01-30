@@ -5,13 +5,11 @@ import SimpleInput from "@components/ui/SimpleInput";
 import Spinner from "@components/ui/Spinner";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import type { ResetPasswordProps } from "../types/ResetPasswordTypes";
 
-interface Props {
-  token: string;
-}
-
-function ResetPasswordForm({ token }: Props) {
+function ResetPasswordForm({ token }: ResetPasswordProps) {
   const [newPassword, setNewPassword] = useState("");
+
   const resetPasswordMutation = useResetPassword();
   const navigate = useNavigate();
 
