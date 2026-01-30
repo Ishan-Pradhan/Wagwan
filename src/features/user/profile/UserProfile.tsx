@@ -1,41 +1,29 @@
 import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
 import { useGetPosts } from "./hooks/useGetPosts";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useEffect, useRef } from "react";
 import { useGetProfile } from "./hooks/useGetProfile";
-import LottieLoading from "@components/ui/LottieLoading";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { logoutUser } from "stores/auth/authThunk";
+import SkeletonLoading from "./components/SkeletonLoading";
 
 function UserProfile() {
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  const handleLogout = async () => {
-    await dispatch(logoutUser());
-    window.location.replace("/login");
-  };
-  const { user } = useAppSelector((state) => state.auth);
-
-  const { username } = useParams();
-  // const [activeTab, setActiveTab] = useState<"posts" | "bookmarks">("posts");
-
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const activeTab = searchParams.get("tab") ?? "posts";
+  const { username } = useParams();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useGetPosts(username);
-
   const { data: profile } = useGetProfile(username);
 
-  const posts =
-    data?.pages?.flatMap((page) => {
-      return page?.posts ?? [];
-    }) ?? [];
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -55,10 +43,20 @@ function UserProfile() {
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  const posts =
+    data?.pages?.flatMap((page) => {
+      return page?.posts ?? [];
+    }) ?? [];
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    navigate("/login", { replace: true });
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
-        <LottieLoading />
+        <SkeletonLoading />
       </div>
     );
   }

@@ -99,7 +99,7 @@ function SideMenu() {
 
   const handleLogout = async () => {
     await dispatch(logoutUser());
-    window.location.replace("/login");
+    navigate("/login", { replace: true });
   };
 
   const menus = [

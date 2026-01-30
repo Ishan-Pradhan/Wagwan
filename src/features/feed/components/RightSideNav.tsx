@@ -11,7 +11,7 @@ function RightSideNav() {
 
   const userAvatar = user?.avatar?.url;
 
-  const { data } = useGetFollowersFollowing({
+  const { data, isLoading } = useGetFollowersFollowing({
     username: user?.username,
     type: "followers",
   });
@@ -52,6 +52,41 @@ function RightSideNav() {
               No suggestion for you currently
             </span>
           )}
+
+          {isLoading && (
+            <div className="flex flex-col gap-8">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-gray-600 animate-pulse"></div>
+                  <div className="flex flex-col gap-2">
+                    <div className="w-15 h-4 bg-gray-600 animate-pulse rounded-full"></div>
+                    <div className="w-20 h-3 bg-gray-400 animate-pulse rounded-full"></div>
+                  </div>
+                </div>
+                <div className="w-7 h-3 bg-gray-600 animate-pulse rounded-full"></div>
+              </div>
+              <div className="flex justify-between items-center w-full">
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-gray-600 animate-pulse"></div>
+                  <div className="flex flex-col gap-2">
+                    <div className="w-15 h-4 bg-gray-600 animate-pulse rounded-full"></div>
+                    <div className="w-20 h-3 bg-gray-400 animate-pulse rounded-full"></div>
+                  </div>
+                </div>
+                <div className="w-7 h-3 bg-gray-600 animate-pulse rounded-full"></div>
+              </div>
+              <div className="flex justify-between items-center w-full">
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-gray-600 animate-pulse"></div>
+                  <div className="flex flex-col gap-2">
+                    <div className="w-15 h-4 bg-gray-600 animate-pulse rounded-full"></div>
+                    <div className="w-20 h-3 bg-gray-400 animate-pulse rounded-full"></div>
+                  </div>
+                </div>
+                <div className="w-7 h-3 bg-gray-600 animate-pulse rounded-full"></div>
+              </div>
+            </div>
+          )}
           {followers
             .filter((user) => user.isFollowing === false)
             .map((follower) => (
@@ -66,7 +101,12 @@ function RightSideNav() {
                     alt=""
                   />
                   <div className="flex flex-col ">
-                    <span className="body-s-semibold">{follower.username}</span>
+                    <Link
+                      to={`/user/profile/${follower.username}`}
+                      className="body-s-semibold hover:text-gray-600"
+                    >
+                      {follower.username}
+                    </Link>
                     <span className="caption-regular text-gray-500">
                       Suggested for you.
                     </span>

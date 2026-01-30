@@ -103,7 +103,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             ) : (
               <button
                 type="button"
-                className={`hidden lg:flex self-start  body-s-semibold px-3 py-1 rounded-sm cursor-pointer ${profile.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
+                className={`hidden lg:flex self-start  body-s-semibold px-3 py-1 rounded-sm cursor-pointer ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
                 onClick={() => handleFollow(profile?.account._id)}
               >
                 {profile?.isFollowing ? "Following" : "Follow"}
@@ -165,7 +165,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           ) : (
             <button
               type="button"
-              className={`lg:hidden flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer  ${profile.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
+              className={`lg:hidden flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer  ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
               onClick={() => handleFollow(profile?.account._id)}
             >
               {profile?.isFollowing ? "Following" : "Follow"}

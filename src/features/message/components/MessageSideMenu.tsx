@@ -24,6 +24,7 @@ import {
 } from "@components/ui/dropdown-menu";
 import { useDeleteChat } from "../hooks/useDeleteChat";
 import { useNavigate, useSearchParams } from "react-router";
+import SkeletonLoading from "./SkeletonLoading";
 
 function MessageSideMenu({
   user,
@@ -34,7 +35,7 @@ function MessageSideMenu({
   onSelectUser: (user: ChatUserType) => void;
   setChatId: (chatId: string) => void;
 }) {
-  const { data: chats } = useGetUsersList();
+  const { data: chats, isLoading: chatLoading } = useGetUsersList();
   const { data: chatUsers } = useGetAvailableUsers();
   const createChatMutation = useCreateChat();
   const queryClient = useQueryClient();
@@ -59,11 +60,12 @@ function MessageSideMenu({
 
           <ComboboxContent>
             <ComboboxEmpty>No users found.</ComboboxEmpty>
-            <ComboboxList>
+            <ComboboxList className="flex flex-col gap-4">
               {(item) => (
                 <ComboboxItem
                   key={item._id}
                   value={""}
+                  className="cursor-pointer"
                   onClick={() => {
                     createChatMutation.mutate(item._id, {
                       onSuccess: (data) => {
@@ -100,6 +102,13 @@ function MessageSideMenu({
             {chats?.length === 0 && (
               <div className="text-sm text-gray-500">
                 You have not messaged any one yet.
+              </div>
+            )}
+            {chatLoading && (
+              <div className="flex flex-col gap-4">
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
               </div>
             )}
             {chats

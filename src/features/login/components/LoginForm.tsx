@@ -57,6 +57,7 @@ function LoginForm() {
 
   const handleGooglebutton = () => {
     window.location.href = "http://localhost:8080/api/v1/users/google";
+    // navigate("http://localhost:8080/api/v1/users/google");
   };
 
   return (
