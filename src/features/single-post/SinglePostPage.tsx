@@ -24,8 +24,6 @@ function SinglePostPage() {
 
   const { data: post } = useGetSinglePost(postId as string);
 
-  console.log(post);
-
   const comments =
     data?.pages?.flatMap((page) => {
       return page?.comments ?? [];
@@ -72,11 +70,7 @@ function SinglePostPage() {
   };
 
   if (!post) {
-    return (
-      <div className="h-[80vh] flex items-center justify-center">
-        <SkeletonLoading />
-      </div>
-    );
+    return <SkeletonLoading />;
   }
   return (
     <div
