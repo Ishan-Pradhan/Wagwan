@@ -10,7 +10,10 @@ export const useFeed = () => {
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.nextPage : undefined,
 
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
+    // staleTime: 1000 * 60 * 5,
+    // refetchOnWindowFocus: false,
+    staleTime: 30_000,
+    refetchInterval: 60_000,
+    refetchOnWindowFocus: true,
   });
 };

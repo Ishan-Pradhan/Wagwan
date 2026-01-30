@@ -9,8 +9,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { formatTime } from "utils/formatTime";
 import { useGetSinglePost } from "./hooks/useGetSinglePost";
-import LottieLoading from "@components/ui/LottieLoading";
 import PostMenu from "features/post-menu/PostMenu";
+import SkeletonLoading from "./components/SkeletonLoading";
 
 function SinglePostPage() {
   const { postId } = useParams();
@@ -74,7 +74,7 @@ function SinglePostPage() {
   if (!post) {
     return (
       <div className="h-[80vh] flex items-center justify-center">
-        <LottieLoading />
+        <SkeletonLoading />
       </div>
     );
   }
@@ -83,7 +83,6 @@ function SinglePostPage() {
       className="
        justify-center items-center
     w-full
-  
     grid grid-cols-1 lg:grid-cols-2 gap-0
     p-0 
     overflow-hidden
