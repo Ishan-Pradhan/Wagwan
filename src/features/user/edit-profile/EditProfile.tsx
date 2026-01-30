@@ -1,11 +1,11 @@
 import { useGetProfile } from "../profile/hooks/useGetProfile";
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 import EditProfileForm from "./components/EditProfileForm";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
 import api from "api/api";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useAppSelector } from "stores/hooks";
 
 function EditProfile() {

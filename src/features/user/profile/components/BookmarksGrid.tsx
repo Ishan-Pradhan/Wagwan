@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useGetBookmarks } from "../hooks/useGetBookmarks";
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 import { Link } from "react-router";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { BookmarkIcon, ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
 
 function BookmarksGrid() {

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import toast from "react-hot-toast";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import PostImagePreview from "./PostImagePreview";
 import { useCreatePost } from "../hooks/useCreatePost";

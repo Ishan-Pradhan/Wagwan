@@ -3,10 +3,10 @@ import { useEffect, useRef } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { useNavigate } from "react-router";
-import type { Followers } from "features/user/profile/api/getFollowers";
 import { useStory } from "context/story/StoryContext";
 import { useAppSelector } from "stores/hooks";
 import StoriesSkeletonLoading from "./StoriesSkeletonLoading";
+import type { Followers } from "features/user/profile/types/UserDetailsTypes";
 
 function Stories() {
   const { user } = useAppSelector((state) => state.auth);

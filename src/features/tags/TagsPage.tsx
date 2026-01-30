@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import { useGetTagPosts } from "./hooks/useGetTagPosts";
 import type { Post } from "features/feed/types/FeedTypes";
 import { SealCheckIcon } from "@phosphor-icons/react";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import CommentDialog from "features/feed/components/CommentDialog";
 import PostCard from "features/feed/components/PostCard";
 

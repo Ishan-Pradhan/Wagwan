@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router";
 import { useGetFollowersFollowing } from "../hooks/useGetFollowFollowing";
 import { useEffect, useRef } from "react";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";
 import { useQueryClient } from "@tanstack/react-query";
 import type { FollowersFollowingDialogPropTypes } from "../types/UserDetailsTypes";

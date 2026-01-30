@@ -1,4 +1,4 @@
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import CommentSection from "features/feed/components/CommentSection";
 import InteractionContainer from "features/feed/components/InteractionContainer";

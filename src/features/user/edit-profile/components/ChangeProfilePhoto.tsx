@@ -2,7 +2,7 @@ import type { User } from "types/LoginTypes";
 import { useUpdatePhoto } from "../hooks/useUpdatePhoto";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useDispatch } from "react-redux";
 import { setUser } from "stores/auth/authSlice";
 

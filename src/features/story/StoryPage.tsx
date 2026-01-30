@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { Splide } from "@splidejs/react-splide";
 import { SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 import { PlayIcon, PauseIcon, XIcon } from "@phosphor-icons/react";
 import { useGetProfile } from "features/user/profile/hooks/useGetProfile";
 

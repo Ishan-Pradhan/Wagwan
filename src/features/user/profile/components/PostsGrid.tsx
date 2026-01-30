@@ -1,4 +1,4 @@
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { Link } from "react-router";
 import type { PostsGridPropTypes } from "../types/PostTypes";
 import { CameraIcon, HeartIcon, ChatCircleIcon } from "@phosphor-icons/react";

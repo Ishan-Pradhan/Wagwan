@@ -15,7 +15,7 @@ import {
 } from "../const/const";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSendMessage } from "../hooks/useSendMessage";
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import toast from "react-hot-toast";
 import AttachmentPreview from "./AttachmentPreview";

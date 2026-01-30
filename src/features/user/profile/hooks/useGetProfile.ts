@@ -4,7 +4,7 @@ import { getUsersProfile } from "../api/getUsersProfile";
 import { useAppSelector } from "stores/hooks";
 
 export const useGetProfile = (username?: string) => {
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state?.auth);
 
   const isOwner = !username || user?.username === username;
 

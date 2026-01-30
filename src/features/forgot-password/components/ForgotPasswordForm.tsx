@@ -3,7 +3,7 @@ import SimpleInput from "@components/ui/SimpleInput";
 import { useState } from "react";
 import { useForgotPassword } from "../hooks/useForgotPassword";
 import toast from "react-hot-toast";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import Confirmation from "@components/widgets/Confirmation";
 
 function ForgotPasswordForm() {

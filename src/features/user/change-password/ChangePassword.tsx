@@ -9,7 +9,7 @@ import {
 } from "./schema/ChangePasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@components/custom-ui/Input";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import axios from "axios";
 
 function ChangePassword() {

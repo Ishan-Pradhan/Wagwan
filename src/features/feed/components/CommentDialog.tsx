@@ -13,7 +13,7 @@ import { formatTime } from "utils/formatTime";
 import { useComment } from "../hooks/useComment";
 import { useEffect, useRef, useState } from "react";
 import CommentSection from "./CommentSection";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePostComments } from "../hooks/usePostComments";

@@ -13,7 +13,7 @@ import {
 } from "@components/ui/dropdown-menu";
 import type { Post } from "../types/FeedTypes";
 import { useCommentDelete } from "../hooks/useCommentDelete";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAppSelector } from "stores/hooks";

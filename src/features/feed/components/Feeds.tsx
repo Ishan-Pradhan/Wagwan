@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useFeed } from "../hooks/useFeed";
 import PostCard from "./PostCard";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import type { Post } from "../types/FeedTypes";
 import FeedSkeletonLoading from "./FeedSkeletonLoading";
 import { SealCheckIcon } from "@phosphor-icons/react";

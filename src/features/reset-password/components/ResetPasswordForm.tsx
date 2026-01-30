@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useResetPassword } from "../hooks/useResetPassword";
 import Button from "@components/custom-ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import type { ResetPasswordProps } from "../types/ResetPasswordTypes";
