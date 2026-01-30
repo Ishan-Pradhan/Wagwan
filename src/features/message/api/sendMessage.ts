@@ -6,17 +6,11 @@ export const sendMessage = async (
   formData: FormData,
 ) => {
   try {
-    const res = await api.post(
-      `/chat-app/messages/${chatId}`,
-
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    const res = await api.post(`/chat-app/messages/${chatId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
-    );
-    console.log(formData);
+    });
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

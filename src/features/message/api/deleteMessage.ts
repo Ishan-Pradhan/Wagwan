@@ -14,10 +14,6 @@ export const deleteMessage = async ({
       {},
     );
 
-    if (res.data) {
-      console.log(res.data);
-    }
-
     return res;
   } catch (err) {
     if (axios.isAxiosError(err)) {

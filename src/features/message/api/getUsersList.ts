@@ -7,7 +7,7 @@ export const getUsersList = async (): Promise<Chat[]> => {
     const data = res.data?.data;
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 };

@@ -6,6 +6,7 @@ import { useAppSelector } from "stores/hooks";
 
 function MessagePage() {
   const { user } = useAppSelector((state) => state.auth);
+
   const [activeChatUser, setActiveChatUser] = useState<ChatUserType | null>(
     null,
   );
