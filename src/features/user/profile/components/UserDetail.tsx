@@ -3,6 +3,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { GearIcon } from "@phosphor-icons/react";
@@ -12,6 +13,9 @@ import { useFollow } from "../hooks/useFollow";
 import { useState } from "react";
 import FollowersFollowingDialog from "./FollowersFollowingDialog";
 import { Link, useNavigate } from "react-router";
+import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
+import { Switch } from "@components/ui/switch";
+import { useTheme } from "context/Theme/ThemeContext";
 
 export interface Media {
   _id: string;
@@ -66,6 +70,7 @@ type DialogType = "followers" | "following" | null;
 function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   const followMutation = useFollow(profile?.account.username);
   const [dialogType, setDialogType] = useState<DialogType>(null);
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleFollow = (userId: string) => {
@@ -73,11 +78,11 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   };
   return (
     <div className="mx-auto ">
-      <div className="flex lg:justify-between  gap-4  items-center  w-full">
+      <div className="flex lg:justify-between  gap-10  items-center  w-full">
         {/* image */}
         <div>
           <img
-            className="lg:h-30 lg:w-30 w-10 h-10 rounded-full border border-gray-200"
+            className="lg:h-30 lg:w-30 w-20 h-20 shrink-0 rounded-full border border-gray-200"
             src={profile?.account?.avatar.url}
             alt="user avatar"
           />
@@ -91,14 +96,14 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             {user?._id === profile?.owner ? (
               <Link
                 to="/user/profile/edit-profile"
-                className="hidden lg:flex bg-gray-100 body-m-medium cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-3 py-1"
+                className="hidden lg:flex bg-gray-100 body-s-semibold cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-4 py-1.5"
               >
                 Edit Profile
               </Link>
             ) : (
               <button
                 type="button"
-                className="hidden lg:flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer"
+                className={`hidden lg:flex self-start  body-s-semibold px-3 py-1 rounded-sm cursor-pointer ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
                 onClick={() => handleFollow(profile?.account._id)}
               >
                 {profile?.isFollowing ? "Following" : "Follow"}
@@ -114,17 +119,35 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end">
                   <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      className="hover:bg-gray-100 cursor-pointer"
-                      onSelect={logout}
-                    >
-                      Logout
+                    <DropdownMenuLabel className="body-s-regular text-gray-500 mb-1 ">
+                      Switch Theme
+                    </DropdownMenuLabel>
+                    <DropdownMenuItem className="hover:bg-gray-100 r flex gap-5 items-center w-full">
+                      <label
+                        htmlFor="dark-mode"
+                        className="body-s-regular cursor-pointer"
+                      >
+                        Dark Mode
+                      </label>
+                      <Switch
+                        className="cursor-pointer"
+                        id="dark-mode"
+                        checked={theme === "dark"}
+                        onCheckedChange={toggleTheme}
+                      />
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem
                       className="hover:bg-gray-100 cursor-pointer"
                       onSelect={() => navigate("/user/profile/change-password")}
                     >
                       Change Password
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="hover:bg-gray-100 cursor-pointer"
+                      onSelect={logout}
+                    >
+                      Logout
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -135,14 +158,14 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           {user?._id === profile?.owner ? (
             <Link
               to="/user/profile/edit-profile"
-              className="lg:hidden flex self-start bg-gray-100 body-m-medium cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-3 py-1"
+              className="lg:hidden flex self-start bg-gray-100 body-s-semibold cursor-pointer hover:bg-gray-200 text-gray-900 rounded-md px-4 py-1.5"
             >
               Edit Profile
             </Link>
           ) : (
             <button
               type="button"
-              className="lg:hidden flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer"
+              className={`lg:hidden flex self-start bg-primary-500 text-white px-3 py-1 rounded-sm cursor-pointer  ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
               onClick={() => handleFollow(profile?.account._id)}
             >
               {profile?.isFollowing ? "Following" : "Follow"}
@@ -150,7 +173,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           )}
 
           {/* followers, posts and following counts */}
-          <div className="flex gap-10 items-center">
+          <div className="flex lg:gap-10 gap-5 items-center">
             <div className="flex gap-1 items-center">
               <span className="body-l-semibold">{posts.length}</span>
               <span className="body-m-regular text-gray-600">posts</span>
@@ -187,7 +210,14 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           </div>
         </div>
       </div>
-      <p className="body-s-regular lg:hidden">{profile?.bio}</p>
+      <div className="flex flex-col ">
+        {/* user's full name  */}
+        <div className="lg:hidden gap-1 flex body-s-bold">
+          <span>{profile?.firstName}</span>
+          <span>{profile?.lastName}</span>
+        </div>
+        <p className="body-s-regular lg:hidden">{profile?.bio}</p>
+      </div>
 
       {dialogType && (
         <FollowersFollowingDialog

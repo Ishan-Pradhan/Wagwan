@@ -23,11 +23,8 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { useDeleteChat } from "../hooks/useDeleteChat";
-
-import { useSocket } from "context/socket/SocketContext";
-import { MESSAGE_RECEIVED_EVENT, NEW_CHAT_EVENT } from "../const/const";
-import { useEffect } from "react";
-import type { Message } from "../types/MessageType";
+import { useNavigate, useSearchParams } from "react-router";
+import SkeletonLoading from "./SkeletonLoading";
 
 function MessageSideMenu({
   user,
@@ -38,53 +35,22 @@ function MessageSideMenu({
   onSelectUser: (user: ChatUserType) => void;
   setChatId: (chatId: string) => void;
 }) {
-  const { data: chats } = useGetUsersList();
+  const { data: chats, isLoading: chatLoading } = useGetUsersList();
   const { data: chatUsers } = useGetAvailableUsers();
   const createChatMutation = useCreateChat();
   const queryClient = useQueryClient();
   const deleteMutation = useDeleteChat();
-  const { socketRef } = useSocket();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const activeUser = searchParams.get("user");
 
-  useEffect(() => {
-    if (!socketRef.current) return;
-
-    const socket = socketRef.current;
-
-    socket.on(NEW_CHAT_EVENT, (chat: Chat) => {
-      console.log("New chat created!", chat);
-      queryClient.invalidateQueries({ queryKey: ["chats"] });
-    });
-
-    socket.on(MESSAGE_RECEIVED_EVENT, (message: Message) => {
-      const activeChatId = queryClient.getQueryData<string>(["activeChatId"]);
-
-      queryClient.setQueryData<Chat[]>(["chats"], (old) =>
-        old?.map((chat) => {
-          if (chat._id !== message.chat) return chat;
-
-          return {
-            ...chat,
-            latestMessage: message,
-            hasUnread: message.chat !== activeChatId,
-          };
-        }),
-      );
-    });
-
-    return () => {
-      socket.off(NEW_CHAT_EVENT);
-      socket.off(MESSAGE_RECEIVED_EVENT);
-    };
-  }, [socketRef, queryClient]);
+  const isUserActive = Boolean(activeUser);
 
   return (
-    <div className="lg:col-span-1 col-span-5  p-4 border-r border-gray-200 h-lvh ">
-      <div className="flex flex-col gap-4 h-full">
-        {/* Header */}
-        <div className="flex justify-between items-center">
-          <span className="body-m-semibold">{user?.username}</span>
-        </div>
-
+    <div
+      className={`lg:col-span-1 col-span-5 p-4 lg:border-r border-gray-200 dark:border-gray-600 h-lvh ${isUserActive ? "hidden lg:flex" : "flex"}`}
+    >
+      <div className="flex flex-col gap-4 h-full w-full">
         {/* Search */}
         <Combobox
           items={chatUsers}
@@ -94,21 +60,22 @@ function MessageSideMenu({
 
           <ComboboxContent>
             <ComboboxEmpty>No users found.</ComboboxEmpty>
-            <ComboboxList>
+            <ComboboxList className="flex flex-col gap-4">
               {(item) => (
                 <ComboboxItem
                   key={item._id}
                   value={""}
+                  className="cursor-pointer"
                   onClick={() => {
                     createChatMutation.mutate(item._id, {
                       onSuccess: (data) => {
                         queryClient.invalidateQueries({
                           queryKey: ["chats"],
                         });
-                        console.log("data in side nav:", data);
                         setChatId(data.data._id);
                       },
                     });
+                    navigate(`/message?user=${item.username}`);
                     onSelectUser(item);
                   }}
                 >
@@ -129,7 +96,7 @@ function MessageSideMenu({
         </Combobox>
 
         {/* Messages */}
-        <div className="flex flex-col gap-4 h-full overflow-hidden">
+        <div className="flex flex-col gap-4 h-full overflow-hidden ">
           <span className="body-m-bold">Messages</span>
           <div className="flex flex-col gap-6 h-full overflow-y-auto">
             {chats?.length === 0 && (
@@ -137,22 +104,30 @@ function MessageSideMenu({
                 You have not messaged any one yet.
               </div>
             )}
+            {chatLoading && (
+              <div className="flex flex-col gap-4">
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+              </div>
+            )}
             {chats
               ?.filter((chat: Chat) => !chat.isGroupChat)
               ?.map((chat: Chat) => {
-                console.log(chat?.latestMessage?.content);
                 const receivers = chat.participants.filter(
                   (p) => p._id !== user._id,
                 );
                 const receiver = receivers[0];
                 if (!receiver) return null;
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={chat._id}
-                    className="flex   hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-md cursor-pointer group  justify-between items-center"
+                    className={` hover:bg-gray-200 dark:hover:bg-gray-600 p-2 rounded-md cursor-pointer group  justify-between items-center ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
                       onSelectUser(receiver);
                       setChatId(chat._id);
+                      navigate(`/message?user=${receiver.username}`);
 
                       queryClient.setQueryData(["activeChatId"], chat._id);
 
@@ -164,7 +139,7 @@ function MessageSideMenu({
                     }}
                   >
                     <div className="flex justify-between items-center w-full">
-                      <div className="flex gap-4 items-center w-full relative">
+                      <div className="flex gap-4  w-full relative">
                         {chat.hasUnread && (
                           <span className="h-2 w-2 bg-primary-500 rounded-full shrink-0 animate-pulse absolute top-0 right-0" />
                         )}
@@ -174,17 +149,17 @@ function MessageSideMenu({
                           className="w-10 h-10 rounded-full"
                         />
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col ">
                           {/* Username of the receiver */}
-                          <span className="body-m-medium w-20 overflow-hidden text-ellipsis line-clamp-1">
+                          <span className="body-m-medium w-20 text-start overflow-hidden text-ellipsis line-clamp-1">
                             {receiver.username}
                           </span>
 
                           {/* Last message */}
-                          <p className="caption-regular line-clamp-1">
+                          <p className="caption-regular line-clamp-1 text-start">
                             {chat.latestMessage
                               ? `${chat.latestMessage.content}`
-                              : "No messages yet"}
+                              : "No new message"}
                           </p>
                         </div>
                       </div>
@@ -215,7 +190,7 @@ function MessageSideMenu({
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
-                  </div>
+                  </button>
                 );
               })}
           </div>

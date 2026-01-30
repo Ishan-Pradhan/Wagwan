@@ -9,8 +9,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { formatTime } from "utils/formatTime";
 import { useGetSinglePost } from "./hooks/useGetSinglePost";
-import LottieLoading from "@components/ui/LottieLoading";
 import PostMenu from "features/post-menu/PostMenu";
+import SkeletonLoading from "./components/SkeletonLoading";
 
 function SinglePostPage() {
   const { postId } = useParams();
@@ -74,31 +74,28 @@ function SinglePostPage() {
   if (!post) {
     return (
       <div className="h-[80vh] flex items-center justify-center">
-        <LottieLoading />
+        <SkeletonLoading />
       </div>
     );
   }
   return (
     <div
       className="
+       justify-center items-center
     w-full
-    
-    sm:max-w-lg
-    lg:max-w-3xl
-    xl:max-w-7xl
     grid grid-cols-1 lg:grid-cols-2 gap-0
-    p-0 lg:max-h-[80vh]
+    p-0 
     overflow-hidden
     lg:mt-10 lg:px-10 pb-10 lg:pb-0
   "
     >
       {/* image content */}
-      <div className=" lg:flex w-full  h-[80vh] flex-col overflow-hidden">
+      <div className=" lg:flex w-full h-[80vh]  justify-center  flex-col overflow-hidden ">
         <PostCardImage images={post.images} />
       </div>
 
       {/* comment section */}
-      <div className="flex flex-col gap-2 h-[80vh] overflow-auto p-5">
+      <div className="flex flex-col gap-2 overflow-auto p-5 justify-center">
         <div className="justify-between items-center pb-4 border-b border-gray-300 lg:flex hidden">
           <div className="flex gap-2 items-center">
             <img

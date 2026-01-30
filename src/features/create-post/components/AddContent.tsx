@@ -76,7 +76,7 @@ function AddContent({
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 lg:flex-row flex-col">
       <div className="flex-1">
         <PostImagePreview
           images={images}

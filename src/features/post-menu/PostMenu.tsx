@@ -7,16 +7,16 @@ import {
   DropdownMenuTrigger,
 } from "../../shared/components/ui/dropdown-menu";
 import { usePostDelete } from "./hooks/useDeletePosts";
-import { useAuth } from "context/auth/AuthContext";
 import type { Post } from "features/feed/types/FeedTypes";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import CreatePost from "features/create-post/CreatePost";
+import { useAppSelector } from "stores/hooks";
 
 function PostMenu({ post }: { post: Post }) {
   const queryClient = useQueryClient();
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
   const [openEditPostDialog, setOpenEditPostDialog] = useState(false);
 
   const deletePostMutation = usePostDelete();

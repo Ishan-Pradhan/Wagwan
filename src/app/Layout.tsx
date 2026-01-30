@@ -8,7 +8,7 @@ function Layout() {
       <div className="fixed top-0 lg:hidden w-full z-10">
         <Header />
       </div>
-      <div className="lg:col-span-1 lg:order-1 order-2 fixed lg:relative bottom-0 w-full justify-center items-center z-10 overflow-hidden">
+      <div className="lg:col-span-1 w-full lg:order-1 order-2 fixed lg:relative bottom-0  justify-center items-center z-10 overflow-hidden">
         <SideMenu />
       </div>
       <div className="lg:col-span-5 col-span-1  lg:order-2 order-1 mt-18 lg:mt-0 overflow-y-auto">

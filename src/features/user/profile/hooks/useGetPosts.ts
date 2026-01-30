@@ -1,10 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getMyPosts } from "../api/getMyPosts";
-import { useAuth } from "context/auth/AuthContext";
 import { getUsersPosts } from "../api/getUsersPosts";
+import { useAppSelector } from "stores/hooks";
 
 export const useGetPosts = (username?: string) => {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
 
   const isOwner = !username || user?.username === username;
 

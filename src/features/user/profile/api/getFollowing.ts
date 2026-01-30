@@ -30,7 +30,7 @@ export const getFollowing = async ({
 }: {
   page: number;
   limit: number;
-  username: string;
+  username: string | undefined;
 }): Promise<FollowingUserType> => {
   const res = await api.get(
     `/social-media/follow/list/following/${username}?page=${page}&limit=${limit}`,

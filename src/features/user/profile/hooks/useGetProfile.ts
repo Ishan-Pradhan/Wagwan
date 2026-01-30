@@ -1,10 +1,10 @@
-import { useAuth } from "context/auth/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { getMyProfile } from "../api/getMyProfile";
 import { getUsersProfile } from "../api/getUsersProfile";
+import { useAppSelector } from "stores/hooks";
 
 export const useGetProfile = (username?: string) => {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
 
   const isOwner = !username || user?.username === username;
 

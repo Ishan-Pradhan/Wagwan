@@ -49,21 +49,31 @@ function InteractionContainer({
   return (
     <div className="flex flex-col  gap-2">
       <div className="flex justify-between items-center">
-        <div className="flex gap-3 items-center dark:text-white">
-          <HeartIcon
-            size={28}
-            weight={post.isLiked ? "fill" : "regular"}
-            fill={post.isLiked ? "red" : theme === "dark" ? "white" : ""}
-            className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer "
-            onClick={() => handleLike(post._id)}
-          />
-          <ChatCircleIcon
-            size={28}
-            className={`hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer ${
-              hideComment ? "hidden" : "flex"
-            }`}
-            onClick={() => onOpenComments(post)}
-          />
+        <div className="flex gap-3 items-center dark:text-white ">
+          <div className="flex gap-1 items-center">
+            <HeartIcon
+              size={28}
+              weight={post.isLiked ? "fill" : "regular"}
+              fill={post.isLiked ? "red" : theme === "dark" ? "white" : ""}
+              className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer "
+              onClick={() => handleLike(post._id)}
+            />
+            <span className="body-m-bold">{post.likes}</span>
+          </div>
+          {!hideComment && (
+            <div className="flex gap-1 items-center">
+              <ChatCircleIcon
+                size={28}
+                className={`hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer `}
+                onClick={() => onOpenComments(post)}
+              />
+              <span
+                className={`body-m-bold ${post.comments === 0 ? "hidden" : ""}`}
+              >
+                {post.comments}
+              </span>
+            </div>
+          )}
           <ShareFatIcon
             size={28}
             className="hover:scale-105 transition-transform duration-150 ease-in-out cursor-pointer"
@@ -76,12 +86,12 @@ function InteractionContainer({
           weight={post.isBookmarked ? "fill" : "regular"}
         />
       </div>
-      <button
+      {/* <button
         type="button"
         className="body-s-semibold self-start cursor-pointer hover:text-gray-500 "
       >
         {post.likes} likes
-      </button>
+      </button> */}
     </div>
   );
 }

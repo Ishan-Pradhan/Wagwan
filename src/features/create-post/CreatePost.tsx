@@ -98,11 +98,9 @@ function CreatePost({
       }}
     >
       <DialogContent className="sm:max-w-5xl p-5 ">
-        <DialogHeader>
+        <DialogHeader className="sr-only">
           <DialogTitle>Create Post</DialogTitle>
-          <DialogDescription className="sr-only">
-            Create a new post
-          </DialogDescription>
+          <DialogDescription>Create a new post</DialogDescription>
         </DialogHeader>
 
         <FormProvider {...methods}>

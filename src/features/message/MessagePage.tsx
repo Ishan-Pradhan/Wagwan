@@ -1,11 +1,11 @@
-import { useAuth } from "context/auth/AuthContext";
 import MessageSideMenu from "./components/MessageSideMenu";
 import MessageSection from "./components/MessageSection";
 import { useState } from "react";
 import type { ChatUserType } from "./types/ChatUserType";
+import { useAppSelector } from "stores/hooks";
 
 function MessagePage() {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
   const [activeChatUser, setActiveChatUser] = useState<ChatUserType | null>(
     null,
   );

@@ -19,7 +19,7 @@ function PostCard({
   const [seeMore, setSeeMore] = useState(false);
 
   return (
-    <div className="w-full flex flex-col gap-2 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
+    <div className="w-full flex flex-col gap-3 p-3  max-w-md sm:max-w-lg md:max-w-md  mx-auto">
       <div className="flex justify-between px-4 items-center">
         {/* user info and created time */}
         <Link
@@ -29,19 +29,19 @@ function PostCard({
           <img
             src={post.author.account.avatar.url}
             alt={post.author.account.username}
-            className="w-10 h-10 rounded-full border border-primary-500 cursor-pointer"
+            className="w-9 h-9 rounded-full border border-gray-500 cursor-pointer"
           />
 
-          <span className="body-m-semibold cursor-pointer">
+          <span className="body-s-semibold cursor-pointer">
             {post.author.account.username}
           </span>
 
-          <div className="flex gap-1 body-s-medium text-gray-400 items-center">
+          <div className="flex gap-2 caption-medium text-gray-400 items-center">
             <CircleIcon weight="fill" size={5} />
             <span>{formatTime(post.createdAt)}</span>
           </div>
           {post.updatedAt !== post.createdAt && (
-            <div className="flex gap-1 body-s-medium text-gray-400 items-center">
+            <div className="flex gap-2 caption-medium text-gray-400 items-center">
               <CircleIcon weight="fill" size={5} />
               <span>Edited</span>
             </div>
@@ -99,14 +99,14 @@ function PostCard({
 
       {/* comments */}
       <div className="flex flex-col gap-3 justify-start">
-        <button
+        {/* <button
           className={`body-s-regular text-gray-400 cursor-pointer  self-start ${
             post.comments === 0 ? "hidden" : "flex"
           }`}
           onClick={() => onOpenComments(post)}
         >
           See all {post.comments} comments
-        </button>
+        </button> */}
         <PostCommentInput postId={post._id} />
       </div>
     </div>

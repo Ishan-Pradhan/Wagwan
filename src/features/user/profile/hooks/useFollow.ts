@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { follow } from "../api/follow";
 import type { UserProfile } from "../components/UserDetail";
 
-export const useFollow = (username: string) => {
+export const useFollow = (username: string | undefined) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -31,6 +31,9 @@ export const useFollow = (username: string) => {
       return { previousProfile };
     },
 
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["followers", username] });
+    },
     onError: (_err, _vars, context) => {
       // Rollback on failure
       if (context?.previousProfile) {

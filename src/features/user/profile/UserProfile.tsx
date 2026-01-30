@@ -1,33 +1,29 @@
 import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
-import { useAuth } from "context/auth/AuthContext";
 import { useGetPosts } from "./hooks/useGetPosts";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useEffect, useRef } from "react";
 import { useGetProfile } from "./hooks/useGetProfile";
-import LottieLoading from "@components/ui/LottieLoading";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
 import { useSearchParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
+import { logoutUser } from "stores/auth/authThunk";
+import SkeletonLoading from "./components/SkeletonLoading";
 
 function UserProfile() {
-  const { user, logout } = useAuth();
-  const { username } = useParams();
-  // const [activeTab, setActiveTab] = useState<"posts" | "bookmarks">("posts");
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const activeTab = searchParams.get("tab") ?? "posts";
+  const { username } = useParams();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useGetPosts(username);
-
   const { data: profile } = useGetProfile(username);
 
-  const posts =
-    data?.pages?.flatMap((page) => {
-      return page?.posts ?? [];
-    }) ?? [];
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -47,17 +43,32 @@ function UserProfile() {
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  const posts =
+    data?.pages?.flatMap((page) => {
+      return page?.posts ?? [];
+    }) ?? [];
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    navigate("/login", { replace: true });
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
-        <LottieLoading />
+        <SkeletonLoading />
       </div>
     );
   }
 
   return (
     <div className="container max-w-4xl flex flex-col gap-4 justify-center lg:py-10 py-3 pb-20 px-4">
-      <UserDetail profile={profile} posts={posts} user={user} logout={logout} />
+      <UserDetail
+        profile={profile}
+        posts={posts}
+        user={user}
+        logout={handleLogout}
+      />
 
       {/* posts */}
       <div className="flex flex-col gap-3 h-full">
@@ -66,26 +77,26 @@ function UserProfile() {
         >
           <button
             type="button"
-            className={`cursor-pointer w-full flex justify-center items-center  `}
+            className={`cursor-pointer w-full flex justify-center items-center  lg:text-4xl text-2xl`}
             onClick={() => setSearchParams({ tab: "posts" })}
           >
             <div
               className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black dark:border-white" : "border-transparent"}`}
             >
-              <GridNineIcon weight="duotone" size={32} />
+              <GridNineIcon weight="duotone" />
             </div>
           </button>
 
           {user?._id === profile?.account._id && (
             <button
               type="button"
-              className={`cursor-pointer w-full flex justify-center `}
+              className={`cursor-pointer w-full flex justify-center lg:text-4xl text-2xl`}
               onClick={() => setSearchParams({ tab: "bookmarks" })}
             >
               <div
                 className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black dark:border-white" : "border-transparent"}`}
               >
-                <BookmarkIcon weight="duotone" size={32} />
+                <BookmarkIcon weight="duotone" />
               </div>
             </button>
           )}

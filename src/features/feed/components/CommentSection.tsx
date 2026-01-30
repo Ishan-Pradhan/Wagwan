@@ -11,15 +11,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import { useAuth } from "context/auth/AuthContext";
 import type { Post } from "../types/FeedTypes";
 import { useCommentDelete } from "../hooks/useCommentDelete";
 import Spinner from "@components/ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useAppSelector } from "stores/hooks";
 
 function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
+
   const [commentLike, setCommentLike] = useState(comment.isLiked);
   const [likes, setLikes] = useState(comment.likes);
   const likeCommentMutation = useLikeComment(comment.postId);
@@ -37,6 +38,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
         toast.success("Comment deleted");
         // this is for refetching
         queryClient.invalidateQueries({ queryKey: ["comment", post._id] });
+        queryClient.invalidateQueries({ queryKey: ["feed"] });
       },
       onError: (err) => {
         console.error("Failed to post comment", err);
@@ -45,7 +47,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
   };
 
   return (
-    <div className="flex gap-8  items-start group">
+    <div className="flex gap-8  items-start group px-3">
       <Link to={`/user/profile/${comment.author?.account.username}`}>
         <img
           src={comment.author.account.avatar.url}
@@ -106,7 +108,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
           weight={commentLike ? "fill" : "regular"}
           onClick={() => handleCommentLike(comment._id)}
         />
-      </button>{" "}
+      </button>
     </div>
   );
 }

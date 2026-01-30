@@ -1,11 +1,11 @@
 import loginImage from "@assets/images/login/login.png";
 import LoginForm from "./components/LoginForm";
-import { useAuth } from "context/auth/AuthContext";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import { useAppSelector } from "stores/hooks";
 
 function LoginPage() {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
