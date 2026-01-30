@@ -28,6 +28,7 @@ function TagsPage() {
     setDialogOpen(false);
     setActivePost(null);
   };
+
   const posts =
     data?.pages?.flatMap((page) => {
       return page?.posts ?? [];
