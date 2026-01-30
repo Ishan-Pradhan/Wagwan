@@ -11,8 +11,8 @@ import type { Message } from "../types/MessageType";
 import { DotsThreeIcon } from "@phosphor-icons/react/dist/ssr";
 import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "types/LoginTypes";
-import { useDeleteMessage } from "../hooks/useDeleteMesssage";
 import type { ChatUserType } from "../types/ChatUserType";
+import { useDeleteMessage } from "../hooks/useDeleteMessage";
 
 function MessageUI({
   messages,
