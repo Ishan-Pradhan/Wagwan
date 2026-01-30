@@ -10,6 +10,7 @@ function VerificationResultPage() {
   const [error, setError] = useState("");
 
   // ref to track if the request was already sent
+  //cause we if user reloads the page the token becomes expired
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function VerificationResultPage() {
             setStatus("success");
           }
         } catch (error) {
-          // set error if we aren't already successful
+          //error if unsuccessful
           setStatus((prev) => (prev === "success" ? "success" : "error"));
 
           if (axios.isAxiosError(error)) {

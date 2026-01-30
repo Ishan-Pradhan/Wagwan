@@ -3,8 +3,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import toast from "react-hot-toast";
-import type { UserProfile } from "features/user/profile/components/UserDetail";
 import Spinner from "@components/ui/Spinner";
+import type { UserProfile } from "features/user/profile/types/UserDetailsTypes";
 
 function EditProfileForm({ profile }: { profile: UserProfile }) {
   const [bio, setBio] = useState(profile.bio);
