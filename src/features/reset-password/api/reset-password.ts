@@ -1,6 +1,6 @@
 import api from "api/api";
 import axios from "axios";
-import type { ResetPasswordPayload } from "types/ResetPasswordPayloadTypes";
+import type { ResetPasswordPayload } from "features/reset-password/types/ResetPasswordPayloadTypes";
 
 export const resetPassword = async ({
   token,

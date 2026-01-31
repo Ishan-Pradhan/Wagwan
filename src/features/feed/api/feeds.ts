@@ -1,5 +1,5 @@
 import api from "api/api";
-import type { FeedType } from "../types/FeedTypes";
+import type { FeedType } from "../../../shared/features/posts/types/FeedTypes";
 
 export const fetchPosts = async ({
   page = 1,

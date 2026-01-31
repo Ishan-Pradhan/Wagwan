@@ -19,7 +19,7 @@ import type {
   ImageItem,
 } from "./types/CreatePostTypes";
 
-function CreatePost({
+function CreateEditPost({
   open,
   onClose,
   mode = "create",
@@ -94,4 +94,4 @@ function CreatePost({
   );
 }
 
-export default CreatePost;
+export default CreateEditPost;

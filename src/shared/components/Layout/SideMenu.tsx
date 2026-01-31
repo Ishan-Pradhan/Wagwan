@@ -20,19 +20,19 @@ import {
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { useSocket } from "context/socket/SocketContext";
 import { useTheme } from "context/Theme/ThemeContext";
-import CreatePost from "features/create-post/CreatePost";
 import {
   MESSAGE_RECEIVED_EVENT,
   NEW_CHAT_EVENT,
-} from "features/message/const/const";
-import type { Message } from "features/message/types/MessageType";
-import type { Chat } from "features/message/types/ChatType";
+} from "shared/features/message/const/const";
+import type { Message } from "shared/features/message/types/MessageType";
+import type { Chat } from "shared/features/message/types/ChatType";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "stores/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
+import CreateEditPost from "shared/features/create-edit-post/CreateEditPost";
 function SideMenu() {
   const { user } = useAppSelector((state) => state.auth);
   const [hasNewMessage, setHasNewMessage] = useState(false);
@@ -251,7 +251,7 @@ function SideMenu() {
       </DropdownMenu>
 
       {openCreatePostDialog && (
-        <CreatePost
+        <CreateEditPost
           open={openCreatePostDialog}
           onClose={closeCreatePostDialog}
         />

@@ -4,11 +4,11 @@ import { useParams } from "react-router";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import { useGetTagPosts } from "./hooks/useGetTagPosts";
-import type { Post } from "features/feed/types/FeedTypes";
+import type { Post } from "shared/features/posts/types/FeedTypes";
 import { SealCheckIcon } from "@phosphor-icons/react";
 import Spinner from "@components/custom-ui/Spinner";
-import CommentDialog from "features/feed/components/CommentDialog";
-import PostCard from "features/feed/components/PostCard";
+import PostCard from "shared/features/posts/PostCard";
+import CommentDialog from "shared/features/posts/CommentDialog";
 
 function TagsPage() {
   const { tag } = useParams();

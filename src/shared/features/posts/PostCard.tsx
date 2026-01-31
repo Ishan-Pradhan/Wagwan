@@ -3,10 +3,10 @@ import { formatTime } from "utils/formatTime";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
 import { useState } from "react";
-import type { Post } from "../types/FeedTypes";
 import InteractionContainer from "./InteractionContainer";
+import type { Post } from "./types/FeedTypes";
 import PostCommentInput from "./PostCommentInput";
-import PostMenu from "features/post-menu/PostMenu";
+import PostMenu from "../post-menu/PostMenu";
 
 function PostCard({
   post,

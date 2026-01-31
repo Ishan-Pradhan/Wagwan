@@ -1,11 +1,11 @@
-import { useGetPosts } from "features/user/profile/hooks/useGetPosts";
+import { useGetPosts } from "shared/features/user-profile/hooks/useGetPosts";
 import { Link, useParams } from "react-router";
 import { Splide } from "@splidejs/react-splide";
 import { SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 import { PlayIcon, PauseIcon, XIcon } from "@phosphor-icons/react";
-import { useGetProfile } from "features/user/profile/hooks/useGetProfile";
+import { useGetProfile } from "shared/features/user-profile/hooks/useGetProfile";
 
 function StoryPage() {
   const { username } = useParams();

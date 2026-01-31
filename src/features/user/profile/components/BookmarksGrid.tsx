@@ -62,6 +62,7 @@ function BookmarksGrid() {
         <Link
           to={`/post/${post._id}`}
           className="group relative aspect-square border border-white"
+          key={post._id}
         >
           <img
             src={post.images[0].url}

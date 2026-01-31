@@ -6,12 +6,12 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 import { Link } from "react-router";
-import { useGetFollowersFollowing } from "../hooks/useGetFollowFollowing";
+import { useGetFollowersFollowing } from "../../../../shared/features/user-profile/hooks/useGetFollowFollowing";
 import { useEffect, useRef } from "react";
 import Spinner from "@components/custom-ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";
 import { useQueryClient } from "@tanstack/react-query";
-import type { FollowersFollowingDialogPropTypes } from "../types/UserDetailsTypes";
+import type { FollowersFollowingDialogPropTypes } from "../../../../shared/features/user-profile/types/UserDetailsTypes";
 
 function FollowersFollowingDialog({
   open,

@@ -1,5 +1,5 @@
 import api from "api/api";
-import type { ImageItem } from "../CreatePost";
+import type { ImageItem } from "../types/CreatePostTypes";
 
 export const deleteImage = async (image: ImageItem, postId: string) => {
   if (image.type !== "existing") return;

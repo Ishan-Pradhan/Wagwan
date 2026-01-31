@@ -1,6 +1,6 @@
 import type { User } from "types/LoginTypes";
 import { useGetUsersList } from "../hooks/useGetUsersList";
-import type { Chat } from "../types/ChatType";
+import type { Chat } from "../../../shared/features/message/types/ChatType";
 import { useGetAvailableUsers } from "../hooks/useGetAvailableUsers";
 
 import {

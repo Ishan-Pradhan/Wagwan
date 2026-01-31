@@ -41,7 +41,7 @@ function SkeletonLoading() {
               </div>
 
               {/* user's bio */}
-              <p className="hidden h-6 w-50 animate-pulse rounded-md bg-gray-500 lg:flex"></p>
+              <div className="hidden h-6 w-50 animate-pulse rounded-md bg-gray-500 lg:flex"></div>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@ function SkeletonLoading() {
             <div className="h-4 w-10 animate-pulse rounded-md bg-gray-500"></div>
             <div className="h-4 w-10 animate-pulse rounded-md bg-gray-500"></div>
           </div>
-          <p className="h-6 w-50 animate-pulse rounded-md bg-gray-500 lg:hidden"></p>
+          <div className="h-6 w-50 animate-pulse rounded-md bg-gray-500 lg:hidden"></div>
         </div>
       </div>
 

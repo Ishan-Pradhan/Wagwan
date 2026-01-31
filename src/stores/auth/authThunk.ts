@@ -8,9 +8,9 @@ export const fetchCurrentUser = createAsyncThunk<User>(
     try {
       const res = await api.get("/users/current-user");
       return res.data.data as User;
-    } catch (err) {
-      console.error(err);
-      return rejectWithValue(null);
+    } catch (error) {
+      if (error) return rejectWithValue(null);
+      throw error;
     }
   },
 );

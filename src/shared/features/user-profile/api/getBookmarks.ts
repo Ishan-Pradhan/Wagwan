@@ -1,5 +1,5 @@
 import api from "api/api";
-import type { BookmarkType } from "../types/BookmarkTypes";
+import type { BookmarkType } from "../../../../features/user/profile/types/BookmarkTypes";
 
 export const getBookmarks = async ({
   page = 1,

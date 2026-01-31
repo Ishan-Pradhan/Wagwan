@@ -7,12 +7,12 @@ import {
   DropdownMenuTrigger,
 } from "../../shared/components/ui/dropdown-menu";
 import { usePostDelete } from "./hooks/useDeletePosts";
-import type { Post } from "features/feed/types/FeedTypes";
+import type { Post } from "shared/features/posts/types/FeedTypes";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import CreatePost from "features/create-post/CreatePost";
 import { useAppSelector } from "stores/hooks";
+import CreateEditPost from "shared/features/create-edit-post/CreateEditPost";
 
 function PostMenu({ post }: { post: Post }) {
   const { user } = useAppSelector((state) => state.auth);
@@ -78,7 +78,7 @@ function PostMenu({ post }: { post: Post }) {
       </DropdownMenuContent>
 
       {openEditPostDialog && (
-        <CreatePost
+        <CreateEditPost
           open={openEditPostDialog}
           onClose={closeEditPostDialog}
           mode="edit"

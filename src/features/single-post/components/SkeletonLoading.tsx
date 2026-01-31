@@ -17,10 +17,10 @@ function SkeletonLoading() {
         </div>
         <div className="hidden gap-4 lg:flex">
           <div className="h-10 w-10 animate-pulse rounded-full bg-gray-500"></div>
-          <p className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <div className="h-6 w-10 animate-pulse rounded-md bg-gray-500"></div>
             <div className="h-6 w-40 animate-pulse rounded-md bg-gray-500"></div>
-          </p>
+          </div>
         </div>
 
         <div className="relative flex h-full flex-col gap-8 overflow-y-auto py-4 md:h-100 xl:h-80">

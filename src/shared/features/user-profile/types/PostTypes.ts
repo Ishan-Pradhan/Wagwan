@@ -1,4 +1,4 @@
-import type { Author } from "features/feed/types/AuthorTypes";
+import type { Author } from "shared/features/posts/types/AuthorTypes";
 
 export type Post = {
   __v: number;

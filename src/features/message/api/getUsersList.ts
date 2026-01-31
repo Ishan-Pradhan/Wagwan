@@ -1,5 +1,5 @@
 import api from "api/api";
-import type { Chat } from "../types/ChatType";
+import type { Chat } from "../../../shared/features/message/types/ChatType";
 
 export const getUsersList = async (): Promise<Chat[]> => {
   try {

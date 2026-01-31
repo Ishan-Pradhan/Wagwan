@@ -30,6 +30,7 @@ const refreshAccessToken = async () => {
     } catch (error) {
       // If refresh fails, we can't do anything. Clear the promise and throw.
       refreshPromise = null;
+
       throw error;
     } finally {
       // Clear the promise so next time we can refresh again if needed

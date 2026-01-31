@@ -1,9 +1,6 @@
 import { DotsThreeIcon, HeartIcon } from "@phosphor-icons/react";
 import { Link } from "react-router";
-import type { Comment } from "../types/CommentTypes";
 import { useState } from "react";
-import { formatTime } from "./../../../utils/formatTime";
-import { useLikeComment } from "../hooks/useLikeComment";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,12 +8,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import type { Post } from "../types/FeedTypes";
-import { useCommentDelete } from "../hooks/useCommentDelete";
 import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAppSelector } from "stores/hooks";
+import type { Comment } from "shared/features/posts/types/CommentTypes";
+import { useLikeComment } from "./hooks/useLikeComment";
+import { useCommentDelete } from "./hooks/useCommentDelete";
+import { formatTime } from "utils/formatTime";
+import type { Post } from "./types/FeedTypes";
 
 function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
   const [commentLike, setCommentLike] = useState(comment.isLiked);

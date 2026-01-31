@@ -1,4 +1,4 @@
-import type { Post } from "./PostTypes";
+import type { Post } from "../../../../shared/features/user-profile/types/PostTypes";
 
 export interface BookmarkType {
   bookmarkedPosts: Post[];

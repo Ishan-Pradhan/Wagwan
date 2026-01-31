@@ -2,7 +2,7 @@ import { ChatsIcon } from "@phosphor-icons/react";
 import type { ChatUserType } from "../types/ChatUserType";
 import { useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
-import type { Message } from "../types/MessageType";
+import type { Message } from "../../../shared/features/message/types/MessageType";
 import { useGetMessageInChat } from "./../hooks/useGetMessageInChat";
 import { useEffect, useRef, useState } from "react";
 import { useSocket } from "context/socket/SocketContext";
@@ -12,7 +12,7 @@ import {
   MESSAGE_DELETE_EVENT,
   STOP_TYPING_EVENT,
   TYPING_EVENT,
-} from "../const/const";
+} from "../../../shared/features/message/const/const";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSendMessage } from "../hooks/useSendMessage";
 import LottieLoading from "@components/custom-ui/LottieLoading";

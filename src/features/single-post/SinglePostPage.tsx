@@ -1,16 +1,16 @@
 import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
-import CommentSection from "features/feed/components/CommentSection";
-import InteractionContainer from "features/feed/components/InteractionContainer";
-import PostCardImage from "features/feed/components/PostCardImage";
-import { useComment } from "features/feed/hooks/useComment";
-import { usePostComments } from "features/feed/hooks/usePostComments";
+import { useComment } from "shared/features/posts/hooks/useComment";
+import { usePostComments } from "shared/features/posts/hooks/usePostComments";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { formatTime } from "utils/formatTime";
 import { useGetSinglePost } from "./hooks/useGetSinglePost";
-import PostMenu from "features/post-menu/PostMenu";
 import SkeletonLoading from "./components/SkeletonLoading";
+import PostCardImage from "shared/features/posts/PostCardImage";
+import CommentSection from "shared/features/posts/CommentSection";
+import InteractionContainer from "shared/features/posts/InteractionContainer";
+import PostMenu from "shared/features/post-menu/PostMenu";
 
 function SinglePostPage() {
   const { postId } = useParams();

@@ -2,7 +2,6 @@ import { useFormContext } from "react-hook-form";
 import PostImagePreview from "./PostImagePreview";
 import { ImageIcon } from "@phosphor-icons/react";
 import type { AddImagePropTypes, ImageItem } from "../types/CreatePostTypes";
-import { useEffect } from "react";
 
 function AddImage({
   images,
@@ -18,15 +17,6 @@ function AddImage({
 
   const hasImages =
     mode === "edit" ? true : images.some((i) => i.type === "new");
-
-  // to remove persisted url in the memory
-  useEffect(() => {
-    return () => {
-      images.forEach((img) => {
-        if (img.type === "new") URL.revokeObjectURL(img.preview);
-      });
-    };
-  }, [images]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;

@@ -5,10 +5,6 @@ export const deleteComment = async (commentId: string | undefined) => {
   try {
     const res = await api.delete(`/social-media/comments/${commentId}`);
 
-    if (res.data) {
-      console.log(res.data);
-    }
-
     return res.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {

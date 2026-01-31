@@ -5,20 +5,20 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@components/ui/dialog";
-import type { Post } from "../types/FeedTypes";
 import PostCardImage from "./PostCardImage";
 import { Link } from "react-router";
 
 import { formatTime } from "utils/formatTime";
-import { useComment } from "../hooks/useComment";
 import { useEffect, useRef, useState } from "react";
 import CommentSection from "./CommentSection";
 import Spinner from "@components/custom-ui/Spinner";
 import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePostComments } from "../hooks/usePostComments";
-import PostMenu from "features/post-menu/PostMenu";
-import type { CommentDialogProps } from "../types/CommentTypes";
+import type { CommentDialogProps } from "shared/features/posts/types/CommentTypes";
+import { useComment } from "./hooks/useComment";
+import type { Post } from "./types/FeedTypes";
+import { usePostComments } from "./hooks/usePostComments";
+import PostMenu from "../post-menu/PostMenu";
 
 export default function CommentDialog({
   postId,
@@ -45,7 +45,6 @@ export default function CommentDialog({
   const postCommentMutation = usePostComments();
 
   const latestComments = comments.slice().reverse();
-  console.log("latest comments", latestComments);
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 

@@ -4,11 +4,12 @@ import {
   HeartIcon,
   ShareFatIcon,
 } from "@phosphor-icons/react";
-import { useLike } from "../hooks/useLike";
-import type { Post } from "../types/FeedTypes";
-import { useBookmark } from "../hooks/useBookmark";
+
 import { useQueryClient } from "@tanstack/react-query";
 import { useTheme } from "context/Theme/ThemeContext";
+import type { Post } from "./types/FeedTypes";
+import { useLike } from "./hooks/useLike";
+import { useBookmark } from "./hooks/useBookmark";
 
 function InteractionContainer({
   post,

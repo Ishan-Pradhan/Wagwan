@@ -7,7 +7,7 @@ import {
 } from "@components/ui/dropdown-menu";
 import { formatTime } from "utils/formatTime";
 import IsTypingUI from "./IsTypingUI";
-import type { Message } from "../types/MessageType";
+import type { Message } from "../../../shared/features/message/types/MessageType";
 import { DotsThreeIcon } from "@phosphor-icons/react/dist/ssr";
 import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "types/LoginTypes";

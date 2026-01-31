@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useFeed } from "../hooks/useFeed";
-import PostCard from "./PostCard";
 import Spinner from "@components/custom-ui/Spinner";
-import type { Post } from "../types/FeedTypes";
+import type { Post } from "../../../shared/features/posts/types/FeedTypes";
 import FeedSkeletonLoading from "./FeedSkeletonLoading";
 import { SealCheckIcon } from "@phosphor-icons/react";
-
-import CommentDialog from "./CommentDialog";
+import PostCard from "shared/features/posts/PostCard";
+import CommentDialog from "shared/features/posts/CommentDialog";
 
 function Feeds() {
   const [activePost, setActivePost] = useState<Post | null>(null);

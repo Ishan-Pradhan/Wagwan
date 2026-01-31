@@ -1,4 +1,4 @@
-import { useGetFollowersFollowing } from "features/user/profile/hooks/useGetFollowFollowing";
+import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/useGetFollowFollowing";
 import { useEffect, useRef } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { useStory } from "context/story/StoryContext";
 import { useAppSelector } from "stores/hooks";
 import StoriesSkeletonLoading from "./StoriesSkeletonLoading";
-import type { Followers } from "features/user/profile/types/UserDetailsTypes";
+import type { Followers } from "shared/features/user-profile/types/UserDetailsTypes";
 
 function Stories() {
   const { user } = useAppSelector((state) => state.auth);

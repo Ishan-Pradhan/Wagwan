@@ -7,7 +7,7 @@ export const getAvailableUsers = async (): Promise<ChatUserType[]> => {
     const data = res.data?.data;
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 };

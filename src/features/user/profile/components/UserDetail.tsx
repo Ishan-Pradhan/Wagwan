@@ -7,14 +7,17 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { GearIcon } from "@phosphor-icons/react";
-import { useFollow } from "../hooks/useFollow";
+import { useFollow } from "../../../../shared/features/user-profile/hooks/useFollow";
 import { useState } from "react";
 import FollowersFollowingDialog from "./FollowersFollowingDialog";
 import { Link, useNavigate } from "react-router";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { Switch } from "@components/ui/switch";
 import { useTheme } from "context/Theme/ThemeContext";
-import type { DialogType, UserDetailProps } from "../types/UserDetailsTypes";
+import type {
+  DialogType,
+  UserDetailProps,
+} from "../../../../shared/features/user-profile/types/UserDetailsTypes";
 
 function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   const followMutation = useFollow(profile?.account.username);

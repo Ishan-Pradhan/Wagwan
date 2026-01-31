@@ -3,12 +3,12 @@ import {
   useQueryClient,
   type InfiniteData,
 } from "@tanstack/react-query";
-import { follow } from "../api/follow";
+import { follow } from "../../../../shared/features/user-profile/api/follow";
 import type {
   Followers,
   FollowersUserType,
   FollowingUserType,
-} from "../types/UserDetailsTypes";
+} from "../../../../shared/features/user-profile/types/UserDetailsTypes";
 
 export const useFollowInDialog = (
   username: string,
