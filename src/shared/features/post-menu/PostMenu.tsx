@@ -1,11 +1,5 @@
 import { DotsThreeIcon } from "@phosphor-icons/react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../shared/components/ui/dropdown-menu";
+
 import { usePostDelete } from "./hooks/useDeletePosts";
 import type { Post } from "shared/features/posts/types/FeedTypes";
 import { useQueryClient } from "@tanstack/react-query";
@@ -13,6 +7,14 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { useAppSelector } from "stores/hooks";
 import CreateEditPost from "shared/features/create-edit-post/CreateEditPost";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu";
+import { handleShare } from "utils/handleShare";
 
 function PostMenu({ post }: { post: Post }) {
   const { user } = useAppSelector((state) => state.auth);
@@ -71,7 +73,15 @@ function PostMenu({ post }: { post: Post }) {
               Edit
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem className="cursor-pointer" onSelect={() => {}}>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              handleShare(
+                post.author.account.username,
+                `${window.location.origin}/post/${post._id}`,
+              );
+            }}
+          >
             Share
           </DropdownMenuItem>
         </DropdownMenuGroup>

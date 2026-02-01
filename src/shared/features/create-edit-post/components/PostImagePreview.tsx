@@ -112,7 +112,7 @@ function PostImagePreview({
                   images[index].type === "existing" &&
                   images.length > 1 && (
                     <div
-                      className="absolute top-4 right-4"
+                      className="absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-gray-700"
                       onClick={() => handleDeleteImage(images[index], postId!)}
                     >
                       <TrashIcon />

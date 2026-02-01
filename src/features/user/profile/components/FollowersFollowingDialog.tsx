@@ -88,7 +88,7 @@ function FollowersFollowingDialog({
 
         <div
           ref={scrollContainerRef}
-          className="relative flex h-80 flex-col gap-8 overflow-y-auto py-4"
+          className="relative flex h-80 flex-col gap-8 overflow-y-auto px-5 py-4"
         >
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">

@@ -74,20 +74,20 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
           <span className="body-s-medium text-gray-600">likes {likes}</span>
           <div className="cursor-pointer text-gray-500">
             {/* menu */}
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <DotsThreeIcon
-                  size={28}
-                  className="pointer-events-none cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-40" align="end">
-                <DropdownMenuGroup>
-                  {/* only the author of the comment can delete the comment */}
-                  {/* {(user?._id === comment.author?.account?._id ||
+            {user?._id === comment.author?.account?._id && (
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <DotsThreeIcon
+                    size={28}
+                    className="pointer-events-none cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-40" align="end">
+                  <DropdownMenuGroup>
+                    {/* only the author of the comment can delete the comment */}
+                    {/* {(user?._id === comment.author?.account?._id ||
                     user?._id === post.author?.account?._id) && ()} */}
 
-                  {user?._id === comment.author?.account?._id && (
                     <DropdownMenuItem
                       className="flex gap-2"
                       onSelect={() => {
@@ -97,11 +97,10 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
                       <span>Delete</span>
                       {deleteCommentMutation.isPending && <Spinner />}
                     </DropdownMenuItem>
-                  )}
-                  <DropdownMenuItem onSelect={() => {}}>Share</DropdownMenuItem>
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
       </div>

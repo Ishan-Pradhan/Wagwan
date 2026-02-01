@@ -10,6 +10,7 @@ import { useTheme } from "context/Theme/ThemeContext";
 import type { Post } from "./types/FeedTypes";
 import { useLike } from "./hooks/useLike";
 import { useBookmark } from "./hooks/useBookmark";
+import { handleShare } from "utils/handleShare";
 
 function InteractionContainer({
   post,
@@ -77,6 +78,12 @@ function InteractionContainer({
           <ShareFatIcon
             size={28}
             className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
+            onClick={() => {
+              handleShare(
+                post.author.account.username,
+                `${window.location.origin}/post/${post._id}`,
+              );
+            }}
           />
         </div>
         <BookmarkSimpleIcon

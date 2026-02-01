@@ -12,6 +12,10 @@ const api = axios.create({
 // refresh promise. All failed requests will wait for this one promise.
 let refreshPromise: Promise<void> | null = null;
 
+const logout = () => {
+  window.location.href = "/login";
+};
+
 const refreshAccessToken = async () => {
   // If a refresh is already in progress, return the existing promise
   if (refreshPromise) {
@@ -30,6 +34,7 @@ const refreshAccessToken = async () => {
     } catch (error) {
       // If refresh fails, we can't do anything. Clear the promise and throw.
       refreshPromise = null;
+      logout();
 
       throw error;
     } finally {

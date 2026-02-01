@@ -49,12 +49,12 @@ function Input({
             {seePassword ? (
               <EyeIcon
                 onClick={() => setSeePassword(!seePassword)}
-                className="cursor-pointer hover:text-gray-500"
+                className="cursor-pointer hover:text-gray-500 dark:text-gray-600"
               />
             ) : (
               <EyeClosedIcon
                 onClick={() => setSeePassword(!seePassword)}
-                className="cursor-pointer hover:text-gray-500"
+                className="cursor-pointer hover:text-gray-500 dark:text-gray-600"
               />
             )}
           </div>

@@ -51,7 +51,7 @@ function ChangePassword() {
   } = methods;
 
   return (
-    <div className="container flex flex-col gap-6 py-10">
+    <div className="flex max-w-2xl flex-col gap-6 px-20 py-10">
       <h3 className="body-l-medium">Change Password</h3>
 
       <FormProvider {...methods}>

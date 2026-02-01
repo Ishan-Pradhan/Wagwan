@@ -74,7 +74,10 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
                     <DropdownMenuLabel className="body-s-regular mb-1 text-gray-500">
                       Switch Theme
                     </DropdownMenuLabel>
-                    <DropdownMenuItem className="r flex w-full items-center gap-5 hover:bg-gray-100">
+                    <DropdownMenuItem
+                      className="r flex w-full items-center gap-5 hover:bg-gray-100 dark:hover:bg-gray-600"
+                      onClick={(e) => e.preventDefault()}
+                    >
                       <label
                         htmlFor="dark-mode"
                         className="body-s-regular cursor-pointer"
@@ -90,13 +93,13 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      className="cursor-pointer hover:bg-gray-100"
+                      className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
                       onSelect={() => navigate("/user/profile/change-password")}
                     >
                       Change Password
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="cursor-pointer hover:bg-gray-100"
+                      className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
                       onSelect={logout}
                     >
                       Logout

@@ -211,7 +211,10 @@ function SideMenu() {
             <DropdownMenuLabel className="body-s-regular mb-1 text-gray-500">
               Switch Theme
             </DropdownMenuLabel>
-            <DropdownMenuItem className="r flex w-full items-center gap-5 hover:bg-gray-100">
+            <DropdownMenuItem
+              className="r flex w-full items-center gap-5 hover:bg-gray-100 dark:hover:bg-gray-600"
+              onClick={(e) => e.preventDefault()}
+            >
               <label
                 htmlFor="dark-mode"
                 className="body-s-regular cursor-pointer"
@@ -227,8 +230,8 @@ function SideMenu() {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="flex w-full cursor-pointer items-center gap-2 hover:bg-gray-100"
-              onSelect={() =>
+              className="flex w-full cursor-pointer items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+              onClick={() =>
                 navigate(`/user/profile/${user?.username}?tab=bookmarks`)
               }
             >
@@ -240,8 +243,8 @@ function SideMenu() {
               <span className="body-s-regular">Saved Posts</span>
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="flex w-full cursor-pointer items-center gap-2 hover:bg-gray-100"
-              onSelect={handleLogout}
+              className="flex w-full cursor-pointer items-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+              onClick={handleLogout}
             >
               <PowerIcon size={32} className="shrink-0" weight="bold" />
               <span className="body-s-regular">Logout</span>

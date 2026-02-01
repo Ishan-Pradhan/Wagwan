@@ -83,7 +83,10 @@ function AddContent({
           placeholder="Write something..."
           className={`flex-1 border p-2 ${errors.content ? "border-red-500" : ""}`}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleSubmit();
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit();
+            }
           }}
         />
         {errors.content && (
@@ -105,7 +108,10 @@ function AddContent({
           placeholder="tags, comma separated"
           className={`border p-2 ${errors.tags ? "border-red-500" : ""}`}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleSubmit();
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSubmit();
+            }
           }}
         />
         {errors.tags && (

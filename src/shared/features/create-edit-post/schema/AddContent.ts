@@ -4,8 +4,11 @@ export const AddContentSchema = (mode: "edit" | "create") =>
   z.object({
     content:
       mode === "create"
-        ? z.string().min(6, { message: "content can't be empty" })
-        : z.string().min(6, { message: "content can't be empty" }).optional(),
+        ? z.string().min(6, { message: "Minimum 6 character is required" })
+        : z
+            .string()
+            .min(6, { message: "Minimum 6 character is required" })
+            .optional(),
     tags:
       mode === "create"
         ? z
