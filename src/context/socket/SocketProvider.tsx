@@ -11,9 +11,12 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     if (loading || !user) return;
     if (socketRef.current) return;
 
-    const socket = io(import.meta.env.VITE_API_URL || "http://localhost:8080", {
-      withCredentials: true,
-    });
+    const socket = io(
+      import.meta.env.VITE_SOCKET_URI || "http://localhost:8080",
+      {
+        withCredentials: true,
+      },
+    );
 
     socketRef.current = socket;
 
