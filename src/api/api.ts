@@ -1,8 +1,10 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 // Axios instance for API calls with cookies
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 const api = axios.create({
-  baseURL: "/api/v1",
+  baseURL: API_BASE,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });
