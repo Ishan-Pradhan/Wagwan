@@ -6,18 +6,12 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 import { Link } from "react-router";
-import { useGetFollowersFollowing } from "../hooks/useGetFollowFollowing";
+import { useGetFollowersFollowing } from "../../../../shared/features/user-profile/hooks/useGetFollowFollowing";
 import { useEffect, useRef } from "react";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";
 import { useQueryClient } from "@tanstack/react-query";
-
-interface FollowersFollowingDialogPropTypes {
-  open: boolean;
-  onClose: () => void;
-  type: "followers" | "following";
-  username: string;
-}
+import type { FollowersFollowingDialogPropTypes } from "../../../../shared/features/user-profile/types/UserDetailsTypes";
 
 function FollowersFollowingDialog({
   open,
@@ -35,7 +29,6 @@ function FollowersFollowingDialog({
   const handleFollow = (userId: string) => {
     followMutation.mutate(userId, {
       onSuccess: () => {
-        // this is for refetching
         queryClient.invalidateQueries({
           queryKey: ["follow-list", username, type],
         });
@@ -95,7 +88,7 @@ function FollowersFollowingDialog({
 
         <div
           ref={scrollContainerRef}
-          className="flex flex-col gap-8 h-80 overflow-y-auto py-4 relative"
+          className="relative flex h-80 flex-col gap-8 overflow-y-auto px-5 py-4"
         >
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">
@@ -104,7 +97,7 @@ function FollowersFollowingDialog({
           ) : (
             <>
               {users.length === 0 && (
-                <div className="heading-2-medium  flex flex-col gap-1 items-center justify-center h-full">
+                <div className="heading-2-medium flex h-full flex-col items-center justify-center gap-1">
                   <span>
                     {type === "followers"
                       ? `No one is currently following ${username}`
@@ -115,7 +108,7 @@ function FollowersFollowingDialog({
               {users.map((user) => {
                 return (
                   <div
-                    className="flex justify-between items-center"
+                    className="flex items-center justify-between"
                     key={user._id}
                   >
                     <Link to={`/user/profile/${user.username}`}>
@@ -123,7 +116,7 @@ function FollowersFollowingDialog({
                     </Link>
                     <button
                       type="button"
-                      className="bg-primary-500 px-2 py-1 text-white rounded-sm cursor-pointer hover:bg-primary-700"
+                      className="bg-primary-500 hover:bg-primary-700 cursor-pointer rounded-sm px-2 py-1 text-white"
                       onClick={() => handleFollow(user._id)}
                     >
                       {user.isFollowing ? "Following" : "Follow"}
@@ -133,7 +126,7 @@ function FollowersFollowingDialog({
               })}
 
               {hasNextPage && (
-                <div ref={observerRef} className="h-10 flex justify-center">
+                <div ref={observerRef} className="flex h-10 justify-center">
                   {isFetchingNextPage && <Spinner />}
                 </div>
               )}

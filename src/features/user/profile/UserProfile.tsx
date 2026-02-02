@@ -1,8 +1,8 @@
 import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
-import { useGetPosts } from "./hooks/useGetPosts";
+import { useGetPosts } from "../../../shared/features/user-profile/hooks/useGetPosts";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useRef } from "react";
-import { useGetProfile } from "./hooks/useGetProfile";
+import { useGetProfile } from "../../../shared/features/user-profile/hooks/useGetProfile";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
@@ -55,14 +55,14 @@ function UserProfile() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <SkeletonLoading />
       </div>
     );
   }
 
   return (
-    <div className="container max-w-4xl flex flex-col gap-4 justify-center lg:py-10 py-3 pb-20 px-4">
+    <div className="container flex max-w-4xl flex-col justify-center gap-4 px-4 py-3 pb-20 lg:py-10">
       <UserDetail
         profile={profile}
         posts={posts}
@@ -71,13 +71,13 @@ function UserProfile() {
       />
 
       {/* posts */}
-      <div className="flex flex-col gap-3 h-full">
+      <div className="flex h-full flex-col gap-3">
         <div
           className={`grid ${user?._id === profile?.account._id ? "grid-cols-2" : "grid-cols-1"} border-b border-gray-200`}
         >
           <button
             type="button"
-            className={`cursor-pointer w-full flex justify-center items-center  lg:text-4xl text-2xl`}
+            className={`flex w-full cursor-pointer items-center justify-center text-2xl lg:text-4xl`}
             onClick={() => setSearchParams({ tab: "posts" })}
           >
             <div
@@ -90,7 +90,7 @@ function UserProfile() {
           {user?._id === profile?.account._id && (
             <button
               type="button"
-              className={`cursor-pointer w-full flex justify-center lg:text-4xl text-2xl`}
+              className={`flex w-full cursor-pointer justify-center text-2xl lg:text-4xl`}
               onClick={() => setSearchParams({ tab: "bookmarks" })}
             >
               <div

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUsersList } from "../api/getUsersList";
-import type { Chat } from "../types/ChatType";
+import type { Chat } from "../../../shared/features/message/types/ChatType";
 
 export const useGetUsersList = () => {
   return useQuery<Chat[]>({

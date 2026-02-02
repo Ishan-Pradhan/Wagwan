@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useGetBookmarks } from "../hooks/useGetBookmarks";
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 import { Link } from "react-router";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { BookmarkIcon, ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
 
 function BookmarksGrid() {
@@ -33,7 +33,7 @@ function BookmarksGrid() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[60vh]">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <LottieLoading />
       </div>
     );
@@ -41,8 +41,8 @@ function BookmarksGrid() {
 
   if (posts.length === 0) {
     return (
-      <div className=" flex justify-center h-60 flex-col gap-4 items-center">
-        <div className="flex p-3 shrink-0 border-2 border-gray-300 bg-gray-100 rounded-full">
+      <div className="flex h-60 flex-col items-center justify-center gap-4">
+        <div className="flex shrink-0 rounded-full border-2 border-gray-300 bg-gray-100 p-3">
           <BookmarkIcon size={40} weight="duotone" />
         </div>
         <div className="flex flex-col items-center">
@@ -57,23 +57,24 @@ function BookmarksGrid() {
     );
   }
   return (
-    <div className="grid grid-cols-3 ">
+    <div className="grid grid-cols-3">
       {posts.map((post) => (
         <Link
           to={`/post/${post._id}`}
-          className="aspect-square relative border border-white group"
+          className="group relative aspect-square border border-white"
+          key={post._id}
         >
           <img
             src={post.images[0].url}
             alt="user post"
             className="aspect-square object-cover"
           />
-          <div className="absolute top-0 left-0 h-full w-full hidden group-hover:flex gap-4 items-center justify-center p-3 group-hover:bg-gray-800/50 transition-all duration-300 ease-in-out">
-            <div className="flex gap-2 items-center text-white lg:text-4xl text-sm ">
+          <div className="absolute top-0 left-0 hidden h-full w-full items-center justify-center gap-4 p-3 transition-all duration-300 ease-in-out group-hover:flex group-hover:bg-gray-800/50">
+            <div className="flex items-center gap-2 text-sm text-white lg:text-4xl">
               <HeartIcon weight="fill" />
               <span className="body-l-semibold">{post.likes}</span>
             </div>
-            <div className="flex gap-2 items-center text-white lg:text-4xl text-sm ">
+            <div className="flex items-center gap-2 text-sm text-white lg:text-4xl">
               <ChatCircleIcon weight="fill" />
               <span className="body-l-semibold">{post.comments}</span>
             </div>
@@ -82,7 +83,7 @@ function BookmarksGrid() {
       ))}
 
       {hasNextPage && (
-        <div ref={observerRef} className="h-10 flex justify-center">
+        <div ref={observerRef} className="flex h-10 justify-center">
           {isFetchingNextPage && <Spinner />}
         </div>
       )}

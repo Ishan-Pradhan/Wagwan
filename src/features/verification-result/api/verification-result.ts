@@ -1,6 +1,6 @@
 import api from "api/api";
 import axios from "axios";
-import type { verificationResultPayload } from "types/VerificationResultPayloadTypes";
+import type { verificationResultPayload } from "features/verification-result/types/VerificationResultPayloadTypes";
 
 export const verificationResult = async ({
   token,

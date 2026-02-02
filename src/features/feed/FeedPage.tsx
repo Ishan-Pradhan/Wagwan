@@ -4,12 +4,12 @@ import Stories from "./components/Stories";
 
 function FeedPage() {
   return (
-    <div className="grid lg:grid-cols-6 grid-cols-1 mt-10">
-      <div className="lg:col-span-4  ">
+    <div className="mt-10 grid grid-cols-1 lg:grid-cols-6">
+      <div className="lg:col-span-4">
         <Stories />
         <Feeds />
       </div>
-      <div className="lg:col-span-2 items-start justify-start hidden lg:flex">
+      <div className="hidden items-start justify-start lg:col-span-2 lg:flex">
         <RightSideNav />
       </div>
     </div>

@@ -8,7 +8,7 @@ function Confirmation({
   message: string;
 }) {
   return (
-    <div className="flex gap-3 max-w-sm items-center  p-3 border-2 border-gray-300 rounded-lg pop-up ">
+    <div className="pop-up flex max-w-sm items-center gap-3 rounded-lg border-2 border-gray-300 p-3">
       {isSuccess && (
         <div>
           <CheckCircleIcon size={32} fill="green" weight="duotone" />

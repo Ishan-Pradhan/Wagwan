@@ -8,7 +8,7 @@ function SimpleInput({
   type,
 }: SimpleInputPropTypes) {
   return (
-    <div className="w-full flex flex-col gap-2 relative ">
+    <div className="relative flex w-full flex-col gap-2">
       <input
         type={type}
         id={name}
@@ -16,20 +16,11 @@ function SimpleInput({
         name={name}
         value={value}
         onChange={onChange}
-        className={`peer border w-full   rounded-sm px-3 py-2 focus-within:outline focus-within:outline-primary-500   hover:bg-gray-100 hover:border-gray-300 transition-all duration-100 ease-in 
-`}
+        className={`peer focus-within:outline-primary-500 w-full rounded-sm border px-3 py-2 transition-all duration-100 ease-in focus-within:outline hover:border-gray-300 hover:bg-gray-100`}
       />
       <label
         htmlFor={name}
-        className="absolute text-sm top-3.5 left-2.5 
-      peer-placeholder-shown:top-2.5
-      peer-placeholder-shown:text-sm
-      peer-focus:top-0
-      peer-focus:text-xs
-      pointer-events-none
-    text-gray-500
-      peer-not-placeholder-shown:top-0
-      peer-not-placeholder-shown:text-xs"
+        className="pointer-events-none absolute top-3.5 left-2.5 text-sm text-gray-500 peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:text-xs peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
       >
         {placeholder}
       </label>

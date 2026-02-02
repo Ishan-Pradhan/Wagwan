@@ -2,16 +2,14 @@ import { useState } from "react";
 import { useResetPassword } from "../hooks/useResetPassword";
 import Button from "@components/custom-ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import type { ResetPasswordProps } from "../types/ResetPasswordTypes";
 
-interface Props {
-  token: string;
-}
-
-function ResetPasswordForm({ token }: Props) {
+function ResetPasswordForm({ token }: ResetPasswordProps) {
   const [newPassword, setNewPassword] = useState("");
+
   const resetPasswordMutation = useResetPassword();
   const navigate = useNavigate();
 
@@ -43,7 +41,7 @@ function ResetPasswordForm({ token }: Props) {
       />
       <Button type="submit" disabled={resetPasswordMutation.isPending}>
         {resetPasswordMutation.isPending ? (
-          <div className="flex gap-2 items-center justify-center">
+          <div className="flex items-center justify-center gap-2">
             <span>Changing password</span> <Spinner />
           </div>
         ) : (

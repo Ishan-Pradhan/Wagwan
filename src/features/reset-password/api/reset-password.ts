@@ -1,6 +1,6 @@
 import api from "api/api";
 import axios from "axios";
-import type { ResetPasswordPayload } from "types/ResetPasswordPayloadTypes";
+import type { ResetPasswordPayload } from "features/reset-password/types/ResetPasswordPayloadTypes";
 
 export const resetPassword = async ({
   token,
@@ -10,7 +10,7 @@ export const resetPassword = async ({
     const res = await api.post(
       `/users/reset-password/${token}`,
       { newPassword },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return res.data;
   } catch (err) {

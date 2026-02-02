@@ -6,7 +6,7 @@ import Button from "@components/custom-ui/Button";
 function NotFound() {
   const navigate = useNavigate();
   return (
-    <div className="container grid h-lvh lg:grid-cols-2 grids-cols-1 items-center gap-16 lg:px-40">
+    <div className="grids-cols-1 container grid h-lvh items-center gap-16 lg:grid-cols-2 lg:px-40">
       <div className="flex flex-col items-start gap-8">
         <div className="flex flex-col">
           <span className="display-xl-medium text-gray-400">Error 404</span>

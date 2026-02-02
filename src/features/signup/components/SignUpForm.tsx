@@ -33,6 +33,7 @@ function SignUpForm() {
         toast.success(res.message);
         navigate("/verify-email", {
           replace: true,
+          //state can be access by using useLocation in another file
           state: { email: payload.email },
         });
       },
@@ -40,11 +41,11 @@ function SignUpForm() {
   };
 
   return (
-    <div className="flex flex-col mx-auto w-full max-w-xs gap-5 ">
+    <div className="mx-auto flex w-full max-w-xs flex-col gap-5">
       <h3 className="heading-3-semibold">Sign up to wagwan</h3>
       <div className="flex flex-col gap-4">
         {signUpMutation.isError && (
-          <p className="text-red-500 text-sm">
+          <p className="text-sm text-red-500">
             {signUpMutation.error.message}{" "}
           </p>
         )}
@@ -74,18 +75,17 @@ function SignUpForm() {
               type="password"
               placeholder="confirm password"
             />
-
             <Button type="submit" disabled={signUpMutation.isPending}>
               {signUpMutation.isPending ? "Signing up..." : "Sign up"}{" "}
             </Button>
           </form>
         </FormProvider>
       </div>
-      <div className="items-center h-full">
+      <div className="h-full items-center">
         <Divider word="OR" />
       </div>
 
-      <div className="flex flex-col gap-5 items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-5">
         <Link
           to="/forgot-password"
           className="body-m-medium hover:text-gray-700"
@@ -93,10 +93,10 @@ function SignUpForm() {
           Forgot Password?
         </Link>
 
-        <p className="body-m-regular flex gap-1 items-center">
+        <p className="body-m-regular flex items-center gap-1">
           Have an account?
           <Link
-            className="text-primary-900 cursor-pointer hover:text-primary-500"
+            className="text-primary-900 hover:text-primary-500 cursor-pointer"
             to={"/login"}
           >
             Log in

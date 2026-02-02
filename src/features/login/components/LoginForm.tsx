@@ -55,17 +55,16 @@ function LoginForm() {
     });
   };
 
-  const handleGooglebutton = () => {
+  const handleGoogleButton = () => {
     window.location.href = "http://localhost:8080/api/v1/users/google";
-    // navigate("http://localhost:8080/api/v1/users/google");
   };
 
   return (
-    <div className="flex flex-col mx-auto w-full max-w-xs gap-5 ">
+    <div className="mx-auto flex w-full max-w-xs flex-col gap-5">
       <h3 className="heading-3-semibold">Log into wagwan</h3>
       <div className="flex flex-col gap-4">
         {loginMutation.isError && (
-          <p className="text-red-500 text-sm">{loginMutation.error.message} </p>
+          <p className="text-sm text-red-500">{loginMutation.error.message} </p>
         )}
 
         <FormProvider {...methods}>
@@ -93,14 +92,14 @@ function LoginForm() {
           </form>
         </FormProvider>
       </div>
-      <div className="items-center h-full">
+      <div className="h-full items-center">
         <Divider word="OR" />
       </div>
 
       <button
         type="button"
-        className="flex gap-3 justify-center items-center bg-white py-3 shadow-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-200 cursor-pointer transition-all duration-150 ease-in-out"
-        onClick={handleGooglebutton}
+        className="flex cursor-pointer items-center justify-center gap-3 rounded-lg bg-white py-3 shadow-sm transition-all duration-150 ease-in-out hover:bg-gray-50 dark:hover:bg-gray-200"
+        onClick={handleGoogleButton}
       >
         <img src={googleLogo} alt="google logo" />
         <span className="body-m-medium dark:text-gray-800">
@@ -108,7 +107,7 @@ function LoginForm() {
         </span>
       </button>
 
-      <div className="flex flex-col gap-5 items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-5">
         <Link
           to="/forgot-password"
           className="body-m-medium hover:text-gray-700"

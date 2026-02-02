@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 
-import LottieLoading from "@components/ui/LottieLoading";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import { useGetTagPosts } from "./hooks/useGetTagPosts";
-import type { Post } from "features/feed/types/FeedTypes";
+import type { Post } from "shared/features/posts/types/FeedTypes";
 import { SealCheckIcon } from "@phosphor-icons/react";
-import Spinner from "@components/ui/Spinner";
-import CommentDialog from "features/feed/components/CommentDialog";
-import PostCard from "features/feed/components/PostCard";
+import Spinner from "@components/custom-ui/Spinner";
+import PostCard from "shared/features/posts/PostCard";
+import CommentDialog from "shared/features/posts/CommentDialog";
 
 function TagsPage() {
   const { tag } = useParams();
@@ -28,6 +28,7 @@ function TagsPage() {
     setDialogOpen(false);
     setActivePost(null);
   };
+
   const posts =
     data?.pages?.flatMap((page) => {
       return page?.posts ?? [];
@@ -54,13 +55,13 @@ function TagsPage() {
 
   if (!data) {
     return (
-      <div className="h-[80vh] flex items-center justify-center">
+      <div className="flex h-[80vh] items-center justify-center">
         <LottieLoading />
       </div>
     );
   }
   return (
-    <div className="flex flex-col gap-6 mb-20 container py-5">
+    <div className="container mb-20 flex flex-col gap-6 py-5">
       <span className="body-l-medium">All results for Tag: {tag}</span>
 
       {posts.map((post: Post) => {
@@ -78,15 +79,15 @@ function TagsPage() {
       )}
 
       {hasNextPage && (
-        <div ref={observerRef} className="h-10 flex justify-center">
+        <div ref={observerRef} className="flex h-10 justify-center">
           {isFetchingNextPage && <Spinner />}
         </div>
       )}
 
       {!hasNextPage && (
-        <div className="flex flex-col gap-3 justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-3">
           <SealCheckIcon weight="duotone" size={32} fill="green" />
-          <span className="text-gray-500 body-l-medium">
+          <span className="body-l-medium text-gray-500">
             You are all caught up
           </span>
         </div>

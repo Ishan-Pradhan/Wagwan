@@ -1,11 +1,11 @@
-import { useGetProfile } from "../profile/hooks/useGetProfile";
-import LottieLoading from "@components/ui/LottieLoading";
+import { useGetProfile } from "../../../shared/features/user-profile/hooks/useGetProfile";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 import EditProfileForm from "./components/EditProfileForm";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";
 import api from "api/api";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import Spinner from "@components/ui/Spinner";
+import Spinner from "@components/custom-ui/Spinner";
 import { useAppSelector } from "stores/hooks";
 
 function EditProfile() {
@@ -32,9 +32,9 @@ function EditProfile() {
   };
 
   return (
-    <div className="flex flex-col gap-5  container lg:px-40 lg:py-10 py-5">
+    <div className="container flex flex-col gap-5 py-5 lg:px-40 lg:py-10">
       {!user?.isEmailVerified && (
-        <div className="bg-warning-50 rounded-md p-3 flex flex-col lg:flex-row lg:justify-between gap-2 border border-warning-200">
+        <div className="bg-warning-50 border-warning-200 flex flex-col gap-2 rounded-md border p-3 lg:flex-row lg:justify-between">
           <div className="flex flex-col">
             <span className="body-m-semibold">
               You have not verified your email.{" "}
@@ -46,7 +46,7 @@ function EditProfile() {
           <button
             onClick={handleVerifyingUser}
             disabled={loading}
-            className="bg-warning-500 hover:bg-warning-700  cursor-pointer text-white px-4 body-m-semibold rounded-sm flex items-center justify-center py-2"
+            className="bg-warning-500 hover:bg-warning-700 body-m-semibold flex cursor-pointer items-center justify-center rounded-sm px-4 py-2 text-white"
           >
             Verify Email
             {loading && <Spinner />}

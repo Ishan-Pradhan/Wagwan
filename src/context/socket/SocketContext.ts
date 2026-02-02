@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { Socket } from "socket.io-client";
 
 type SocketContextType = {
-  socketRef: React.MutableRefObject<Socket | null>;
+  socketRef: React.RefObject<Socket | null>;
 };
 export const SocketContext = createContext<SocketContextType | null>(null);
 
