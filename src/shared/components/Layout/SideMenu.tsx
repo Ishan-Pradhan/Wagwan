@@ -152,7 +152,7 @@ function SideMenu() {
                       {menu.menu === "profile" ? (
                         <img
                           src={user?.avatar?.url}
-                          className={`h-6 w-6 rounded-full ${
+                          className={`h-6 w-6 rounded-full object-cover ${
                             isActive ? "border-2 border-gray-700" : ""
                           }`}
                           alt="Profile"

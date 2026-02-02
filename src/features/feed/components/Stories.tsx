@@ -81,7 +81,7 @@ function Stories() {
                   src={user.avatar.url}
                   alt="user avatar"
                   onClick={() => markViewed(user)}
-                  className={`h-20 w-20 cursor-pointer rounded-full ${viewed ? "border-4 border-gray-500" : "from-primary-500 to-secondary-500 bg-linear-to-r p-1"}`}
+                  className={`h-20 w-20 cursor-pointer rounded-full object-cover ${viewed ? "border-4 border-gray-500" : "from-primary-500 to-secondary-500 bg-linear-to-r p-1"}`}
                 />
                 <span
                   className={`caption-semibold w-20 overflow-hidden text-center whitespace-nowrap ${user.username.length > 10 ? "text-ellipsis" : ""}`}

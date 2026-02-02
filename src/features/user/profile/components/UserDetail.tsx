@@ -34,7 +34,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
         {/* image */}
         <div>
           <img
-            className="h-20 w-20 shrink-0 rounded-full border border-gray-200 lg:h-30 lg:w-30"
+            className="h-20 w-20 shrink-0 rounded-full border border-gray-200 object-cover lg:h-30 lg:w-30"
             src={profile?.account?.avatar.url}
             alt="user avatar"
           />

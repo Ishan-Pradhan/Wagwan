@@ -47,7 +47,7 @@ function MessageUI({
             <img
               src={message.sender.avatar.url}
               alt={message.sender.username}
-              className="h-7 w-7 rounded-full border"
+              className="h-7 w-7 rounded-full border object-cover"
             />
           )}
 

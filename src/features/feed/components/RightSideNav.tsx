@@ -30,7 +30,7 @@ function RightSideNav() {
             <img
               src={userAvatar}
               alt="user avatar"
-              className="h-10 w-10 rounded-full border object-contain"
+              className="h-10 w-10 rounded-full border object-cover"
             />
           </Link>
           <div className="flex flex-col">
@@ -95,7 +95,7 @@ function RightSideNav() {
                 <div className="flex gap-4">
                   <img
                     src={follower.avatar.url}
-                    className="h-8 w-8 rounded-full"
+                    className="h-8 w-8 rounded-full object-cover"
                     alt=""
                   />
                   <div className="flex flex-col">

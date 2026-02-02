@@ -16,7 +16,7 @@ function MessageHeader({ activeChatUser }: { activeChatUser: ChatUserType }) {
         <img
           src={activeChatUser?.avatar.url}
           alt="user profile avatar"
-          className="h-10 w-10 rounded-full"
+          className="h-10 w-10 rounded-full object-cover"
         />
         <div className="flex flex-col">
           <span className="body-l-semibold">{activeChatUser?.username}</span>
