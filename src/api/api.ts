@@ -17,7 +17,11 @@ const refreshAccessToken = async () => {
 
   refreshPromise = (async () => {
     try {
-      await axios.post("/users/refresh-token", {}, { withCredentials: true });
+      await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/users/refresh-token`,
+        {},
+        { withCredentials: true },
+      );
     } catch (error) {
       console.error(error);
       throw error;
