@@ -1,10 +1,9 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 // Axios instance for API calls with cookies
-const API_BASE = import.meta.env.VITE_SERVER_URL;
 
 const api = axios.create({
-  baseURL: API_BASE,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
 });
@@ -18,11 +17,7 @@ const refreshAccessToken = async () => {
 
   refreshPromise = (async () => {
     try {
-      await axios.post(
-        "/api/v1/users/refresh-token",
-        {},
-        { withCredentials: true },
-      );
+      await axios.post("/users/refresh-token", {}, { withCredentials: true });
     } catch (error) {
       console.error(error);
       throw error;

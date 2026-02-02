@@ -56,7 +56,7 @@ function LoginForm() {
   };
 
   const handleGoogleButton = () => {
-    window.location.href = `${import.meta.env.VITE_SERVER_URL || "http://localhost:8080"}/api/v1/users/google`;
+    window.location.href = `${import.meta.env.VITE_SERVER_URL || "http://localhost:8080/api/v1"}/users/google`;
   };
 
   return (
