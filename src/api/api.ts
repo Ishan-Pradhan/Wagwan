@@ -1,45 +1,30 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
+// Axios instance for API calls with cookies
 const api = axios.create({
   baseURL: "/api/v1",
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
 
-// To handle multiple requests failing at the same time, we store the
-// refresh promise. All failed requests will wait for this one promise.
+// Tracks an ongoing token refresh so only one happens at a time
 let refreshPromise: Promise<void> | null = null;
 
-const logout = () => {
-  window.location.href = "/login";
-};
-
+// Refresh the access token, log out if it fails
 const refreshAccessToken = async () => {
-  // If a refresh is already in progress, return the existing promise
-  if (refreshPromise) {
-    return refreshPromise;
-  }
+  if (refreshPromise) return refreshPromise; // Wait if refresh is already running
 
-  // Create a new refresh promise
   refreshPromise = (async () => {
     try {
-      // Use a fresh axios instance to avoid infinite loops
       await axios.post(
         "/api/v1/users/refresh-token",
         {},
         { withCredentials: true },
       );
     } catch (error) {
-      // If refresh fails, we can't do anything. Clear the promise and throw.
-      refreshPromise = null;
-      logout();
-
+      console.error(error);
       throw error;
     } finally {
-      // Clear the promise so next time we can refresh again if needed
-      // (We keep it briefly to let parallel requests resolve)
       refreshPromise = null;
     }
   })();
@@ -47,30 +32,22 @@ const refreshAccessToken = async () => {
   return refreshPromise;
 };
 
+// Interceptor to handle 401 errors
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
     };
+    if (!originalRequest) return Promise.reject(error); // Fail if no request info
 
-    if (!originalRequest) {
-      return Promise.reject(error);
-    }
-
-    // If 401 Unauthorized and we haven't retried yet
     if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
+      originalRequest._retry = true; // Mark request as retried
       try {
-        // Wait for the refresh to complete
         await refreshAccessToken();
-
-        // Retry the original request
         return api(originalRequest);
-      } catch (refreshError) {
-        // If refresh fails, reject the original request
-        return Promise.reject(refreshError);
+      } catch {
+        return Promise.reject(error); // Reject if refresh fails
       }
     }
 

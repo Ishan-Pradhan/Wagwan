@@ -5,13 +5,11 @@ import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   return (
-    <>
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <AppWrapper />
-        </PersistGate>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <AppWrapper />
+      </PersistGate>
+    </Provider>
   );
 }
 

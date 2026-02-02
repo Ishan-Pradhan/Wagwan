@@ -16,6 +16,11 @@ import EditProfile from "features/user/edit-profile/EditProfile";
 import StoryPage from "features/story/StoryPage";
 import MessagePage from "features/message/MessagePage";
 import ChangePassword from "features/user/change-password/ChangePassword";
+import RouteError from "features/error/RouteError";
+import ErrorBoundary from "./ErrorBoundary";
+import FeedsFallback from "features/error/FeedsFallback";
+import MessageFallback from "features/error/MessageFallback";
+import UserProfileFallback from "features/error/UserProfileFallback";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -31,19 +36,51 @@ export const router = createBrowserRouter([
   {
     path: "/",
     loader: requireLogin,
+    errorElement: <RouteError />,
     element: <Layout />,
     children: [
-      { index: true, element: <FeedPage /> },
+      {
+        index: true,
+        element: (
+          <ErrorBoundary fallback={<FeedsFallback />}>
+            <FeedPage />
+          </ErrorBoundary>
+        ),
+      },
       { path: "post/:postId", element: <SinglePostPage /> },
       { path: "posts/tags/:tag", element: <TagsPage /> },
       { path: "story/:username", element: <StoryPage /> },
-      { path: "message", element: <MessagePage /> },
+      {
+        path: "message",
+        element: (
+          <ErrorBoundary
+            fallback={
+              <MessageFallback onRetry={() => window.location.reload()} />
+            }
+          >
+            <MessagePage />{" "}
+          </ErrorBoundary>
+        ),
+      },
       {
         path: "user",
         element: <Outlet />,
         children: [
           { element: <NotFound />, index: true },
-          { element: <UserProfile />, path: "profile/:username" },
+          {
+            element: (
+              <ErrorBoundary
+                fallback={
+                  <UserProfileFallback
+                    onRetry={() => window.location.reload()}
+                  />
+                }
+              >
+                <UserProfile />
+              </ErrorBoundary>
+            ),
+            path: "profile/:username",
+          },
           { element: <EditProfile />, path: "profile/edit-profile" },
           { element: <ChangePassword />, path: "profile/change-password" },
         ],
