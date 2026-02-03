@@ -134,7 +134,7 @@ function SideMenu() {
 
         <ul className="flex items-center gap-4 lg:w-full lg:flex-col">
           {menus.map((menu) => (
-            <li key={menu.menu}>
+            <li key={menu.menu} className="w-full">
               <NavLink
                 to={menu.path}
                 className={({ isActive }) =>
@@ -178,7 +178,7 @@ function SideMenu() {
               </NavLink>
             </li>
           ))}
-          <li>
+          <li className="w-full">
             <button
               onClick={
                 user?.isEmailVerified
