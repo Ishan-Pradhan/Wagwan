@@ -11,14 +11,6 @@ const api = axios.create({
 // Tracks an ongoing token refresh so only one happens at a time
 let refreshPromise: Promise<void> | null = null;
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
-  if (token && config.headers) {
-    config.headers["Authorization"] = `Bearer ${token}`;
-  }
-  return config;
-});
-
 // Refresh the access token, log out if it fails
 const refreshAccessToken = async () => {
   if (refreshPromise) return refreshPromise; // Wait if refresh is already running

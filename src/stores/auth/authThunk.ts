@@ -4,6 +4,7 @@ import type { User } from "types/LoginTypes";
 
 export const fetchCurrentUser = createAsyncThunk<User>(
   "auth/fetchCurrentUser",
+
   async (_, { rejectWithValue }) => {
     try {
       const res = await api.get("/users/current-user");
