@@ -92,7 +92,7 @@ function MessageUI({
               <DropdownMenuTrigger asChild>
                 <DotsThreeIcon
                   size={28}
-                  className="pointer-events-none shrink-0 cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
+                  className="shrink-0 cursor-pointer hover:text-gray-500 lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100"
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-40" align="end">

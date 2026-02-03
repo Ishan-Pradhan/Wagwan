@@ -79,7 +79,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
                 <DropdownMenuTrigger asChild>
                   <DotsThreeIcon
                     size={28}
-                    className="pointer-events-none cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
+                    className="cursor-pointer lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:hover:text-gray-500"
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end">
