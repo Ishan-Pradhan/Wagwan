@@ -21,19 +21,21 @@ function PostCard({
     <div className="mx-auto flex w-full max-w-md flex-col gap-3 p-3 sm:max-w-lg md:max-w-md">
       <div className="flex items-center justify-between px-4">
         {/* user info and created time */}
-        <Link
-          to={`/user/profile/${post.author.account.username}`}
-          className="flex items-center gap-3"
-        >
-          <img
-            src={post.author.account.avatar.url}
-            alt={post.author.account.username}
-            className="h-9 w-9 cursor-pointer rounded-full border border-gray-500"
-          />
+        <div className="flex items-center gap-3">
+          <Link
+            to={`/user/profile/${post.author.account.username}`}
+            className="flex items-center gap-3"
+          >
+            <img
+              src={post.author.account.avatar.url}
+              alt={post.author.account.username}
+              className="h-9 w-9 cursor-pointer rounded-full border border-gray-500 object-cover"
+            />
 
-          <span className="body-s-semibold cursor-pointer">
-            {post.author.account.username}
-          </span>
+            <span className="body-s-semibold cursor-pointer">
+              {post.author.account.username}
+            </span>
+          </Link>
 
           <div className="caption-medium flex items-center gap-2 text-gray-400">
             <CircleIcon weight="fill" size={5} />
@@ -45,7 +47,7 @@ function PostCard({
               <span>Edited</span>
             </div>
           )}
-        </Link>
+        </div>
 
         {/* menu */}
         <PostMenu post={post} />
