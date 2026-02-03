@@ -43,7 +43,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
         {/* user details */}
         <div className="flex flex-col gap-2 lg:gap-5">
           {/* user info and interactions */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-2 lg:gap-5">
             <span className="body-l-medium">{profile?.account?.username}</span>
             {user?._id === profile?.owner ? (
               <Link
@@ -64,10 +64,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             {user?._id === profile?.owner && (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <GearIcon
-                    size={24}
-                    className="cursor-pointer hover:text-gray-500"
-                  />
+                  <GearIcon className="text:xl cursor-pointer hover:text-gray-500 lg:text-2xl" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end">
                   <DropdownMenuGroup>
@@ -164,7 +161,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="mt-3 flex flex-col">
         {/* user's full name  */}
         <div className="body-s-bold flex gap-1 lg:hidden">
           <span>{profile?.firstName}</span>

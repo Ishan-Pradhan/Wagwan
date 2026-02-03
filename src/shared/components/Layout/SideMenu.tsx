@@ -152,7 +152,7 @@ function SideMenu() {
                       {menu.menu === "profile" ? (
                         <img
                           src={user?.avatar?.url}
-                          className={`h-6 w-6 rounded-full object-cover ${
+                          className={`h-8 w-8 rounded-full object-cover lg:h-6 lg:w-6 ${
                             isActive ? "border-2 border-gray-700" : ""
                           }`}
                           alt="Profile"
@@ -160,8 +160,7 @@ function SideMenu() {
                       ) : (
                         <Icon
                           weight={isActive ? "duotone" : "regular"}
-                          size={20}
-                          className={`flex shrink-0 ${isActive ? "rounded-md font-bold text-gray-800 dark:text-white lg:dark:text-gray-800" : ""}`}
+                          className={`flex shrink-0 text-2xl lg:text-lg ${isActive ? "rounded-md font-bold text-gray-800 dark:text-white lg:dark:text-gray-800" : ""}`}
                         />
                       )}
                       <span
@@ -190,7 +189,7 @@ function SideMenu() {
               }
               className="flex w-full cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:hover:bg-gray-100 dark:lg:hover:bg-gray-700"
             >
-              <PlusIcon weight={"regular"} size={20} />
+              <PlusIcon weight={"regular"} className="text-2xl lg:text-xl" />
               <span className="body-m-medium hidden text-gray-700 lg:flex dark:text-white">
                 Create
               </span>

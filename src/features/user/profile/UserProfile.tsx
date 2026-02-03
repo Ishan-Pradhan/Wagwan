@@ -62,7 +62,7 @@ function UserProfile() {
   }
 
   return (
-    <div className="container flex max-w-4xl flex-col justify-center gap-4 px-4 py-3 pb-20 lg:py-10">
+    <div className="container flex max-w-4xl flex-col justify-center gap-10 px-4 py-3 pb-20 lg:gap-13 lg:py-10">
       <UserDetail
         profile={profile}
         posts={posts}
