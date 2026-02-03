@@ -16,8 +16,10 @@ function VerifyEmailPage() {
           <p className="body-m-regular text-gray-600">
             We’ve sent a verification email to
           </p>
-          <span className="body-l-semibold">{email}</span>
-          <p className="body-m-regular text-center text-gray-600">
+          <span className="body-l-semibold text-gray-900 dark:text-gray-700">
+            {email}
+          </span>
+          <p className="body-s-regular text-center text-gray-600">
             Please open the email and click the verification link to complete
             the signup process. If you don’t see the email within a few minutes,
             check your spam or junk folder.
