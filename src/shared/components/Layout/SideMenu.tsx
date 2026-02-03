@@ -138,7 +138,7 @@ function SideMenu() {
               <NavLink
                 to={menu.path}
                 className={({ isActive }) =>
-                  `relative flex items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
+                  `relative flex items-center gap-3 rounded-md px-2 py-3 capitalize transition-colors duration-100 ease-in-out lg:px-4 ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
                 }
               >
                 {({ isActive }) => {
@@ -152,7 +152,7 @@ function SideMenu() {
                       {menu.menu === "profile" ? (
                         <img
                           src={user?.avatar?.url}
-                          className={`h-8 w-8 rounded-full object-cover lg:h-6 lg:w-6 ${
+                          className={`h-8 w-8 shrink-0 rounded-full object-cover lg:h-6 lg:w-6 ${
                             isActive ? "border-2 border-gray-700" : ""
                           }`}
                           alt="Profile"
