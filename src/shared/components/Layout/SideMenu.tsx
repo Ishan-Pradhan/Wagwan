@@ -132,7 +132,7 @@ function SideMenu() {
           <Logo />
         </div>
 
-        <ul className="flex gap-4 lg:w-full lg:flex-col">
+        <ul className="flex items-center gap-4 lg:w-full lg:flex-col">
           {menus.map((menu) => (
             <li key={menu.menu}>
               <NavLink
