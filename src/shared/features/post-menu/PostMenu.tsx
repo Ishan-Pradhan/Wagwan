@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { handleShare } from "utils/handleShare";
+import { useNavigate } from "react-router";
 
 function PostMenu({ post }: { post: Post }) {
   const { user } = useAppSelector((state) => state.auth);
@@ -22,6 +23,8 @@ function PostMenu({ post }: { post: Post }) {
 
   const queryClient = useQueryClient();
   const deletePostMutation = usePostDelete();
+
+  const navigate = useNavigate();
 
   const closeEditPostDialog = () => {
     setOpenEditPostDialog(false);
@@ -34,6 +37,7 @@ function PostMenu({ post }: { post: Post }) {
         queryClient.invalidateQueries({ queryKey: ["feed"] });
         queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        navigate(`/user/profile/${post.author.account.username}`);
       },
     });
   };

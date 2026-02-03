@@ -1,4 +1,4 @@
-import { WarningIcon } from "@phosphor-icons/react";
+import { ArrowCounterClockwiseIcon, WarningIcon } from "@phosphor-icons/react";
 
 function MessageFallback({ onRetry }: { onRetry?: () => void }) {
   return (
@@ -12,12 +12,15 @@ function MessageFallback({ onRetry }: { onRetry?: () => void }) {
       </div>
 
       {onRetry && (
-        <button onClick={onRetry} className="mt-2">
-          Retry
+        <button
+          onClick={onRetry}
+          className="mt-2 flex cursor-pointer items-center gap-2 hover:text-gray-500"
+        >
+          <span>Retry</span>
+          <ArrowCounterClockwiseIcon />
         </button>
       )}
     </div>
   );
 }
-
 export default MessageFallback;

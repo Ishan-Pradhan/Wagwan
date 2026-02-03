@@ -59,8 +59,8 @@ function MessageUI({
             <span
               className={`body-m-regular ${
                 message.sender._id === user._id
-                  ? "bg-primary-500 gap-2 self-end rounded-md px-4 py-2 break-all text-white"
-                  : "flex break-after-all flex-col gap-4 self-start rounded-md bg-gray-200 px-4 py-2 text-black"
+                  ? "bg-primary-500 gap-3 self-end rounded-md px-4 py-2 break-all text-white"
+                  : "flex break-after-all flex-col gap-3 self-start rounded-md bg-gray-200 px-4 py-2 text-black"
               }`}
             >
               {message.attachments?.length > 0 && (

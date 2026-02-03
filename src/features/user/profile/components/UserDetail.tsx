@@ -30,18 +30,18 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   };
   return (
     <div className="mx-auto">
-      <div className="flex w-full items-center gap-10 lg:justify-between">
+      <div className="flex w-full items-center gap-3 lg:justify-between lg:gap-10">
         {/* image */}
-        <div>
+        <div className="w-auto shrink-0">
           <img
-            className="h-20 w-20 shrink-0 rounded-full border border-gray-200 object-cover lg:h-30 lg:w-30"
+            className="h-20 w-20 rounded-full border border-gray-200 object-cover lg:h-30 lg:w-30"
             src={profile?.account?.avatar.url}
             alt="user avatar"
           />
         </div>
 
         {/* user details */}
-        <div className="flex flex-1 flex-col gap-2 lg:gap-5">
+        <div className="flex flex-col gap-2 lg:gap-5">
           {/* user info and interactions */}
           <div className="flex items-center gap-5">
             <span className="body-l-medium">{profile?.account?.username}</span>
@@ -93,6 +93,12 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
+                      className="flex cursor-pointer hover:bg-gray-100 lg:hidden dark:hover:bg-gray-600"
+                      onSelect={() => navigate("/user/profile/edit-profile")}
+                    >
+                      Edit Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
                       className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600"
                       onSelect={() => navigate("/user/profile/change-password")}
                     >
@@ -110,14 +116,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             )}
           </div>
 
-          {user?._id === profile?.owner ? (
-            <Link
-              to="/user/profile/edit-profile"
-              className="body-s-semibold flex cursor-pointer self-start rounded-md bg-gray-100 px-4 py-1.5 text-gray-900 hover:bg-gray-200 lg:hidden"
-            >
-              Edit Profile
-            </Link>
-          ) : (
+          {user?._id !== profile?.owner && (
             <button
               type="button"
               className={`bg-primary-500 flex cursor-pointer self-start rounded-sm px-3 py-1 text-white lg:hidden ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
@@ -129,12 +128,12 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
 
           {/* followers, posts and following counts */}
           <div className="flex items-center gap-5 lg:gap-10">
-            <div className="flex items-center gap-1">
+            <div className="flex flex-col items-center gap-1 lg:flex-row">
               <span className="body-l-semibold">{posts.length}</span>
               <span className="body-m-regular text-gray-600">posts</span>
             </div>
             <button
-              className="group flex cursor-pointer items-center gap-1"
+              className="group flex cursor-pointer flex-col items-center gap-1 lg:flex-row"
               onClick={() => setDialogType("followers")}
             >
               <span className="body-l-semibold">{profile?.followersCount}</span>
@@ -143,7 +142,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
               </span>
             </button>
             <button
-              className="group flex cursor-pointer items-center gap-1"
+              className="group flex cursor-pointer flex-col items-center gap-1 lg:flex-row"
               onClick={() => setDialogType("following")}
             >
               <span className="body-l-semibold">{profile?.followingCount}</span>
