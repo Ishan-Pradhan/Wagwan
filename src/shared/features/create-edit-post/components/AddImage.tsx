@@ -63,6 +63,9 @@ function AddImage({
           <label
             htmlFor="add-image"
             className="bg-primary-500 hover:bg-primary-600 cursor-pointer rounded-md px-4 py-2 text-white"
+            role="button"
+            tabIndex={0}
+            aria-label="upload images"
           >
             Select from device
           </label>
@@ -89,6 +92,7 @@ function AddImage({
           <div className="flex items-center gap-2">
             <label
               htmlFor="add-image-change"
+              tabIndex={0}
               className="cursor-pointer text-sm text-gray-800 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-600"
             >
               Add more images

@@ -22,11 +22,12 @@ function PostsGrid({
 
   return (
     <div className="grid grid-cols-3">
-      {posts.map((post) => (
+      {posts.map((post, index) => (
         <Link
           to={`/post/${post._id}`}
           className="group relative aspect-square border border-white"
           key={post._id}
+          aria-label={`${post.author.account.username}'s post number ${index + 1}`}
         >
           <img
             src={post.images[0].url}

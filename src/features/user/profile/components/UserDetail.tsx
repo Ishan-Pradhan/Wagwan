@@ -36,7 +36,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           <img
             className="h-20 w-20 rounded-full border border-gray-200 object-cover lg:h-30 lg:w-30"
             src={profile?.account?.avatar.url}
-            alt="user avatar"
+            alt={`${profile?.account?.username}'s avatar`}
           />
         </div>
 
@@ -64,7 +64,13 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             {user?._id === profile?.owner && (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <GearIcon className="text:xl cursor-pointer hover:text-gray-500 lg:text-2xl" />
+                  <button
+                    className="text:xl cursor-pointer hover:text-gray-500 lg:text-2xl"
+                    type="button"
+                    aria-label="user profile setting"
+                  >
+                    <GearIcon />
+                  </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end">
                   <DropdownMenuGroup>
@@ -132,6 +138,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             <button
               className="group flex cursor-pointer flex-col items-center gap-1 lg:flex-row"
               onClick={() => setDialogType("followers")}
+              aria-label="view followers"
             >
               <span className="body-l-semibold">{profile?.followersCount}</span>
               <span className="body-m-regular text-gray-600 group-hover:text-gray-400">
@@ -141,6 +148,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             <button
               className="group flex cursor-pointer flex-col items-center gap-1 lg:flex-row"
               onClick={() => setDialogType("following")}
+              aria-label="view followings"
             >
               <span className="body-l-semibold">{profile?.followingCount}</span>
               <span className="body-m-regular text-gray-600 group-hover:text-gray-400">

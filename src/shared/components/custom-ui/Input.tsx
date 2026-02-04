@@ -37,6 +37,7 @@ function Input({
           name={name}
           value={value}
           onChange={(e) => setValue(name, e.target.value)}
+          aria-label={placeholder}
         />
         <label
           htmlFor={name}

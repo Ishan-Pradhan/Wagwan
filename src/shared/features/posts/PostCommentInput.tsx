@@ -41,6 +41,8 @@ function PostCommentInput({ postId }: { postId: string }) {
         }}
       />
       <button
+        type="button"
+        aria-label="post comment"
         className="bg-primary-500 body-s-regular hover:bg-primary-600 hidden cursor-pointer items-center justify-center rounded-sm border px-2 text-white peer-not-placeholder-shown:flex"
         onClick={() => handlePostComment(postId, newComment)}
       >

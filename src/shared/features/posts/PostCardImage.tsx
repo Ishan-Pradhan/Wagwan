@@ -12,7 +12,7 @@ function PostCardImage({ images }: ImagesProps) {
         <img
           className="h-full w-full object-cover"
           src={getImageSrc(images[0])}
-          alt="user post"
+          alt="user's post"
           loading="lazy"
         />
       </div>

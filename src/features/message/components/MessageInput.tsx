@@ -26,14 +26,22 @@ function MessageInput({
           setAttachments(Array.from(e.target.files).slice(0, 5));
         }}
       />
-      <label htmlFor="attachment-input" className="cursor-pointer">
-        <PlusIcon size={22} className="hover:text-gray-500" />
+      <label
+        htmlFor="attachment-input"
+        aria-label="add attachments"
+        className="cursor-pointer hover:text-gray-500"
+        title="add attachements"
+        role="button"
+        tabIndex={0}
+      >
+        <PlusIcon size={22} />
       </label>
       <div className="w-full">
         <input
           type="text"
           className="h-full w-full rounded-full border border-gray-200 px-3 py-3"
           placeholder="Message"
+          aria-label="message"
           value={messageToBeSent}
           onKeyDown={(e) => {
             if (e.key === "Enter") sendMessage();
