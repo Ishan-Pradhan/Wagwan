@@ -45,10 +45,12 @@ function PostMenu({ post }: { post: Post }) {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <DotsThreeIcon
-          size={28}
-          className="cursor-pointer hover:text-gray-500"
-        />
+        <button type="button" aria-label="post menu">
+          <DotsThreeIcon
+            size={28}
+            className="cursor-pointer hover:text-gray-500"
+          />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuGroup>

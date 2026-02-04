@@ -55,11 +55,12 @@ function TagsPage() {
 
   if (!data) {
     return (
-      <div className="flex h-[80vh] items-center justify-center">
+      <div className="flex h-full items-center justify-center">
         <LottieLoading />
       </div>
     );
   }
+
   return (
     <div className="container mb-20 flex flex-col gap-6 py-5">
       <span className="body-l-medium">All results for Tag: {tag}</span>

@@ -72,10 +72,11 @@ function SinglePostPage() {
   if (!post) {
     return <SkeletonLoading />;
   }
+
   return (
-    <div className="grid w-full grid-cols-1 items-center justify-center gap-0 overflow-hidden p-0 pb-10 lg:mt-10 lg:grid-cols-2 lg:px-10 lg:pb-0">
+    <div className="grid w-full grid-cols-1 items-center justify-center gap-0 overflow-hidden p-0 pb-10 lg:h-lvh lg:grid-cols-2 lg:px-10 lg:pb-0">
       {/* image content */}
-      <div className="h-[80vh] w-full flex-col justify-center overflow-hidden lg:flex">
+      <div className="h-[60vh] w-full flex-col justify-center overflow-hidden lg:flex lg:h-[80vh]">
         <PostCardImage images={post.images} />
       </div>
 
@@ -168,6 +169,10 @@ function SinglePostPage() {
               className="w-full rounded border px-2 py-1"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter")
+                  handlePostComment(postId as string, newComment);
+              }}
             />
             <button
               className="text-primary-500 hover:text-primary-600 flex flex-1 cursor-pointer items-center gap-2 px-3 py-1"

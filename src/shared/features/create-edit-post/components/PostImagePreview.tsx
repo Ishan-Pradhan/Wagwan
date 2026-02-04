@@ -111,12 +111,14 @@ function PostImagePreview({
                 {!forAddImage &&
                   images[index].type === "existing" &&
                   images.length > 1 && (
-                    <div
-                      className="absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-gray-700"
+                    <button
+                      type="button"
+                      className="absolute top-4 right-4 cursor-pointer rounded-full p-2 text-red-500 hover:text-gray-700"
+                      aria-label="delete image"
                       onClick={() => handleDeleteImage(images[index], postId!)}
                     >
-                      <TrashIcon />
-                    </div>
+                      <TrashIcon size={18} />
+                    </button>
                   )}
               </div>
             </SplideSlide>

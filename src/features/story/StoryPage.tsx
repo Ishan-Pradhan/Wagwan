@@ -17,7 +17,7 @@ function StoryPage() {
   const firstPost = data?.pages?.[0]?.posts?.[0];
   if (!firstPost)
     return (
-      <div className="relative flex h-lvh w-full items-center justify-center bg-gray-800 text-white">
+      <div className="relative flex h-[80vh] w-full items-center justify-center bg-gray-800 text-white lg:h-lvh">
         <span>User doesn't have story</span>
         <Link
           to="/"
@@ -29,8 +29,8 @@ function StoryPage() {
     );
 
   return (
-    <div className="relative flex h-lvh items-center justify-center bg-gray-800">
-      <div className="mx-auto flex h-[80vh] w-sm flex-col">
+    <div className="relative flex h-[80vh] items-center justify-center bg-gray-800 py-3 lg:h-lvh">
+      <div className="mx-auto flex h-[70vh] w-sm flex-col">
         <Splide
           hasTrack={false}
           aria-label="Story"
@@ -50,7 +50,7 @@ function StoryPage() {
           >
             <img
               src={profile?.account.avatar.url}
-              alt="user avatar"
+              alt={`${profile?.account.username}'s avatar`}
               className="h-10 w-10 rounded-full border border-gray-100 object-cover"
             />
             <span className="body-l-semibold text-white">{username}</span>
@@ -70,7 +70,10 @@ function StoryPage() {
             <div className="splide__progress__bar" />
           </div>
 
-          <button className="splide__toggle absolute top-22 right-4">
+          <button
+            aria-label="play/pause button"
+            className="splide__toggle absolute top-22 right-4"
+          >
             <span className="splide__toggle__play">
               <PlayIcon size={24} fill="white" weight="fill" />
             </span>
@@ -82,6 +85,7 @@ function StoryPage() {
       </div>
       <Link
         to="/"
+        aria-label="close button"
         className="absolute top-5 right-5 text-3xl text-white lg:top-10 lg:right-10"
       >
         <XIcon />

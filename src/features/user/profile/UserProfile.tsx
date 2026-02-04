@@ -77,8 +77,10 @@ function UserProfile() {
         >
           <button
             type="button"
+            aria-label={`${profile?.account.username}'s post`}
             className={`flex w-full cursor-pointer items-center justify-center text-2xl lg:text-4xl`}
             onClick={() => setSearchParams({ tab: "posts" })}
+            aria-current={activeTab === "posts" ? "true" : "false"}
           >
             <div
               className={`border-b-2 px-5 ${activeTab === "posts" ? "border-black dark:border-white" : "border-transparent"}`}
@@ -90,8 +92,10 @@ function UserProfile() {
           {user?._id === profile?.account._id && (
             <button
               type="button"
+              aria-label="Your saved posts"
               className={`flex w-full cursor-pointer justify-center text-2xl lg:text-4xl`}
               onClick={() => setSearchParams({ tab: "bookmarks" })}
+              aria-current={activeTab === "bookmarks" ? "true" : "false"}
             >
               <div
                 className={`border-b-2 px-5 ${activeTab === "bookmarks" ? "border-black dark:border-white" : "border-transparent"}`}

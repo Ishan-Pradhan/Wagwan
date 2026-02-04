@@ -52,22 +52,32 @@ function InteractionContainer({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3 dark:text-white">
           <div className="flex items-center gap-1">
-            <HeartIcon
-              size={28}
-              weight={post.isLiked ? "fill" : "regular"}
-              fill={post.isLiked ? "red" : theme === "dark" ? "white" : ""}
+            <button
+              type="button"
               className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
               onClick={() => handleLike(post._id)}
-            />
+              aria-pressed={post.isLiked}
+              aria-label={post.isLiked ? "Unlike post" : "Like post"}
+            >
+              <HeartIcon
+                size={28}
+                weight={post.isLiked ? "fill" : "regular"}
+                fill={post.isLiked ? "red" : theme === "dark" ? "white" : ""}
+              />
+            </button>
             <span className="body-m-bold">{post.likes}</span>
           </div>
           {!hideComment && (
             <div className="flex items-center gap-1">
-              <ChatCircleIcon
-                size={28}
+              <button
+                type="button"
+                aria-controls={`comments-${post._id}`}
+                aria-label="Show comments"
                 className={`cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105`}
                 onClick={() => onOpenComments(post)}
-              />
+              >
+                <ChatCircleIcon size={28} />
+              </button>
               <span
                 className={`body-m-bold ${post.comments === 0 ? "hidden" : ""}`}
               >
@@ -75,8 +85,10 @@ function InteractionContainer({
               </span>
             </div>
           )}
-          <ShareFatIcon
-            size={28}
+
+          <button
+            type="button"
+            aria-label="share post"
             className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
             onClick={() => {
               handleShare(
@@ -84,14 +96,22 @@ function InteractionContainer({
                 `${window.location.origin}/post/${post._id}`,
               );
             }}
-          />
+          >
+            <ShareFatIcon size={28} />
+          </button>
         </div>
-        <BookmarkSimpleIcon
-          size={28}
+        <button
+          type="button"
           className="cursor-pointer transition-transform duration-150 ease-in-out hover:scale-105"
           onClick={() => handleBookmark(post._id)}
-          weight={post.isBookmarked ? "fill" : "regular"}
-        />
+          aria-pressed={post.isBookmarked}
+          aria-label={post.isBookmarked ? "unbookmark post" : "bookmark post"}
+        >
+          <BookmarkSimpleIcon
+            size={28}
+            weight={post.isBookmarked ? "fill" : "regular"}
+          />
+        </button>
       </div>
       {/* <button
         type="button"

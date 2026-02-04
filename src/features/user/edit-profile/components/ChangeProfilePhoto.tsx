@@ -5,11 +5,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import Spinner from "@components/custom-ui/Spinner";
 import { useDispatch } from "react-redux";
 import { setUser } from "stores/auth/authSlice";
+import { useRef } from "react";
 
 function ChangeProfilePhoto({ user }: { user: User }) {
   const updatePhotoMutation = useUpdatePhoto();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
+
+  const triggerInput = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -62,11 +65,18 @@ function ChangeProfilePhoto({ user }: { user: User }) {
         <label
           className="bg-primary-700 hover:bg-primary-500 flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-white"
           htmlFor="avatar"
+          role="button"
+          aria-label="Change Photo"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") triggerInput.current?.click();
+          }}
         >
           <span>Change Photo</span>
           {updatePhotoMutation.isPending && <Spinner />}
         </label>
         <input
+          ref={triggerInput}
           type="file"
           id="avatar"
           name="avatar"

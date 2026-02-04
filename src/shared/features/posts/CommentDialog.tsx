@@ -44,8 +44,6 @@ export default function CommentDialog({
 
   const postCommentMutation = usePostComments();
 
-  const latestComments = comments.slice().reverse();
-
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -135,7 +133,7 @@ export default function CommentDialog({
               </div>
             ) : (
               <>
-                {latestComments.length === 0 && (
+                {comments.length === 0 && (
                   <div className="heading-2-medium flex h-full flex-col items-center justify-center gap-1">
                     <span> No Comments yet.</span>
                     <span className="body-s-regular text-gray-400">
@@ -143,7 +141,7 @@ export default function CommentDialog({
                     </span>
                   </div>
                 )}
-                {latestComments.map((comment) => {
+                {comments.map((comment) => {
                   return (
                     <CommentSection
                       key={comment._id}

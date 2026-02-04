@@ -79,7 +79,12 @@ function Stories() {
               >
                 <img
                   src={user.avatar.url}
-                  alt="user avatar"
+                  role="button"
+                  alt={`${user.username}'s story`}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") markViewed(user);
+                  }}
                   onClick={() => markViewed(user)}
                   className={`h-15 w-15 cursor-pointer rounded-full object-cover lg:h-20 lg:w-20 ${viewed ? "border-4 border-gray-500" : "from-primary-500 to-secondary-500 bg-linear-to-r p-1"}`}
                 />

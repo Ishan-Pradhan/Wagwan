@@ -37,6 +37,7 @@ function Input({
           name={name}
           value={value}
           onChange={(e) => setValue(name, e.target.value)}
+          aria-label={placeholder}
         />
         <label
           htmlFor={name}
@@ -47,15 +48,21 @@ function Input({
         {type === "password" && (
           <div className="absolute top-1/2 right-4 -translate-y-1/2">
             {seePassword ? (
-              <EyeIcon
+              <button
+                type="button"
+                aria-label="view password"
                 onClick={() => setSeePassword(!seePassword)}
-                className="cursor-pointer hover:text-gray-500 dark:text-gray-600"
-              />
+              >
+                <EyeIcon className="cursor-pointer hover:text-gray-500 dark:text-gray-600" />
+              </button>
             ) : (
-              <EyeClosedIcon
+              <button
+                aria-label="don't view password"
+                type="button"
                 onClick={() => setSeePassword(!seePassword)}
-                className="cursor-pointer hover:text-gray-500 dark:text-gray-600"
-              />
+              >
+                <EyeClosedIcon className="cursor-pointer hover:text-gray-500 dark:text-gray-600" />
+              </button>
             )}
           </div>
         )}

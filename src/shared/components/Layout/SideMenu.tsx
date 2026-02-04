@@ -56,7 +56,9 @@ function SideMenu() {
     const handleNotification = (message: Message) => {
       if (location.pathname !== "/message") {
         setHasNewMessage(true);
-        toast.success(`You have message from ${message.sender.username}`);
+        toast(`You have message from ${message.sender.username}`, {
+          icon: "💬",
+        });
       }
 
       // Update chats list cache globally
@@ -126,7 +128,10 @@ function SideMenu() {
   };
 
   return (
-    <div className="z-50 flex flex-col items-center justify-center gap-3 border-t border-gray-200 bg-gray-50 shadow-md lg:h-lvh lg:items-start lg:justify-between lg:border-t-0 lg:border-r lg:border-gray-200 lg:p-5 dark:bg-gray-800 dark:lg:border-gray-600">
+    <nav
+      aria-label="Main Navigation"
+      className="z-50 flex flex-col items-center justify-center gap-3 border-t border-gray-200 bg-gray-50 shadow-md lg:h-lvh lg:items-start lg:justify-between lg:border-t-0 lg:border-r lg:border-gray-200 lg:p-5 dark:bg-gray-800 dark:lg:border-gray-600"
+    >
       <div className="flex flex-col gap-10 lg:w-full">
         <div className="hidden px-4 lg:flex">
           <Logo />
@@ -137,6 +142,7 @@ function SideMenu() {
             <li key={menu.menu} className="w-full">
               <NavLink
                 to={menu.path}
+                aria-current="page"
                 className={({ isActive }) =>
                   `relative flex items-center gap-3 rounded-md px-2 py-3 capitalize transition-colors duration-100 ease-in-out lg:px-4 ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
                 }
@@ -200,10 +206,13 @@ function SideMenu() {
 
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <div className="hidden w-full cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out hover:bg-gray-100 lg:flex dark:hover:bg-gray-600">
+          <button
+            type="button"
+            className="hidden w-full cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out hover:bg-gray-100 lg:flex dark:hover:bg-gray-600"
+          >
             <ListIcon size={20} className="hover:text-gray-500" />
             <span className="body-m-medium">More</span>
-          </div>
+          </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-50" align="end">
           <DropdownMenuGroup>
@@ -213,6 +222,11 @@ function SideMenu() {
             <DropdownMenuItem
               className="r flex w-full items-center gap-5 hover:bg-gray-100 dark:hover:bg-gray-600"
               onClick={(e) => e.preventDefault()}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  toggleTheme();
+                }
+              }}
             >
               <label
                 htmlFor="dark-mode"
@@ -225,6 +239,7 @@ function SideMenu() {
                 id="dark-mode"
                 checked={theme === "dark"}
                 onCheckedChange={toggleTheme}
+                tabIndex={0}
               />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -258,7 +273,7 @@ function SideMenu() {
           onClose={closeCreatePostDialog}
         />
       )}
-    </div>
+    </nav>
   );
 }
 

@@ -28,7 +28,7 @@ function PostCard({
           >
             <img
               src={post.author.account.avatar.url}
-              alt={post.author.account.username}
+              alt={`${post.author.account.username}'s avatar`}
               className="h-9 w-9 cursor-pointer rounded-full border border-gray-500 object-cover"
             />
 
@@ -39,7 +39,12 @@ function PostCard({
 
           <div className="caption-medium flex items-center gap-2 text-gray-400">
             <CircleIcon weight="fill" size={5} />
-            <span>{formatTime(post.createdAt)}</span>
+            <time
+              dateTime={new Date(post.createdAt).toISOString()}
+              aria-label={`Posted ${formatTime(post.createdAt)} ago`}
+            >
+              {formatTime(post.createdAt)}
+            </time>
           </div>
           {post.updatedAt !== post.createdAt && (
             <div className="caption-medium flex items-center gap-2 text-gray-400">
@@ -71,10 +76,11 @@ function PostCard({
           <Link
             to={`/user/profile/${post.author.account.username}`}
             className="body-s-bold inline cursor-pointer"
+            aria-label={`posted by ${post.author.account.username}`}
           >
             {post.author.account.username}&nbsp;
           </Link>
-          {post.content}
+          <span aria-label="post content">{post.content}</span>
         </p>
 
         <button
@@ -82,8 +88,9 @@ function PostCard({
             post.content.length < 50 ? "hidden" : "flex"
           } `}
           onClick={() => setSeeMore(!seeMore)}
+          aria-label={seeMore ? "See less " : "See More"}
         >
-          {seeMore ? "See less" : "See More"}
+          {seeMore ? "See Less" : "See More"}
         </button>
         <div className="flex flex-wrap gap-1">
           {post.tags.map((tag, index) => (
@@ -91,6 +98,7 @@ function PostCard({
               to={`/posts/tags/${tag}`}
               className="text-primary-800 caption-semibold"
               key={index}
+              aria-label={`#${tag}`}
             >
               #{tag}
             </Link>
