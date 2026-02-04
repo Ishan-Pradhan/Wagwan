@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router";
 import Layout from "./Layout";
 import FeedPage from "../features/feed/FeedPage";
 import LoginPage from "../features/login/LoginPage";
+import OAuthCallbackPage from "../features/login/OAuthCallbackPage";
 import requireLogin from "./protectedRoutes/requireLogin";
 import ForgotPasswordPage from "features/forgot-password/ForgotPasswordPage";
 import SignUpPage from "features/signup/SignUpPage";
@@ -25,6 +26,7 @@ import UserProfileFallback from "features/error/UserProfileFallback";
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/signup", element: <SignUpPage /> },
+  { path: "/auth/callback", element: <OAuthCallbackPage /> },
   { path: "/forgot-password", element: <ForgotPasswordPage /> },
   { path: "/forgot-password/:token", element: <ResetPasswordPage /> },
   { path: "/verify-email", element: <VerifyEmailPage /> },
