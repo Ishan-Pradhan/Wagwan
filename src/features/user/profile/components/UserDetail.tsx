@@ -79,6 +79,11 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
                     </DropdownMenuLabel>
                     <DropdownMenuItem
                       className="r flex w-full items-center gap-5 hover:bg-gray-100 dark:hover:bg-gray-600"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          toggleTheme();
+                        }
+                      }}
                       onClick={(e) => e.preventDefault()}
                     >
                       <label

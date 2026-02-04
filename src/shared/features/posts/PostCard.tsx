@@ -88,8 +88,9 @@ function PostCard({
             post.content.length < 50 ? "hidden" : "flex"
           } `}
           onClick={() => setSeeMore(!seeMore)}
+          aria-label={seeMore ? "See less " : "See More"}
         >
-          {seeMore ? "See less" : "See More"}
+          {seeMore ? "See Less" : "See More"}
         </button>
         <div className="flex flex-wrap gap-1">
           {post.tags.map((tag, index) => (

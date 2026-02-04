@@ -93,7 +93,7 @@ function MessageUI({
                 <button
                   type="button"
                   aria-label="show message option"
-                  className="shrink-0 cursor-pointer hover:text-gray-500 lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100"
+                  className="shrink-0 cursor-pointer hover:text-gray-500 lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
                 >
                   <DotsThreeIcon size={28} />
                 </button>

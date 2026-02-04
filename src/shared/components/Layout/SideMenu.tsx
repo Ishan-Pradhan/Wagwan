@@ -56,7 +56,9 @@ function SideMenu() {
     const handleNotification = (message: Message) => {
       if (location.pathname !== "/message") {
         setHasNewMessage(true);
-        toast.success(`You have message from ${message.sender.username}`);
+        toast(`You have message from ${message.sender.username}`, {
+          icon: "💬",
+        });
       }
 
       // Update chats list cache globally

@@ -77,10 +77,13 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
             {user?._id === comment.author?.account?._id && (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <DotsThreeIcon
-                    size={28}
-                    className="cursor-pointer lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:hover:text-gray-500"
-                  />
+                  <button
+                    type="button"
+                    aria-label="comment option"
+                    className="focus:outline-primary-500 cursor-pointer focus:outline lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:hover:text-gray-500 lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
+                  >
+                    <DotsThreeIcon size={28} />
+                  </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end">
                   <DropdownMenuGroup>
@@ -104,11 +107,13 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
           </div>
         </div>
       </div>
-      <button className="cursor-pointer">
-        <HeartIcon
-          weight={commentLike ? "fill" : "regular"}
-          onClick={() => handleCommentLike(comment._id)}
-        />
+      <button
+        className="cursor-pointer"
+        type="button"
+        aria-label={commentLike ? "unlike comment" : "like comment"}
+        onClick={() => handleCommentLike(comment._id)}
+      >
+        <HeartIcon weight={commentLike ? "fill" : "regular"} />
       </button>
     </div>
   );

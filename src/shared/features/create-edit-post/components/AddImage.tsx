@@ -2,6 +2,7 @@ import { useFormContext } from "react-hook-form";
 import PostImagePreview from "./PostImagePreview";
 import { ImageIcon } from "@phosphor-icons/react";
 import type { AddImagePropTypes, ImageItem } from "../types/CreatePostTypes";
+import { useRef } from "react";
 
 function AddImage({
   images,
@@ -17,6 +18,8 @@ function AddImage({
 
   const hasImages =
     mode === "edit" ? true : images.some((i) => i.type === "new");
+
+  const triggerInput = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -65,12 +68,16 @@ function AddImage({
             className="bg-primary-500 hover:bg-primary-600 cursor-pointer rounded-md px-4 py-2 text-white"
             role="button"
             tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") triggerInput.current?.click();
+            }}
             aria-label="upload images"
           >
             Select from device
           </label>
 
           <input
+            ref={triggerInput}
             id="add-image"
             type="file"
             multiple
@@ -92,6 +99,9 @@ function AddImage({
           <div className="flex items-center gap-2">
             <label
               htmlFor="add-image-change"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") triggerInput.current?.click();
+              }}
               tabIndex={0}
               className="cursor-pointer text-sm text-gray-800 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-600"
             >
@@ -100,6 +110,7 @@ function AddImage({
 
             <input
               id="add-image-change"
+              ref={triggerInput}
               type="file"
               multiple
               accept="image/jpeg,image/png,image/webp"

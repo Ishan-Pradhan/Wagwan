@@ -1,18 +1,27 @@
 import { PlusIcon } from "@phosphor-icons/react";
 import Button from "@components/custom-ui/Button";
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import {
+  useRef,
+  type ChangeEvent,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+} from "react";
 
 function MessageInput({
   setAttachments,
   messageToBeSent,
   sendMessage,
   handleTypingInput,
+  messageInputRef,
 }: {
   setAttachments: Dispatch<SetStateAction<File[]>>;
   messageToBeSent: string;
   sendMessage: () => void;
   handleTypingInput: (e: ChangeEvent<HTMLInputElement>) => void;
+  messageInputRef: RefObject<HTMLInputElement | null>;
 }) {
+  const triggerInput = useRef<HTMLInputElement>(null);
   return (
     <div className="flex shrink-0 items-center gap-4 p-4">
       <input
@@ -21,6 +30,7 @@ function MessageInput({
         multiple
         hidden
         id="attachment-input"
+        ref={triggerInput}
         onChange={(e) => {
           if (!e.target.files) return;
           setAttachments(Array.from(e.target.files).slice(0, 5));
@@ -33,6 +43,9 @@ function MessageInput({
         title="add attachements"
         role="button"
         tabIndex={0}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") triggerInput.current?.click();
+        }}
       >
         <PlusIcon size={22} />
       </label>
@@ -43,6 +56,7 @@ function MessageInput({
           placeholder="Message"
           aria-label="message"
           value={messageToBeSent}
+          ref={messageInputRef}
           onKeyDown={(e) => {
             if (e.key === "Enter") sendMessage();
           }}

@@ -45,7 +45,7 @@ function RightSideNav() {
       <div className="flex w-full flex-col gap-5">
         <span className="body-m-bold">Suggested for you</span>
         <div className="flex w-full flex-col gap-8">
-          {noSuggestion.length === 0 && (
+          {!isLoading && noSuggestion.length === 0 && (
             <span className="body-s-regular text-gray-500">
               No suggestion for you currently
             </span>

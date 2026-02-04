@@ -168,6 +168,10 @@ function SinglePostPage() {
               className="w-full rounded border px-2 py-1"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter")
+                  handlePostComment(postId as string, newComment);
+              }}
             />
             <button
               className="text-primary-500 hover:text-primary-600 flex flex-1 cursor-pointer items-center gap-2 px-3 py-1"

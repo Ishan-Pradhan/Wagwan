@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
 import type { Message } from "../../../shared/features/message/types/MessageType";
 import { useGetMessageInChat } from "./../hooks/useGetMessageInChat";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { useSocket } from "context/socket/SocketContext";
 import {
   JOIN_CHAT_EVENT,
@@ -28,10 +28,12 @@ function MessageSection({
   user,
   activeChatUser,
   chatId,
+  messageInputRef,
 }: {
   user: User;
   activeChatUser: ChatUserType | null;
   chatId: string;
+  messageInputRef: RefObject<HTMLInputElement | null>;
 }) {
   const { socketRef } = useSocket();
 
@@ -203,6 +205,7 @@ function MessageSection({
             messageToBeSent={messageToBeSent}
             sendMessage={sendMessage}
             handleTypingInput={handleTypingInput}
+            messageInputRef={messageInputRef}
           />
         </>
       )}

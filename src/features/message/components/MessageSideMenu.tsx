@@ -25,15 +25,18 @@ import {
 import { useDeleteChat } from "../hooks/useDeleteChat";
 import { useNavigate, useSearchParams } from "react-router";
 import SkeletonLoading from "./SkeletonLoading";
+import type { RefObject } from "react";
 
 function MessageSideMenu({
   user,
   onSelectUser,
   setChatId,
+  messageInputRef,
 }: {
   user: User;
   onSelectUser: (user: ChatUserType) => void;
   setChatId: (chatId: string) => void;
+  messageInputRef: RefObject<HTMLInputElement | null>;
 }) {
   const { data: chats, isLoading: chatLoading } = useGetUsersList();
   const { data: chatUsers } = useGetAvailableUsers();
@@ -48,7 +51,7 @@ function MessageSideMenu({
 
   return (
     <div
-      className={`col-span-5 h-lvh border-gray-200 p-4 lg:col-span-1 lg:border-r dark:border-gray-600 ${isUserActive ? "hidden lg:flex" : "flex"}`}
+      className={`col-span-5 h-[80vh] border-gray-200 p-4 lg:col-span-1 lg:h-lvh lg:border-r dark:border-gray-600 ${isUserActive ? "hidden lg:flex" : "flex"}`}
     >
       <div className="flex h-full w-full flex-col gap-4">
         {/* Search */}
@@ -75,6 +78,7 @@ function MessageSideMenu({
                         setChatId(data.data._id);
                       },
                     });
+                    messageInputRef.current?.focus();
                     navigate(`/message?user=${item.username}`);
                     onSelectUser(item);
                   }}
@@ -128,6 +132,7 @@ function MessageSideMenu({
                       onSelectUser(receiver);
                       setChatId(chat._id);
                       navigate(`/message?user=${receiver.username}`);
+                      messageInputRef.current?.focus();
 
                       queryClient.setQueryData(["activeChatId"], chat._id);
 
@@ -165,10 +170,14 @@ function MessageSideMenu({
                       </div>
                       <DropdownMenu modal={false}>
                         <DropdownMenuTrigger asChild>
-                          <DotsThreeIcon
-                            size={28}
-                            className="pointer-events-none shrink-0 cursor-pointer opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 hover:text-gray-500"
-                          />
+                          <button
+                            type="button"
+                            onClick={(e) => e.stopPropagation()}
+                            aria-label="users option"
+                            className="shrink-0 cursor-pointer lg:pointer-events-none lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:hover:text-gray-500 lg:focus:outline lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
+                          >
+                            <DotsThreeIcon size={28} />
+                          </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-40" align="end">
                           <DropdownMenuGroup>

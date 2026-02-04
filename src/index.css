@@ -43,6 +43,10 @@
   body {
     @apply font-raleway bg-white dark:bg-gray-800;
   }
+
+  *:focus {
+    @apply outline-primary-500 outline-2;
+  }
 }
 
 @layer components {

@@ -47,7 +47,9 @@ function LoginForm() {
     loginMutation.mutate(payload, {
       onSuccess: (data) => {
         dispatch(setUser(data.data.user));
-        toast.success(data.message);
+        toast(`Welcome back ${data.data.user.username}`, {
+          icon: "👋",
+        });
 
         localStorage.setItem("user", JSON.stringify(data.data));
         navigate("/", { replace: true });

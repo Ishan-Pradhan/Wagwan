@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@components/custom-ui/Input";
 import Spinner from "@components/custom-ui/Spinner";
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router";
 
 function ChangePassword() {
   const methods = useForm<ChangePasswordFormInput>({
@@ -50,53 +52,65 @@ function ChangePassword() {
     formState: { isSubmitting },
   } = methods;
 
+  const navigate = useNavigate();
+
   return (
-    <div className="flex max-w-2xl flex-col gap-6 px-20 py-10">
-      <h3 className="body-l-medium">Change Password</h3>
+    <div className="flex max-w-2xl flex-col items-start gap-10 px-20 py-10">
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="flex cursor-pointer items-center gap-2 hover:text-gray-400"
+      >
+        <ArrowLeft />
+        <span>Back</span>
+      </button>
+      <div className="flex w-full flex-col gap-6">
+        <h3 className="body-l-medium">Change Password</h3>
 
-      <FormProvider {...methods}>
-        <form
-          action=""
-          onSubmit={handleSubmit(handleChangePassword)}
-          className="flex flex-col gap-4"
-        >
-          <Input
-            type="password"
-            placeholder="Current Password"
-            id="oldPassword"
-            name="oldPassword"
-          />
-
-          <Input
-            type="password"
-            placeholder="New Password"
-            id="newPassword"
-            name="newPassword"
-          />
-
-          <Input
-            type="password"
-            placeholder="Confirm New Password"
-            id="confirmPassword"
-            name="confirmPassword"
-          />
-
-          <button
-            className="bg-primary-500 hover:bg-primary-600 body-m-regular cursor-pointer self-end rounded-md px-10 py-3 text-white"
-            type="submit"
-            disabled={isSubmitting}
+        <FormProvider {...methods}>
+          <form
+            action=""
+            onSubmit={handleSubmit(handleChangePassword)}
+            className="flex flex-col gap-4"
           >
-            {isSubmitting ? (
-              <div className="flex gap-2">
-                <span className="">Changing Password</span>
-                <Spinner />
-              </div>
-            ) : (
-              "Change Password"
-            )}
-          </button>
-        </form>
-      </FormProvider>
+            <Input
+              type="password"
+              placeholder="Current Password"
+              id="oldPassword"
+              name="oldPassword"
+            />
+
+            <Input
+              type="password"
+              placeholder="New Password"
+              id="newPassword"
+              name="newPassword"
+            />
+
+            <Input
+              type="password"
+              placeholder="Confirm New Password"
+              id="confirmPassword"
+              name="confirmPassword"
+            />
+
+            <button
+              className="bg-primary-500 hover:bg-primary-600 body-m-regular cursor-pointer self-end rounded-md px-10 py-3 text-white"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <div className="flex gap-2">
+                  <span className="">Changing Password</span>
+                  <Spinner />
+                </div>
+              ) : (
+                "Change Password"
+              )}
+            </button>
+          </form>
+        </FormProvider>
+      </div>
     </div>
   );
 }

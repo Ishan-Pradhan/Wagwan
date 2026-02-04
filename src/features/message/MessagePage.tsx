@@ -1,6 +1,6 @@
 import MessageSideMenu from "./components/MessageSideMenu";
 import MessageSection from "./components/MessageSection";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { ChatUserType } from "./types/ChatUserType";
 import { useAppSelector } from "stores/hooks";
 
@@ -11,6 +11,7 @@ function MessagePage() {
     null,
   );
   const [chatId, setChatId] = useState("");
+  const messageInputRef = useRef<HTMLInputElement>(null);
 
   if (!user) return;
 
@@ -20,11 +21,13 @@ function MessagePage() {
         user={user}
         onSelectUser={(chatUser: ChatUserType) => setActiveChatUser(chatUser)}
         setChatId={setChatId}
+        messageInputRef={messageInputRef}
       />
       <MessageSection
         user={user}
         activeChatUser={activeChatUser}
         chatId={chatId}
+        messageInputRef={messageInputRef}
       />
     </div>
   );
