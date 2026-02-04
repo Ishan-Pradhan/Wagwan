@@ -54,7 +54,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
         <img
           src={comment.author.account.avatar.url}
           alt="user avatar"
-          className="h-10 w-10 rounded-full"
+          className="h-10 w-10 rounded-full object-cover"
         />
       </Link>
       <div className="flex flex-1 flex-col gap-1">

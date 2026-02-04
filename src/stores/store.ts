@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 const getStorage = (): WebStorage => {
   const maybeStorage = storage as unknown;
 
+  //this solves storage error
   // Check if it's the wrapped version { default: WebStorage }
   if (
     maybeStorage &&
