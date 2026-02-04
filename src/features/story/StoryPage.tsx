@@ -17,7 +17,7 @@ function StoryPage() {
   const firstPost = data?.pages?.[0]?.posts?.[0];
   if (!firstPost)
     return (
-      <div className="relative flex h-lvh w-full items-center justify-center bg-gray-800 text-white">
+      <div className="relative flex h-[80vh] w-full items-center justify-center bg-gray-800 text-white lg:h-lvh">
         <span>User doesn't have story</span>
         <Link
           to="/"
@@ -29,8 +29,8 @@ function StoryPage() {
     );
 
   return (
-    <div className="relative flex h-lvh items-center justify-center bg-gray-800">
-      <div className="mx-auto flex h-[80vh] w-sm flex-col">
+    <div className="relative flex h-[80vh] items-center justify-center bg-gray-800 py-3 lg:h-lvh">
+      <div className="mx-auto flex h-[70vh] w-sm flex-col">
         <Splide
           hasTrack={false}
           aria-label="Story"

@@ -30,12 +30,15 @@ function PostCardImage({ images }: ImagesProps) {
           lazyLoad: "nearby",
         }}
       >
-        {images.map((img) => {
+        {images.map((img, index) => {
           return (
             <SplideSlide
               key={img._id}
-              className="h-full w-full overflow-hidden rounded-l-md"
+              className="relative h-full w-full overflow-hidden rounded-l-md"
             >
+              <div className="caption-regular absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-400/80 text-white dark:bg-gray-700/50">
+                {index + 1}/{images.length}
+              </div>
               <div className="bg-primary-50 flex h-full w-full overflow-hidden rounded-l-md">
                 <img
                   src={getImageSrc(img)}
