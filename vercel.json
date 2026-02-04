@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/api/v1/(.*)",
+      "destination": "https://freeapi-app-production-7453.up.railway.app/api/v1/$1"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
