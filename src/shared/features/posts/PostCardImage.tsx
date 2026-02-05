@@ -28,6 +28,11 @@ function PostCardImage({ images }: ImagesProps) {
           arrows: true,
           gap: "0",
           lazyLoad: "nearby",
+          breakpoint: {
+            500: {
+              arrows: false,
+            },
+          },
         }}
       >
         {images.map((img, index) => {
