@@ -24,16 +24,64 @@ import UserProfileFallback from "features/error/UserProfileFallback";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 
 export const router = createBrowserRouter([
-  { path: "/login", element: <LoginPage /> },
-  { path: "/signup", element: <SignUpPage /> },
-  { path: "/forgot-password", element: <ForgotPasswordPage /> },
-  { path: "/forgot-password/:token", element: <ResetPasswordPage /> },
-  { path: "/verify-email", element: <VerifyEmailPage /> },
+  {
+    path: "/login",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
+    element: <SignUpPage />,
+  },
+  {
+    path: "/forgot-password",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
+    element: <ForgotPasswordPage />,
+  },
+  {
+    path: "/forgot-password/:token",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
+    element: <ResetPasswordPage />,
+  },
+  {
+    path: "/verify-email",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
+    element: <VerifyEmailPage />,
+  },
   {
     path: "/users/verify-email/:token",
     element: <VerificationResultPage />,
   },
-  { path: "*", element: <NotFound /> },
+  {
+    path: "*",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
+    element: <NotFound />,
+  },
   {
     path: "/",
     loader: requireLogin,
