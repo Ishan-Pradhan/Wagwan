@@ -21,6 +21,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import FeedsFallback from "features/error/FeedsFallback";
 import MessageFallback from "features/error/MessageFallback";
 import UserProfileFallback from "features/error/UserProfileFallback";
+import LottieLoading from "@components/custom-ui/LottieLoading";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -37,6 +38,7 @@ export const router = createBrowserRouter([
     path: "/",
     loader: requireLogin,
     errorElement: <RouteError />,
+    hydrateFallbackElement: <LottieLoading />,
     element: <Layout />,
     children: [
       {
