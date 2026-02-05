@@ -47,7 +47,7 @@ function SkeletonLoading() {
         </div>
         <div className="flex flex-col gap-2">
           {/* user's full name  */}
-          <div className="body-s-bold flex gap-4 lg:hidden">
+          <div className="body-s-bold mt-2 flex gap-4 lg:mt-0 lg:hidden">
             <div className="h-4 w-10 animate-pulse rounded-md bg-gray-400 dark:bg-gray-600"></div>
             <div className="h-4 w-10 animate-pulse rounded-md bg-gray-400 dark:bg-gray-600"></div>
           </div>
