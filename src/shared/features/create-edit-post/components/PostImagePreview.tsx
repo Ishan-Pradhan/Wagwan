@@ -73,7 +73,7 @@ function PostImagePreview({
 
   if (images.length === 1) {
     return (
-      <div className="relative mx-auto flex h-full items-center justify-center overflow-hidden rounded-md border border-gray-400 bg-gray-200">
+      <div className="relative mx-auto flex h-[50lvh] items-center justify-center overflow-hidden rounded-md border border-gray-400 bg-gray-200 lg:h-full">
         <div className="flex h-full overflow-hidden bg-gray-200">
           <img
             src={previews[0]}
