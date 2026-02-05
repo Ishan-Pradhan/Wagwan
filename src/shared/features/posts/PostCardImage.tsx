@@ -28,7 +28,7 @@ function PostCardImage({ images }: ImagesProps) {
           arrows: true,
           gap: "0",
           lazyLoad: "nearby",
-          breakpoint: {
+          breakpoints: {
             500: {
               arrows: false,
             },
