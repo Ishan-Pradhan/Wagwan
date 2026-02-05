@@ -127,7 +127,7 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
           {user?._id !== profile?.owner && (
             <button
               type="button"
-              className={`bg-primary-500 flex cursor-pointer self-start rounded-sm px-3 py-1 text-white lg:hidden ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
+              className={`bg-primary-500 body-s-semibold flex cursor-pointer self-start rounded-sm px-3 py-1 text-white lg:hidden ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
               onClick={() => handleFollow(profile?.account._id)}
             >
               {profile?.isFollowing ? "Following" : "Follow"}
