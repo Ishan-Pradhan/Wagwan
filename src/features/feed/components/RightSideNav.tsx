@@ -90,20 +90,20 @@ function RightSideNav() {
             .map((follower) => (
               <div
                 className="flex w-full items-center justify-between"
-                key={follower._id}
+                key={follower?._id}
               >
                 <div className="flex gap-4">
                   <img
-                    src={follower.avatar.url}
+                    src={follower?.avatar.url}
                     className="h-8 w-8 rounded-full object-cover"
                     alt=""
                   />
                   <div className="flex flex-col">
                     <Link
-                      to={`/user/profile/${follower.username}`}
+                      to={`/user/profile/${follower?.username}`}
                       className="body-s-semibold hover:text-gray-600"
                     >
-                      {follower.username}
+                      {follower?.username}
                     </Link>
                     <span className="caption-regular text-gray-500">
                       Suggested for you.
@@ -120,7 +120,7 @@ function RightSideNav() {
                         queryClient.invalidateQueries({
                           queryKey: [
                             "follow-list",
-                            { username: user.username, type: "followers" },
+                            { username: user?.username, type: "followers" },
                           ],
                         });
                         queryClient.invalidateQueries({

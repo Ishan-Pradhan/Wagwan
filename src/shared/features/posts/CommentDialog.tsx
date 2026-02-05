@@ -107,7 +107,7 @@ export default function CommentDialog({
                 alt="user avatar"
               />
               <Link to="" className="body-m-semibold">
-                {post.author?.account.username}
+                {post.author?.account?.username}
               </Link>
             </div>
             <PostMenu post={post} />{" "}

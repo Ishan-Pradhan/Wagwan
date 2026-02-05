@@ -111,8 +111,8 @@ function FollowersFollowingDialog({
                     className="flex items-center justify-between"
                     key={user._id}
                   >
-                    <Link to={`/user/profile/${user.username}`}>
-                      {user.username}
+                    <Link to={`/user/profile/${user?.username}`}>
+                      {user?.username}
                     </Link>
                     <button
                       type="button"

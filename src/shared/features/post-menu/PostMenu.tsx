@@ -37,7 +37,7 @@ function PostMenu({ post }: { post: Post }) {
         queryClient.invalidateQueries({ queryKey: ["feed"] });
         queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
         queryClient.invalidateQueries({ queryKey: ["posts"] });
-        navigate(`/user/profile/${post.author.account.username}`);
+        navigate(`/user/profile/${post.author.account?.username}`);
       },
     });
   };

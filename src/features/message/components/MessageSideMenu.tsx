@@ -57,7 +57,7 @@ function MessageSideMenu({
         {/* Search */}
         <Combobox
           items={chatUsers}
-          itemToStringValue={(chatUser: ChatUserType) => chatUser.username}
+          itemToStringValue={(chatUser: ChatUserType) => chatUser?.username}
         >
           <ComboboxInput placeholder="Search User" />
 
@@ -79,7 +79,7 @@ function MessageSideMenu({
                       },
                     });
                     messageInputRef.current?.focus();
-                    navigate(`/message?user=${item.username}`);
+                    navigate(`/message?user=${item?.username}`);
                     onSelectUser(item);
                   }}
                 >
@@ -87,10 +87,10 @@ function MessageSideMenu({
                     <div className="flex items-center gap-2">
                       <img
                         src={item.avatar.url}
-                        alt={item.username}
+                        alt={item?.username}
                         className="h-10 w-10 rounded-full object-cover"
                       />
-                      <span>{item.username}</span>
+                      <span>{item?.username}</span>
                     </div>
                   </div>
                 </ComboboxItem>
@@ -127,7 +127,7 @@ function MessageSideMenu({
                   <div
                     role="button"
                     key={chat._id}
-                    className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
+                    className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver?.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
                       onSelectUser(receiver);
                       setChatId(chat._id);
@@ -150,14 +150,14 @@ function MessageSideMenu({
                         )}
                         <img
                           src={receiver.avatar.url}
-                          alt={receiver.username}
+                          alt={receiver?.username}
                           className="h-10 w-10 rounded-full object-cover"
                         />
 
                         <div className="flex flex-col">
                           {/* Username of the receiver */}
                           <span className="body-m-medium line-clamp-1 w-20 overflow-hidden text-start text-ellipsis">
-                            {receiver.username}
+                            {receiver?.username}
                           </span>
 
                           {/* Last message */}

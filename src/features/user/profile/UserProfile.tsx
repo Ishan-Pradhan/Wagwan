@@ -77,7 +77,7 @@ function UserProfile() {
         >
           <button
             type="button"
-            aria-label={`${profile?.account.username}'s post`}
+            aria-label={`${profile?.account?.username}'s post`}
             className={`flex w-full cursor-pointer items-center justify-center text-2xl lg:text-4xl`}
             onClick={() => setSearchParams({ tab: "posts" })}
             aria-current={activeTab === "posts" ? "true" : "false"}

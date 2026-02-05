@@ -50,7 +50,7 @@ function StoryPage() {
           >
             <img
               src={profile?.account.avatar.url}
-              alt={`${profile?.account.username}'s avatar`}
+              alt={`${profile?.account?.username}'s avatar`}
               className="h-10 w-10 rounded-full border border-gray-100 object-cover"
             />
             <span className="body-l-semibold text-white">{username}</span>

@@ -90,10 +90,10 @@ function SinglePostPage() {
               alt="user avatar"
             />
             <Link
-              to={`/user/profile/${post.author.account.username}`}
+              to={`/user/profile/${post.author.account?.username}`}
               className="body-m-semibold"
             >
-              {post?.author?.account.username}
+              {post?.author?.account?.username}
             </Link>
           </div>
           <PostMenu post={post} />
@@ -101,15 +101,15 @@ function SinglePostPage() {
         <div className="hidden gap-4 lg:flex">
           <img
             className="h-10 w-10 rounded-full"
-            src={post?.author?.account.avatar.url}
+            src={post?.author?.account?.avatar?.url}
             alt="user avatar"
           />
           <p className={`body-s-regular`}>
             <Link
-              to={`/user/profile/${post.author.account.username}`}
+              to={`/user/profile/${post.author.account?.username}`}
               className="body-s-bold inline cursor-pointer"
             >
-              {post?.author?.account.username}&nbsp;
+              {post?.author?.account?.username}&nbsp;
             </Link>
             {post.content}
           </p>

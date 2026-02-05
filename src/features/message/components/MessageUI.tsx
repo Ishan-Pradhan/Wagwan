@@ -45,8 +45,8 @@ function MessageUI({
         >
           {message.sender._id !== user._id && (
             <img
-              src={message.sender.avatar.url}
-              alt={message.sender.username}
+              src={message.sender?.avatar.url}
+              alt={message.sender?.username}
               className="h-7 w-7 rounded-full border object-cover"
             />
           )}
