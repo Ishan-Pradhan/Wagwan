@@ -100,7 +100,7 @@ function Stories() {
         {hasNextPage && (
           <div ref={observerRef} className="flex h-10 justify-center">
             {isFetchingNextPage && (
-              <div className="h-40 w-30 animate-pulse rounded-full bg-gray-500"></div>
+              <div className="h-40 w-30 animate-pulse rounded-full bg-gray-400 dark:bg-gray-600"></div>
             )}
           </div>
         )}
