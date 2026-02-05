@@ -19,7 +19,11 @@ function EditProfile() {
   const navigate = useNavigate();
 
   if (!profile) {
-    return isLoading ? <LottieLoading /> : null;
+    return isLoading ? (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ) : null;
   }
 
   const handleVerifyingUser = async () => {

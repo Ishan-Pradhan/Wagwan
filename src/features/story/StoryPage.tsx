@@ -12,7 +12,12 @@ function StoryPage() {
   const { data, isLoading } = useGetPosts(username);
   const { data: profile } = useGetProfile(username);
 
-  if (isLoading) return <LottieLoading />;
+  if (isLoading)
+    return (
+      <div className="h-[80vh]">
+        <LottieLoading />;
+      </div>
+    );
 
   const firstPost = data?.pages?.[0]?.posts?.[0];
   if (!firstPost)

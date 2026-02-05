@@ -38,7 +38,11 @@ export const router = createBrowserRouter([
     path: "/",
     loader: requireLogin,
     errorElement: <RouteError />,
-    hydrateFallbackElement: <LottieLoading />,
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
     element: <Layout />,
     children: [
       {
