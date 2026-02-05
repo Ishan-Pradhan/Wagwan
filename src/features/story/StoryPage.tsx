@@ -12,7 +12,12 @@ function StoryPage() {
   const { data, isLoading } = useGetPosts(username);
   const { data: profile } = useGetProfile(username);
 
-  if (isLoading) return <LottieLoading />;
+  if (isLoading)
+    return (
+      <div className="h-[80vh]">
+        <LottieLoading />;
+      </div>
+    );
 
   const firstPost = data?.pages?.[0]?.posts?.[0];
   if (!firstPost)
@@ -50,7 +55,7 @@ function StoryPage() {
           >
             <img
               src={profile?.account.avatar.url}
-              alt={`${profile?.account?.username}'s avatar`}
+              alt={`${profile?.account.username}'s avatar`}
               className="h-10 w-10 rounded-full border border-gray-100 object-cover"
             />
             <span className="body-l-semibold text-white">{username}</span>

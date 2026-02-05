@@ -56,7 +56,7 @@ function SideMenu() {
     const handleNotification = (message: Message) => {
       if (location.pathname !== "/message") {
         setHasNewMessage(true);
-        toast(`You have message from ${message.sender?.username}`, {
+        toast(`You have message from ${message.sender.username}`, {
           icon: "💬",
         });
       }

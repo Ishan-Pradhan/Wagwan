@@ -171,7 +171,9 @@ function MessageSection({
           {/* User info */}
           <ReceiverInfo activeChatUser={activeChatUser} />
           {isPending ? (
-            <LottieLoading />
+            <div className="h-full">
+              <LottieLoading />
+            </div>
           ) : (
             <MessageUI
               user={user}

@@ -55,7 +55,7 @@ function TagsPage() {
 
   if (!data) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-lvh items-center justify-center">
         <LottieLoading />
       </div>
     );
