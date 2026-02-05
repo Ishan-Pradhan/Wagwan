@@ -71,6 +71,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/users/verify-email/:token",
+    hydrateFallbackElement: (
+      <div className="h-lvh">
+        <LottieLoading />
+      </div>
+    ),
     element: <VerificationResultPage />,
   },
   {

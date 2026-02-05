@@ -18,7 +18,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api/v1": {
-        target: "https://freeapi-app-production-7453.up.railway.app",
+        target: "http://localhost:8080",
         changeOrigin: true,
         secure: false,
       },
