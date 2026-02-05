@@ -70,6 +70,7 @@ function EditProfileForm({ profile }: { profile: UserProfile }) {
         <textarea
           id="bio"
           placeholder="Bio"
+          rows={5}
           className="rounded-md border border-gray-300 p-2"
           name="bio"
           value={bio}

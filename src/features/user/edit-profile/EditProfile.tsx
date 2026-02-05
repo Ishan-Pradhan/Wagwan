@@ -7,12 +7,16 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import Spinner from "@components/custom-ui/Spinner";
 import { useAppSelector } from "stores/hooks";
+import { useNavigate } from "react-router";
+import { ArrowLeftIcon } from "@phosphor-icons/react";
 
 function EditProfile() {
   const { user } = useAppSelector((state) => state.auth);
 
   const { data: profile, isLoading } = useGetProfile(user?.username);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   if (!profile) {
     return isLoading ? <LottieLoading /> : null;
@@ -33,6 +37,14 @@ function EditProfile() {
 
   return (
     <div className="container flex flex-col gap-5 py-5 lg:px-40 lg:py-10">
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="flex cursor-pointer items-center gap-2 self-start hover:text-gray-400"
+      >
+        <ArrowLeftIcon />
+        <span>Back</span>
+      </button>
       {!user?.isEmailVerified && (
         <div className="bg-warning-50 border-warning-200 flex flex-col gap-2 rounded-md border p-3 lg:flex-row lg:justify-between">
           <div className="flex flex-col">

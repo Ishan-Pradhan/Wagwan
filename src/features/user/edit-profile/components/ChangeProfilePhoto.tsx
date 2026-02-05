@@ -63,16 +63,16 @@ function ChangeProfilePhoto({ user }: { user: User }) {
       </div>
       <form className="flex w-full justify-end">
         <label
-          className="bg-primary-700 hover:bg-primary-500 flex cursor-pointer items-center gap-2 rounded-sm px-4 py-2 text-white"
+          className="border-primary-500 hover:bg-primary-500 body-s-semibold text-primary-500 transiton-colors flex w-full cursor-pointer items-center justify-center gap-2 rounded-sm border-2 px-4 py-2 duration-150 ease-in-out hover:text-gray-50 lg:w-auto dark:text-white"
           htmlFor="avatar"
           role="button"
-          aria-label="Change Photo"
+          aria-label="Change avatar"
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === "Enter") triggerInput.current?.click();
           }}
         >
-          <span>Change Photo</span>
+          <span>Change Avatar</span>
           {updatePhotoMutation.isPending && <Spinner />}
         </label>
         <input
