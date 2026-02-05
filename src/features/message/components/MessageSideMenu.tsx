@@ -124,8 +124,8 @@ function MessageSideMenu({
                 const receiver = receivers[0];
                 if (!receiver) return null;
                 return (
-                  <button
-                    type="button"
+                  <div
+                    role="button"
                     key={chat._id}
                     className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
@@ -199,7 +199,7 @@ function MessageSideMenu({
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
-                  </button>
+                  </div>
                 );
               })}
           </div>

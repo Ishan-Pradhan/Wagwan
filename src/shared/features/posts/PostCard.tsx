@@ -23,17 +23,17 @@ function PostCard({
         {/* user info and created time */}
         <div className="flex items-center gap-3">
           <Link
-            to={`/user/profile/${post.author.account.username}`}
+            to={`/user/profile/${post.author.account?.username}`}
             className="flex items-center gap-3"
           >
             <img
-              src={post.author.account.avatar.url}
-              alt={`${post.author.account.username}'s avatar`}
+              src={post.author.account?.avatar.url}
+              alt={`${post.author.account?.username}'s avatar`}
               className="h-9 w-9 cursor-pointer rounded-full border border-gray-500 object-cover"
             />
 
             <span className="body-s-semibold cursor-pointer">
-              {post.author.account.username}
+              {post.author.account?.username}
             </span>
           </Link>
 
@@ -41,12 +41,12 @@ function PostCard({
             <CircleIcon weight="fill" size={5} />
             <time
               dateTime={new Date(post.createdAt).toISOString()}
-              aria-label={`Posted ${formatTime(post.createdAt)} ago`}
+              aria-label={`Posted ${formatTime(post?.createdAt)} ago`}
             >
-              {formatTime(post.createdAt)}
+              {formatTime(post?.createdAt)}
             </time>
           </div>
-          {post.updatedAt !== post.createdAt && (
+          {post?.updatedAt !== post?.createdAt && (
             <div className="caption-medium flex items-center gap-2 text-gray-400">
               <CircleIcon weight="fill" size={5} />
               <span>Edited</span>
@@ -60,7 +60,7 @@ function PostCard({
 
       {/* post */}
       <div className="flex aspect-4/5 h-full flex-col gap-3">
-        <PostCardImage images={post.images} />
+        <PostCardImage images={post?.images} />
 
         {/* like comment share and save */}
         <InteractionContainer post={post} onOpenComments={onOpenComments} />
@@ -74,13 +74,13 @@ function PostCard({
           } `}
         >
           <Link
-            to={`/user/profile/${post.author.account.username}`}
+            to={`/user/profile/${post.author.account?.username}`}
             className="body-s-bold inline cursor-pointer"
-            aria-label={`posted by ${post.author.account.username}`}
+            aria-label={`posted by ${post.author.account?.username}`}
           >
-            {post.author.account.username}&nbsp;
+            {post.author.account?.username}&nbsp;
           </Link>
-          <span aria-label="post content">{post.content}</span>
+          <span aria-label="post content">{post?.content}</span>
         </p>
 
         <button
