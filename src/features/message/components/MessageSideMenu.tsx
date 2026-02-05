@@ -88,7 +88,7 @@ function MessageSideMenu({
                       <img
                         src={item.avatar.url}
                         alt={item.username}
-                        className="h-10 w-10 rounded-full"
+                        className="h-10 w-10 rounded-full object-cover"
                       />
                       <span>{item.username}</span>
                     </div>
