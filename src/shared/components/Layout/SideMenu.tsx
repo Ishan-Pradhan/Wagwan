@@ -137,9 +137,14 @@ function SideMenu() {
           <Logo />
         </div>
 
-        <ul className="flex items-center gap-4 lg:w-full lg:flex-col">
+        <ul
+          className={`grid grid-cols-4 items-center gap-4 lg:w-full lg:grid-cols-1`}
+        >
           {menus.map((menu) => (
-            <li key={menu.menu} className="w-full">
+            <li
+              key={menu.menu}
+              className={`w-full ${menu.menu === "profile" ? "order-4" : ""}`}
+            >
               <NavLink
                 to={menu.path}
                 aria-current="page"
@@ -184,7 +189,7 @@ function SideMenu() {
               </NavLink>
             </li>
           ))}
-          <li className="w-full">
+          <li className="order-3 w-full">
             <button
               onClick={
                 user?.isEmailVerified
