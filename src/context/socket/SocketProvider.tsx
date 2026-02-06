@@ -9,26 +9,37 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (loading || !user) return;
-    if (socketRef.current) return;
+
+    // Disconnect previous socket if it exists
+    if (socketRef.current) {
+      socketRef.current.disconnect();
+      socketRef.current = null;
+    }
 
     const socket = io(
       import.meta.env.VITE_SOCKET_URL || "http://localhost:8080",
       {
         withCredentials: true,
+        transports: ["websocket"], // force WebSocket transport
       },
     );
 
     socketRef.current = socket;
 
-    return () => {};
-  }, [loading, user]);
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+    });
 
-  useEffect(() => {
+    socket.on("disconnect", () => {
+      console.log("Socket disconnected");
+    });
+
+    // Cleanup whenever user changes or component unmounts
     return () => {
-      socketRef.current?.disconnect();
+      socket.disconnect();
       socketRef.current = null;
     };
-  }, []);
+  }, [loading, user]);
 
   return (
     <SocketContext.Provider value={{ socketRef }}>
