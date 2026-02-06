@@ -130,26 +130,27 @@ function SideMenu() {
   return (
     <nav
       aria-label="Main Navigation"
-      className="z-50 flex flex-col items-center justify-center gap-3 border-t border-gray-200 bg-gray-50 shadow-md lg:h-lvh lg:items-start lg:justify-between lg:border-t-0 lg:border-r lg:border-gray-200 lg:p-5 dark:bg-gray-800 dark:lg:border-gray-600"
+      className="z-50 flex w-full flex-col items-center justify-center gap-3 border-t border-gray-200 bg-gray-50 shadow-md lg:h-lvh lg:items-start lg:justify-between lg:border-t-0 lg:border-r lg:border-gray-200 lg:py-5 xl:p-5 dark:bg-gray-800 dark:lg:border-gray-600"
     >
-      <div className="flex flex-col gap-10 lg:w-full">
-        <div className="hidden px-4 lg:flex">
+      <div className="flex w-full flex-col items-center gap-10 lg:justify-center xl:justify-start xl:p-0">
+        <div className="hidden px-4 xl:flex">
           <Logo />
         </div>
+        <div className="hidden lg:flex xl:hidden">W</div>
 
         <ul
-          className={`grid grid-cols-4 items-center gap-4 lg:w-full lg:grid-cols-1`}
+          className={`grid w-full grid-cols-4 items-center gap-4 lg:grid-cols-1 lg:justify-center xl:justify-start`}
         >
           {menus.map((menu) => (
             <li
               key={menu.menu}
-              className={`w-full ${menu.menu === "profile" ? "order-4" : ""}`}
+              className={`lg:mx-auto xl:mx-0 xl:w-full ${menu.menu === "profile" ? "order-4" : ""}`}
             >
               <NavLink
                 to={menu.path}
                 aria-current="page"
                 className={({ isActive }) =>
-                  `relative flex items-center gap-3 rounded-md px-2 py-3 capitalize transition-colors duration-100 ease-in-out lg:px-4 ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
+                  `relative flex w-full items-center justify-center gap-3 rounded-md p-3 capitalize transition-colors duration-100 ease-in-out lg:w-auto lg:p-3 xl:justify-start xl:px-4 ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
                 }
               >
                 {({ isActive }) => {
@@ -175,7 +176,7 @@ function SideMenu() {
                         />
                       )}
                       <span
-                        className={`hidden text-gray-700 lg:flex ${
+                        className={`hidden text-gray-700 xl:flex ${
                           isActive
                             ? "body-m-bold"
                             : "body-m-medium dark:text-white"
@@ -189,7 +190,7 @@ function SideMenu() {
               </NavLink>
             </li>
           ))}
-          <li className="order-3 w-full">
+          <li className="order-3 w-full lg:mx-auto lg:w-auto xl:mx-0 xl:w-full">
             <button
               onClick={
                 user?.isEmailVerified
@@ -198,10 +199,10 @@ function SideMenu() {
                       toast.error("Please verify your email to Add posts");
                     }
               }
-              className="flex w-full cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:hover:bg-gray-100 dark:lg:hover:bg-gray-700"
+              className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:p-3 lg:hover:bg-gray-100 xl:justify-start dark:lg:hover:bg-gray-700"
             >
               <PlusIcon weight={"regular"} className="text-2xl lg:text-xl" />
-              <span className="body-m-medium hidden text-gray-700 lg:flex dark:text-white">
+              <span className="body-m-medium hidden text-gray-700 xl:flex dark:text-white">
                 Create
               </span>
             </button>
@@ -213,10 +214,10 @@ function SideMenu() {
         <DropdownMenuTrigger asChild>
           <button
             type="button"
-            className="hidden w-full cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out hover:bg-gray-100 lg:flex dark:hover:bg-gray-600"
+            className="hidden cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out hover:bg-gray-100 lg:mx-auto lg:flex lg:p-3 xl:w-full dark:hover:bg-gray-600"
           >
             <ListIcon size={20} className="hover:text-gray-500" />
-            <span className="body-m-medium">More</span>
+            <span className="body-m-medium lg:hidden xl:flex">More</span>
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-50" align="end">
