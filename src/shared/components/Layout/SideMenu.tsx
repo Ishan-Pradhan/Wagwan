@@ -109,17 +109,20 @@ function SideMenu() {
       menu: "home",
       path: "/",
       icon: HouseIcon,
+      tabIndex: 1,
     },
     {
       menu: "messages",
       path: `${user?.isEmailVerified ? "/message" : `/user/profile/edit-profile`}`,
       icon: PaperPlaneTiltIcon,
+      tabIndex: 2,
     },
 
     {
       menu: "profile",
       path: `/user/profile/${user?.username}`,
       icon: UserCircleIcon,
+      tabIndex: 4,
     },
   ];
 
@@ -152,6 +155,7 @@ function SideMenu() {
                 className={({ isActive }) =>
                   `relative flex w-full items-center justify-center gap-3 rounded-md p-3 capitalize transition-colors duration-100 ease-in-out lg:w-auto lg:p-3 xl:justify-start xl:px-4 ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
                 }
+                tabIndex={menu.tabIndex}
               >
                 {({ isActive }) => {
                   const Icon = menu.icon;
@@ -199,6 +203,7 @@ function SideMenu() {
                       toast.error("Please verify your email to Add posts");
                     }
               }
+              tabIndex={3}
               className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:p-3 lg:hover:bg-gray-100 xl:justify-start dark:lg:hover:bg-gray-700"
             >
               <PlusIcon weight={"regular"} className="text-2xl lg:text-xl" />
