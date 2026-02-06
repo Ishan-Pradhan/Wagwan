@@ -4,9 +4,9 @@ function StoriesSkeletonLoading() {
       <div className="h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500"></div>
       <div className="h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500"></div>
       <div className="h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500"></div>
-      <div className="hidden: h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500 lg:flex"></div>
-      <div className="hidden: h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500 lg:flex"></div>
-      <div className="hidden: h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500 lg:flex"></div>
+      <div className="hidden h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500 xl:flex"></div>
+      <div className="hidden h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500 xl:flex"></div>
+      <div className="hidden h-20 w-20 shrink-0 animate-pulse rounded-full bg-gray-500 xl:flex"></div>
     </div>
   );
 }
