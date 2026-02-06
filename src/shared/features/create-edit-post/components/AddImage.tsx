@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, type FieldError } from "react-hook-form";
 import PostImagePreview from "./PostImagePreview";
 import { ImageIcon } from "@phosphor-icons/react";
 import type { AddImagePropTypes, ImageItem } from "../types/CreatePostTypes";
@@ -15,6 +15,8 @@ function AddImage({
     trigger,
     setValue,
   } = useFormContext();
+
+  console.log(errors);
 
   const hasImages =
     mode === "edit" ? true : images.some((i) => i.type === "new");
@@ -81,7 +83,7 @@ function AddImage({
             id="add-image"
             type="file"
             multiple
-            accept="image/jpeg,image/png,image/webp"
+            // accept="image/jpeg,image/png,image/webp"
             className="hidden"
             onChange={handleFileChange}
           />
@@ -121,10 +123,12 @@ function AddImage({
         </>
       )}
 
-      {errors.images && (
-        <p className="text-sm text-red-500">
-          {errors.images.message as string}
-        </p>
+      {errors.images && Array.isArray(errors.images) && (
+        <div className="text-sm text-red-500">
+          {errors.images.map((error: FieldError, index) => (
+            <p key={index}>{error.message}</p>
+          ))}
+        </div>
       )}
 
       {hasImages && (
