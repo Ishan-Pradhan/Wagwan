@@ -57,6 +57,24 @@ function MessageSection({
     queryClient.invalidateQueries({ queryKey: ["chat_messages", chatId] });
   }, [chatId, queryClient]);
 
+  useEffect(() => {
+    if (!socketRef.current || !chatId) return;
+    const socket = socketRef.current;
+
+    const handleNewMessage = (message: Message) => {
+      queryClient.setQueryData<Message[]>(
+        ["chat_messages", message.chat],
+        (old = []) => [...old, message],
+      );
+    };
+
+    socket.on("MESSAGE_RECEIVED_EVENT", handleNewMessage);
+
+    return () => {
+      socket.off("MESSAGE_RECEIVED_EVENT", handleNewMessage);
+    };
+  }, [chatId, socketRef, queryClient]);
+
   // socket events
   useEffect(() => {
     if (!socketRef.current || !chatId) return;
