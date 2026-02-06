@@ -151,7 +151,7 @@ function MessageSideMenu({
                         <img
                           src={receiver.avatar.url}
                           alt={receiver?.username}
-                          className="h-10 w-10 rounded-full object-cover"
+                          className="h-10 w-10 shrink-0 rounded-full object-cover"
                         />
 
                         <div className="flex flex-col">

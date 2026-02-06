@@ -8,7 +8,7 @@ function ReceiverInfo({ activeChatUser }: { activeChatUser: ChatUserType }) {
       <img
         src={activeChatUser?.avatar.url}
         alt="user profile avatar"
-        className="h-15 w-15 rounded-full"
+        className="h-15 w-15 rounded-full object-cover"
       />
       <div className="flex items-center gap-2">
         <span className="body-s-regular text-gray-500">
