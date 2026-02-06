@@ -18,15 +18,26 @@ import type {
   DialogType,
   UserDetailProps,
 } from "../../../../shared/features/user-profile/types/UserDetailsTypes";
+import { useQueryClient } from "@tanstack/react-query";
 
 function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
   const followMutation = useFollow(profile?.account.username);
   const [dialogType, setDialogType] = useState<DialogType>(null);
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const handleFollow = (userId: string) => {
-    followMutation.mutate(userId);
+  const handleFollow = (userId: string, username: string) => {
+    followMutation.mutate(userId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["profile", username],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["profile", "me"],
+        });
+      },
+    });
   };
   return (
     <div className="mx-auto">
@@ -56,7 +67,9 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
               <button
                 type="button"
                 className={`body-s-semibold hidden cursor-pointer self-start rounded-sm px-3 py-1 lg:flex ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
-                onClick={() => handleFollow(profile?.account._id)}
+                onClick={() =>
+                  handleFollow(profile?.account._id, profile?.account.username)
+                }
               >
                 {profile?.isFollowing ? "Following" : "Follow"}
               </button>
@@ -128,7 +141,9 @@ function UserDetail({ profile, user, posts, logout }: UserDetailProps) {
             <button
               type="button"
               className={`bg-primary-500 body-s-semibold flex cursor-pointer self-start rounded-sm px-3 py-1 text-white lg:hidden ${profile?.isFollowing ? "bg-gray-200 text-black" : "bg-primary-500 text-white"}`}
-              onClick={() => handleFollow(profile?.account._id)}
+              onClick={() =>
+                handleFollow(profile?.account._id, profile?.account.username)
+              }
             >
               {profile?.isFollowing ? "Following" : "Follow"}
             </button>
