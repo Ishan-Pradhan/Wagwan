@@ -81,7 +81,7 @@ function AddContent({
         <textarea
           {...register("content")}
           placeholder="Write something..."
-          className={`flex-1 border p-2 ${errors.content ? "border-red-500" : ""}`}
+          className={`flex-1 rounded-xs border p-2 ${errors.content ? "border-red-500" : ""}`}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
@@ -106,7 +106,7 @@ function AddContent({
                 : [],
           })}
           placeholder="tags, comma separated"
-          className={`border p-2 ${errors.tags ? "border-red-500" : ""}`}
+          className={`rounded-xs border p-2 ${errors.tags ? "border-red-500" : ""}`}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
