@@ -75,6 +75,9 @@ function SinglePostPage() {
 
   return (
     <div className="grid w-full grid-cols-1 items-center justify-center gap-0 overflow-hidden p-0 pb-10 lg:h-lvh lg:grid-cols-2 lg:px-10 lg:pb-0">
+      <div className="item-center flex w-full justify-end px-5">
+        <PostMenu post={post} />
+      </div>
       {/* image content */}
       <div className="h-[60vh] w-full flex-col justify-center overflow-hidden lg:flex lg:h-[80vh]">
         <PostCardImage images={post.images} />
@@ -90,10 +93,10 @@ function SinglePostPage() {
               alt="user avatar"
             />
             <Link
-              to={`/user/profile/${post.author.account.username}`}
+              to={`/user/profile/${post.author.account?.username}`}
               className="body-m-semibold"
             >
-              {post?.author?.account.username}
+              {post?.author?.account?.username}
             </Link>
           </div>
           <PostMenu post={post} />
@@ -101,15 +104,15 @@ function SinglePostPage() {
         <div className="hidden gap-4 lg:flex">
           <img
             className="h-10 w-10 rounded-full"
-            src={post?.author?.account.avatar.url}
+            src={post?.author?.account?.avatar?.url}
             alt="user avatar"
           />
           <p className={`body-s-regular`}>
             <Link
-              to={`/user/profile/${post.author.account.username}`}
+              to={`/user/profile/${post.author.account?.username}`}
               className="body-s-bold inline cursor-pointer"
             >
-              {post?.author?.account.username}&nbsp;
+              {post?.author?.account?.username}&nbsp;
             </Link>
             {post.content}
           </p>
