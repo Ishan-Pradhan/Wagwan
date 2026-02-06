@@ -75,6 +75,9 @@ function SinglePostPage() {
 
   return (
     <div className="grid w-full grid-cols-1 items-center justify-center gap-0 overflow-hidden p-0 pb-10 lg:h-lvh lg:grid-cols-2 lg:px-10 lg:pb-0">
+      <div className="item-center flex w-full justify-end px-5">
+        <PostMenu post={post} />
+      </div>
       {/* image content */}
       <div className="h-[60vh] w-full flex-col justify-center overflow-hidden lg:flex lg:h-[80vh]">
         <PostCardImage images={post.images} />
