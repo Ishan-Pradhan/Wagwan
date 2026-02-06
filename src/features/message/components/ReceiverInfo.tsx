@@ -19,7 +19,7 @@ function ReceiverInfo({ activeChatUser }: { activeChatUser: ChatUserType }) {
       </div>
       <Link
         to={`/user/profile/${activeChatUser?.username}`}
-        className="body-s-medium bg-primary-500 hover:bg-primary-600 cursor-pointer rounded-sm px-3 py-1 text-white"
+        className="body-s-medium border-primary-500 hover:bg-primary-600 text-primary-500 cursor-pointer rounded-sm border px-3 py-1 hover:text-white"
       >
         View Profile
       </Link>
