@@ -8,7 +8,7 @@ import { router } from "./router";
 import { useAppDispatch } from "stores/hooks";
 import { useEffect } from "react";
 import { fetchCurrentUser } from "stores/auth/authThunk";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function AppWrapper() {
   const queryClient = new QueryClient();
@@ -24,7 +24,7 @@ function AppWrapper() {
         <SocketProvider>
           <StoryProvider>
             <QueryClientProvider client={queryClient}>
-              <ReactQueryDevtools initialIsOpen={false} />
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
               <RouterProvider router={router} />
               <Toaster />
             </QueryClientProvider>

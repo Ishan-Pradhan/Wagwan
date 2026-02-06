@@ -155,6 +155,7 @@ function SideMenu() {
                 className={({ isActive }) =>
                   `relative flex w-full items-center justify-center gap-3 rounded-md p-3 capitalize transition-colors duration-100 ease-in-out lg:w-auto lg:p-3 xl:justify-start xl:px-4 ${isActive ? "lg:bg-gray-200" : "lg:hover:bg-gray-200 dark:lg:hover:bg-gray-700"}`
                 }
+                title={menu.menu}
                 tabIndex={menu.tabIndex}
               >
                 {({ isActive }) => {
@@ -196,6 +197,7 @@ function SideMenu() {
           ))}
           <li className="order-3 w-full lg:mx-auto lg:w-auto xl:mx-0 xl:w-full">
             <button
+              title="create post"
               onClick={
                 user?.isEmailVerified
                   ? () => setOpenCreatePostDialog(!openCreatePostDialog)
@@ -220,6 +222,7 @@ function SideMenu() {
           <button
             type="button"
             className="hidden cursor-pointer items-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out hover:bg-gray-100 lg:mx-auto lg:flex lg:p-3 xl:w-full dark:hover:bg-gray-600"
+            title="more options"
           >
             <ListIcon size={20} className="hover:text-gray-500" />
             <span className="body-m-medium lg:hidden xl:flex">More</span>
