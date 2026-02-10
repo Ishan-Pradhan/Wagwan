@@ -9,14 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import Spinner from "@components/custom-ui/Spinner";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAppSelector } from "stores/hooks";
 import type { Comment } from "shared/features/posts/types/CommentTypes";
-import { useLikeComment } from "./hooks/post";
-import { useCommentDelete } from "./hooks/post";
 import { formatTime } from "utils/formatTime";
 import type { Post } from "./types/FeedTypes";
+import { deleteComment, likeComment } from "./api/post";
 
 function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
   const [commentLike, setCommentLike] = useState(comment.isLiked);
@@ -24,10 +23,19 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
 
   const { user } = useAppSelector((state) => state.auth);
 
-  const likeCommentMutation = useLikeComment(comment.postId);
+  const likeCommentMutation = useMutation({
+    mutationFn: (commentId: string) => likeComment(commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["comment", comment.postId],
+      });
+    },
+  });
 
   const queryClient = useQueryClient();
-  const deleteCommentMutation = useCommentDelete();
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteComment,
+  });
 
   const handleCommentLike = (commentId: string) => {
     setCommentLike(!commentLike);

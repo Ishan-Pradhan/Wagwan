@@ -1,17 +1,17 @@
 import Spinner from "@components/custom-ui/Spinner";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useComment } from "shared/features/posts/hooks/post";
 import { usePostComments } from "shared/features/posts/hooks/post";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { formatTime } from "utils/formatTime";
-import { useGetSinglePost } from "./hooks/useGetSinglePost";
 import SkeletonLoading from "./components/SkeletonLoading";
 import PostCardImage from "shared/features/posts/PostCardImage";
 import CommentSection from "shared/features/posts/CommentSection";
 import InteractionContainer from "shared/features/posts/InteractionContainer";
 import PostMenu from "shared/features/post-menu/PostMenu";
 import { INFINITE_SCROLL_MARGIN } from "constants/consts";
+import { getSinglePost } from "./api/getSinglePost";
 
 function SinglePostPage() {
   const { postId } = useParams();
@@ -23,7 +23,13 @@ function SinglePostPage() {
 
   const queryClient = useQueryClient();
 
-  const { data: post } = useGetSinglePost(postId as string);
+  const { data: post } = useQuery({
+    queryKey: ["post", postId],
+    queryFn: () => getSinglePost(postId),
+
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: true,
+  });
 
   const comments =
     data?.pages?.flatMap((page) => {

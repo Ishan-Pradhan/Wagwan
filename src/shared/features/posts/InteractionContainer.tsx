@@ -5,12 +5,12 @@ import {
   ShareFatIcon,
 } from "@phosphor-icons/react";
 
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTheme } from "context/Theme/ThemeContext";
-import type { Post } from "./types/FeedTypes";
+import type { FeedData, Post } from "./types/FeedTypes";
 import { useLike } from "./hooks/post";
-import { useBookmark } from "./hooks/post";
 import { handleShare } from "utils/handleShare";
+import { bookmarkPost } from "./api/post";
 
 function InteractionContainer({
   post,
@@ -26,7 +26,41 @@ function InteractionContainer({
 
   const { theme } = useTheme();
 
-  const bookmarkMutation = useBookmark();
+  const bookmarkMutation = useMutation({
+    mutationFn: (postId: string) => bookmarkPost(postId),
+    onMutate: async (postId: string) => {
+      await queryClient.cancelQueries({ queryKey: ["feed"] });
+
+      const previousFeed = queryClient.getQueryData<FeedData>(["feed"]);
+
+      queryClient.setQueryData<FeedData>(["feed"], (oldData) => {
+        if (!oldData) return oldData;
+
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page) => ({
+            ...page,
+            posts: page.posts.map((post: Post) =>
+              post._id === postId
+                ? {
+                    ...post,
+                    isBookmarked: !post.isBookmarked,
+                  }
+                : post,
+            ),
+          })),
+        };
+      });
+
+      return { previousFeed };
+    },
+
+    onError: (_, __, context) => {
+      if (context?.previousFeed) {
+        queryClient.setQueryData(["feed"], context.previousFeed);
+      }
+    },
+  });
 
   const handleLike = (postId: string) => {
     likeMutation.mutate(postId, {
@@ -44,6 +78,7 @@ function InteractionContainer({
         queryClient.invalidateQueries({ queryKey: ["post", postId] });
         queryClient.invalidateQueries({ queryKey: ["tags"] });
         queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
       },
     });
   };

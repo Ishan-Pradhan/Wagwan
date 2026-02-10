@@ -1,17 +1,20 @@
 import Button from "@components/custom-ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
 import { useState } from "react";
-import { useForgotPassword } from "../hooks/useForgotPassword";
-import toast from "react-hot-toast";
 import Spinner from "@components/custom-ui/Spinner";
 import Confirmation from "@components/widgets/Confirmation";
+import { forgotPassword } from "../api/forgot-password";
+import { useMutation } from "@tanstack/react-query";
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
-  const forgotPasswordMutation = useForgotPassword();
+  //forgot password mutation
+  const forgotPasswordMutation = useMutation({
+    mutationFn: forgotPassword,
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,8 +24,7 @@ function ForgotPasswordForm() {
         setSuccess(true);
         setEmail("");
       },
-      onError: (error) => {
-        toast.error(error.message);
+      onError: () => {
         setSuccess(false);
       },
     });

@@ -1,21 +1,9 @@
 import api from "api/api";
-import axios from "axios";
 import type { CommentType } from "../types/CommentTypes";
 
 export const bookmarkPost = async (postId: string | undefined) => {
-  try {
-    const res = await api.post(`/social-media/bookmarks/${postId}`, {});
-
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const error = err;
-
-      if (error.response?.data) {
-        throw error.response.data;
-      }
-    }
-  }
+  const res = await api.post(`/social-media/bookmarks/${postId}`, {});
+  return res.data;
 };
 
 export const fetchComments = async ({
@@ -47,69 +35,26 @@ export const fetchComments = async ({
 };
 
 export const deleteComment = async (commentId: string | undefined) => {
-  try {
-    const res = await api.delete(`/social-media/comments/${commentId}`);
-
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const error = err;
-
-      if (error.response?.data) {
-        throw error.response.data;
-      }
-    }
-  }
+  const res = await api.delete(`/social-media/comments/${commentId}`);
+  return res.data;
 };
 
 export const likePost = async (postId: string | undefined) => {
-  try {
-    const res = await api.post(`/social-media/like/post/${postId}`, {});
-
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const error = err;
-
-      if (error.response?.data) {
-        throw error.response.data;
-      }
-    }
-  }
+  const res = await api.post(`/social-media/like/post/${postId}`, {});
+  return res.data;
 };
 
 export const likeComment = async (commentId: string | undefined) => {
-  try {
-    const res = await api.post(`/social-media/like/comment/${commentId}`, {});
-
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const error = err;
-
-      if (error.response?.data) {
-        throw error.response.data;
-      }
-    }
-  }
+  const res = await api.post(`/social-media/like/comment/${commentId}`, {});
+  return res.data;
 };
 
 export const postComments = async (
   postId: string | undefined,
   content: string,
 ) => {
-  try {
-    const res = await api.post(`/social-media/comments/post/${postId}`, {
-      content,
-    });
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      const error = err;
-
-      if (error.response?.data) {
-        throw error.response.data;
-      }
-    }
-  }
+  const res = await api.post(`/social-media/comments/post/${postId}`, {
+    content,
+  });
+  return res.data;
 };

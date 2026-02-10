@@ -3,12 +3,13 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { TrashIcon } from "@phosphor-icons/react";
 import toast from "react-hot-toast";
-import { useDeleteImage } from "../hooks/createEditPost";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type {
+  DeleteImageVars,
   ImageItem,
   PostImagePreviewProps,
 } from "../types/CreatePostTypes";
+import { deleteImage } from "../api/createEditPost";
 
 function PostImagePreview({
   images,
@@ -27,7 +28,11 @@ function PostImagePreview({
     setPreviews(urls);
   }, [images]);
 
-  const deleteImageMutation = useDeleteImage();
+  const deleteImageMutation = useMutation({
+    mutationFn: ({ image, postId }: DeleteImageVars) => {
+      return deleteImage(image, postId);
+    },
+  });
   const queryClient = useQueryClient();
 
   const handleDeleteImage = async (image: ImageItem, postId: string) => {

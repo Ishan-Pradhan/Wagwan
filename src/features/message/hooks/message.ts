@@ -1,30 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import { createChat } from "../api/message";
-import { deleteChat } from "../api/message";
-import { sendMessage } from "../api/message";
-import { deleteMessage } from "../api/message";
 import { useQuery } from "@tanstack/react-query";
 import type { ChatUserType } from "../types/ChatUserType";
 import { getAvailableUsers } from "../api/message";
-import { getMessageInChat } from "../api/message";
-import { getUsersList } from "../api/message";
-import type { Chat } from "../../../shared/features/message/types/ChatType";
-
-export const useCreateChat = () => {
-  return useMutation({
-    mutationFn: (receiverId: string) => createChat(receiverId),
-  });
-};
-
-export const useDeleteChat = () =>
-  useMutation({
-    mutationFn: deleteChat,
-  });
-
-export const useDeleteMessage = () =>
-  useMutation({
-    mutationFn: deleteMessage,
-  });
 
 export const useGetAvailableUsers = () => {
   return useQuery<ChatUserType[]>({
@@ -32,40 +8,5 @@ export const useGetAvailableUsers = () => {
     queryFn: () => getAvailableUsers(),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
-  });
-};
-
-export const useGetMessageInChat = (chatId?: string) => {
-  return useQuery({
-    queryKey: ["chat_messages", chatId],
-    queryFn: ({ queryKey }) => {
-      const [, chatId] = queryKey as [string, string];
-      return getMessageInChat(chatId);
-    },
-    enabled: !!chatId,
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
-  });
-};
-
-export const useGetUsersList = () => {
-  return useQuery<Chat[]>({
-    queryKey: ["chats"],
-    queryFn: () => getUsersList(),
-    staleTime: 1000 * 60 * 5,
-    refetchInterval: 60_000,
-    refetchOnWindowFocus: false,
-  });
-};
-
-export const useSendMessage = () => {
-  return useMutation({
-    mutationFn: ({
-      chatId,
-      formData,
-    }: {
-      chatId: string;
-      formData: FormData;
-    }) => sendMessage(chatId, formData),
   });
 };

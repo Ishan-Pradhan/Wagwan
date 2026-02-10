@@ -7,7 +7,7 @@ export const getTagPosts = async ({
 }: {
   page: number;
   limit: number;
-  tag: string;
+  tag: string | undefined;
 }) => {
   const res = await api.get(
     `/social-media/posts/get/t/${tag}?page=${page}&limit=${limit}`,

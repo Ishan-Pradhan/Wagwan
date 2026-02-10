@@ -17,15 +17,13 @@ export const useFollowInDialog = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: follow, // API call: follow/unfollow user by id
+    mutationFn: follow,
 
     onMutate: async (userId: string) => {
-      // Cancel ongoing follow-list queries
       await queryClient.cancelQueries({
         queryKey: ["follow-list", { username, type }],
       });
 
-      // Snapshot previous state
       const previousData = queryClient.getQueryData<FollowersUserType>([
         "follow-list",
         { username, type },

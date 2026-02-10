@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-
 import LottieLoading from "@components/custom-ui/LottieLoading";
-
-import { useGetTagPosts } from "./hooks/useGetTagPosts";
 import type { Post } from "shared/features/posts/types/FeedTypes";
 import { SealCheckIcon } from "@phosphor-icons/react";
 import Spinner from "@components/custom-ui/Spinner";
 import PostCard from "shared/features/posts/PostCard";
 import CommentDialog from "shared/features/posts/CommentDialog";
 import { INFINITE_SCROLL_MARGIN } from "constants/consts";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getTagPosts } from "./api/getTagPosts";
 
 function TagsPage() {
   const { tag } = useParams();
@@ -18,8 +17,25 @@ function TagsPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetTagPosts(tag as string);
+    useInfiniteQuery({
+      queryKey: ["tags", tag],
+      initialPageParam: 1,
 
+      queryFn: ({ pageParam }) => {
+        return getTagPosts({
+          tag,
+          page: pageParam,
+          limit: 10,
+        });
+      },
+
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNextPage ? lastPage.nextPage : undefined,
+
+      staleTime: 30_000,
+      refetchInterval: 60_000,
+      refetchOnWindowFocus: true,
+    });
   const openComments = (post: Post) => {
     setDialogOpen(true);
     setActivePost(post);

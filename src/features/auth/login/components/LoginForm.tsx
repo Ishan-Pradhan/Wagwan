@@ -4,12 +4,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { LoginSchema, type LoginFormInput } from "../schema/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useLogin } from "../hooks/useLogin";
 import Button from "@components/custom-ui/Button";
 import toast from "react-hot-toast";
 import googleLogo from "@assets/images/googleLogo.svg";
 import { useAppDispatch } from "stores/hooks";
 import { setUser } from "stores/auth/authSlice";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../api/login";
 
 function LoginForm() {
   const methods = useForm<LoginFormInput>({
@@ -23,7 +24,10 @@ function LoginForm() {
     },
   });
 
-  const loginMutation = useLogin();
+  const loginMutation = useMutation({
+    mutationFn: login,
+  });
+
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();

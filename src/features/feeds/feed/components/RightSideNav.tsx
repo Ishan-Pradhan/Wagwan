@@ -1,9 +1,9 @@
-import { useFollow } from "shared/features/user-profile/hooks/userProfile";
+import { useFollow } from "shared/features/user-profile/hooks/userProfileHooks";
 
 import { Link } from "react-router";
 import { useAppSelector } from "stores/hooks";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfile";
+import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfileHooks";
 
 function RightSideNav() {
   const { user } = useAppSelector((state) => state.auth);

@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 import { Link } from "react-router";
-import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfile";
+import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfileHooks";
 import { useEffect, useRef } from "react";
 import Spinner from "@components/custom-ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";

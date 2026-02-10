@@ -6,9 +6,7 @@ export const fetchPosts = async ({
   limit = 10,
 }): Promise<FeedType> => {
   const res = await api.get(`/social-media/posts?page=${page}&limit=${limit}`);
-
   const data = res.data?.data;
-
   return {
     posts: data?.posts ?? [],
     totalPosts: data?.totalPosts ?? 0,

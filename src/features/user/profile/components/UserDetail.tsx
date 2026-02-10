@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import { GearIcon } from "@phosphor-icons/react";
-import { useFollow } from "shared/features/user-profile/hooks/userProfile";
+import { useFollow } from "shared/features/user-profile/hooks/userProfileHooks";
 import { useState } from "react";
 import FollowersFollowingDialog from "./FollowersFollowingDialog";
 import { Link, useNavigate } from "react-router";

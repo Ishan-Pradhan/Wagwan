@@ -1,5 +1,4 @@
 import type { User } from "types/LoginTypes";
-import { useGetUsersList } from "../hooks/message";
 import type { Chat } from "../../../shared/features/message/types/ChatType";
 import { useGetAvailableUsers } from "../hooks/message";
 
@@ -12,8 +11,7 @@ import {
   ComboboxList,
 } from "@components/ui/combobox";
 import type { ChatUserType } from "../types/ChatUserType";
-import { useCreateChat } from "../hooks/message";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import {
   DropdownMenu,
@@ -22,10 +20,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import { useDeleteChat } from "../hooks/message";
 import { useNavigate, useSearchParams } from "react-router";
 import SkeletonLoading from "./SkeletonLoading";
 import type { RefObject } from "react";
+import { createChat, deleteChat, getUsersList } from "../api/message";
 
 function MessageSideMenu({
   user,
@@ -34,11 +32,24 @@ function MessageSideMenu({
   user: User;
   messageInputRef: RefObject<HTMLInputElement | null>;
 }) {
-  const { data: chats, isLoading: chatLoading } = useGetUsersList();
+  const { data: chats, isLoading: chatLoading } = useQuery<Chat[]>({
+    queryKey: ["chats"],
+    queryFn: () => getUsersList(),
+    staleTime: 1000 * 60 * 5,
+    refetchInterval: 60_000,
+    refetchOnWindowFocus: false,
+  });
+
   const { data: chatUsers } = useGetAvailableUsers();
-  const createChatMutation = useCreateChat();
+
+  //create chat
+  const createChatMutation = useMutation({
+    mutationFn: (receiverId: string) => createChat(receiverId),
+  });
   const queryClient = useQueryClient();
-  const deleteMutation = useDeleteChat();
+  const deleteMutation = useMutation({
+    mutationFn: deleteChat,
+  });
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const activeUser = searchParams.get("user");

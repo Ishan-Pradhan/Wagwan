@@ -1,20 +1,12 @@
 import api from "api/api";
-import axios from "axios";
 import type { PostType } from "../types/PostTypes";
 import type { BookmarkType } from "../../../../features/user/profile/types/BookmarkTypes";
 import type { FollowersUserType } from "../types/UserDetailsTypes";
 import type { FollowingUserType } from "../types/UserDetailsTypes";
 
 export const follow = async (userId: string) => {
-  try {
-    const res = await api.post(`/social-media/follow/${userId}`, {});
-
-    return res.data;
-  } catch (err) {
-    if (axios.isAxiosError(err) && err.response?.data) {
-      throw err.response.data;
-    }
-  }
+  const res = await api.post(`/social-media/follow/${userId}`, {});
+  return res.data;
 };
 
 export const getBookmarks = async ({

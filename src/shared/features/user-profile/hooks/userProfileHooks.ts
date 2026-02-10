@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getMyProfile } from "../api/userProfile";
 import { getUsersProfile } from "../api/userProfile";
 import { useAppSelector } from "stores/hooks";
+import { getFollowers } from "../api/userProfile";
+import { getFollowing } from "../api/userProfile";
 
 export const useFollow = (username: string | undefined) => {
   const queryClient = useQueryClient();
@@ -56,9 +58,6 @@ export const useFollow = (username: string | undefined) => {
     },
   });
 };
-
-import { getFollowers } from "../api/userProfile";
-import { getFollowing } from "../api/userProfile";
 
 export const useGetFollowersFollowing = ({
   username,
@@ -133,7 +132,49 @@ export const useGetProfile = (username?: string) => {
     queryKey: ["profile", isOwner ? "me" : username],
     queryFn: () => (isOwner ? getMyProfile() : getUsersProfile(username)),
     enabled: isOwner || !!username,
-    staleTime: 1000 * 60 * 5, // 5 minutes cache
+    staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
 };
+
+// import React, { useRef, useState,useEffect } from 'react'
+// import Confetti from 'js-confetti'
+// import './style.css'
+
+// const confetti = new Confetti()
+
+// const useDebounce = (value, delay)=>{
+//   const [debounceValue, setDebounceValue] = useState(value);
+
+// useEffect(() => {
+//   const timer = setTimeout(()=>{
+//       setDebounceValue(value)
+//   },delay);
+
+//   return () => {
+//     clearTimeout(timer)
+//   }
+// },[value,delay])
+
+//     return debounceValue
+// }
+
+// const App = () => {
+//   const [input, setInput] = useState("");
+//     const debounce = useDebounce(input, 3000);
+
+//     useEffect(() => {
+//       if(!debounce) return;
+
+//         fetch(`https://dummyjson.com/users/search?q=${debounce}`)
+// .then(res => res.json())
+// .then(console.log);
+
+//       },[debounce])
+
+//   return (
+//      <input type="text" value={input} onChange={e => setInput(e.target.value)}/>
+//   )
+// }
+
+// export default App

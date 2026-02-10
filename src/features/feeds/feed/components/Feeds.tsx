@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useFeed } from "../hooks/useFeed";
 import Spinner from "@components/custom-ui/Spinner";
 import type { Post } from "../../../../shared/features/posts/types/FeedTypes";
 import FeedSkeletonLoading from "./FeedSkeletonLoading";
@@ -7,13 +6,27 @@ import { SealCheckIcon } from "@phosphor-icons/react";
 import PostCard from "shared/features/posts/PostCard";
 import CommentDialog from "shared/features/posts/CommentDialog";
 import { INFINITE_SCROLL_MARGIN } from "constants/consts";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchPosts } from "../api/feeds";
 
 function Feeds() {
   const [activePost, setActivePost] = useState<Post | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  //fetch feeds
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useFeed();
+    useInfiniteQuery({
+      queryKey: ["feed"],
+      initialPageParam: 1,
+      queryFn: ({ pageParam }) => fetchPosts({ page: pageParam, limit: 10 }),
+
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNextPage ? lastPage.nextPage : undefined,
+
+      staleTime: 30_000,
+      refetchInterval: 60_000,
+      refetchOnWindowFocus: true,
+    });
 
   const observerRef = useRef<HTMLDivElement | null>(null);
 

@@ -1,12 +1,11 @@
 import { useFormContext } from "react-hook-form";
 import toast from "react-hot-toast";
 import Spinner from "@components/custom-ui/Spinner";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PostImagePreview from "./PostImagePreview";
-import { useCreatePost } from "../hooks/createEditPost";
-import { useUpdatePost } from "../hooks/createEditPost";
 import Button from "@components/custom-ui/Button";
 import type { AddContentPropTypes } from "../types/CreatePostTypes";
+import { createPost, updatePost } from "../api/createEditPost";
 
 function AddContent({
   images,
@@ -24,8 +23,18 @@ function AddContent({
   } = useFormContext();
   const queryClient = useQueryClient();
 
-  const create = useCreatePost();
-  const update = useUpdatePost(postId);
+  //create post mutation
+  const create = useMutation({
+    mutationFn: createPost,
+  });
+
+  // update post mutation
+  const update = useMutation({
+    mutationFn: (formData: FormData) => {
+      if (!postId) throw new Error("postId is required for updating a post");
+      return updatePost(postId, formData);
+    },
+  });
 
   const mutation = mode === "edit" ? update : create;
 

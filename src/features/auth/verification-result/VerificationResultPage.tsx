@@ -19,16 +19,14 @@ function VerificationResultPage() {
       initialized.current = true; // Mark as started
 
       const verifyEmail = async () => {
-        try {
-          const res = await axios.get(`/api/v1/users/verify-email/${token}`);
-          if (res.data.success) {
-            setStatus("success");
-          }
-        } catch (error) {
-          //error if unsuccessful
-          setStatus((prev) => (prev === "success" ? "success" : "error"));
+        const res = await axios.get(`/api/v1/users/verify-email/${token}`);
+        if (res.data.success) {
+          setStatus("success");
+        }
 
+        if (!res.data.success) {
           if (axios.isAxiosError(error)) {
+            setStatus((prev) => (prev === "success" ? "success" : "error"));
             setError(error?.response?.data.message || "Verification failed");
           }
         }
@@ -36,7 +34,7 @@ function VerificationResultPage() {
 
       verifyEmail();
     }
-  }, [token]);
+  }, [token, error]);
 
   return (
     <div className="container flex h-lvh items-center justify-center">

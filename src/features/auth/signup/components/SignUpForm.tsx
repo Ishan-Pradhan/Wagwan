@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@components/custom-ui/Button";
 import toast from "react-hot-toast";
 import { SignUpSchema, type SignUpFormInput } from "../schema/SignUpSchema";
-import { useSignUp } from "../hooks/useSignUp";
+import { signup } from "../api/signup";
+import { useMutation } from "@tanstack/react-query";
 
 function SignUpForm() {
   const methods = useForm<SignUpFormInput>({
@@ -22,7 +23,9 @@ function SignUpForm() {
     },
   });
 
-  const signUpMutation = useSignUp();
+  const signUpMutation = useMutation({
+    mutationFn: signup,
+  });
   const navigate = useNavigate();
 
   const onsubmit = (data: SignUpFormInput) => {

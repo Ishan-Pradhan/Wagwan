@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { useResetPassword } from "../hooks/useResetPassword";
 import Button from "@components/custom-ui/Button";
 import SimpleInput from "@components/ui/SimpleInput";
 import Spinner from "@components/custom-ui/Spinner";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import type { ResetPasswordProps } from "../types/ResetPasswordTypes";
+import { useMutation } from "@tanstack/react-query";
+import { resetPassword } from "../api/reset-password";
 
 function ResetPasswordForm({ token }: ResetPasswordProps) {
   const [newPassword, setNewPassword] = useState("");
 
-  const resetPasswordMutation = useResetPassword();
+  const resetPasswordMutation = useMutation({
+    mutationFn: resetPassword,
+  });
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -1,14 +1,31 @@
 import { useEffect, useRef } from "react";
-import { useGetBookmarks } from "../hooks/useGetBookmarks";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 import { Link } from "react-router";
 import Spinner from "@components/custom-ui/Spinner";
 import { BookmarkIcon, ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
 import { INFINITE_SCROLL_MARGIN } from "constants/consts";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getBookmarks } from "shared/features/user-profile/api/userProfile";
 
 function BookmarksGrid() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useGetBookmarks();
+    useInfiniteQuery({
+      queryKey: ["bookmarks"],
+      initialPageParam: 1,
+
+      queryFn: ({ pageParam }) => {
+        return getBookmarks({
+          page: pageParam,
+          limit: 5,
+        });
+      },
+
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNextPage ? lastPage.nextPage : undefined,
+
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+    });
   const posts =
     data?.pages?.flatMap((page) => {
       return page?.bookmarkedPosts ?? [];

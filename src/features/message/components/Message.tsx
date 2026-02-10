@@ -9,10 +9,10 @@ import { formatTime } from "utils/formatTime";
 import IsTypingUI from "./TypingIndicator";
 import type { Message } from "../../../shared/features/message/types/MessageType";
 import { DotsThreeIcon } from "@phosphor-icons/react/dist/ssr";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { User } from "types/LoginTypes";
 import type { ChatUserType } from "../types/ChatUserType";
-import { useDeleteMessage } from "../hooks/message";
+import { deleteMessage } from "../api/message";
 
 function MessageUI({
   messages,
@@ -28,7 +28,9 @@ function MessageUI({
   activeChatUser: ChatUserType | null;
 }) {
   const queryClient = useQueryClient();
-  const deleteMessageMutation = useDeleteMessage();
+  const deleteMessageMutation = useMutation({
+    mutationFn: deleteMessage,
+  });
 
   return (
     <div className="container flex flex-col gap-8">

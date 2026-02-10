@@ -1,4 +1,5 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
+import toast from "react-hot-toast";
 
 // Axios instance for API calls with cookies
 const api = axios.create({
@@ -55,6 +56,13 @@ api.interceptors.response.use(
       } catch {
         return Promise.reject(error); // Reject if refresh fails
       }
+    }
+
+    if (axios.isAxiosError(error) && error.response?.data) {
+      const data = error.response.data as AxiosError;
+      toast.error(data.message);
+      console.error("API Error:", data.message);
+      return Promise.reject(error.response.data);
     }
 
     return Promise.reject(error);

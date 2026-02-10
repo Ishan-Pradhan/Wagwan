@@ -2,7 +2,6 @@ import { ChatsIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
 import type { Message } from "../../../shared/features/message/types/MessageType";
-import { useGetMessageInChat } from "../hooks/message";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { useSocket } from "context/socket/SocketContext";
 import {
@@ -12,8 +11,7 @@ import {
   STOP_TYPING_EVENT,
   TYPING_EVENT,
 } from "../../../shared/features/message/const/const";
-import { useQueryClient } from "@tanstack/react-query";
-import { useSendMessage } from "../hooks/message";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import toast from "react-hot-toast";
@@ -24,6 +22,7 @@ import MessageHeader from "./MessageHeader";
 import ReceiverInfo from "./ReceiverInfo";
 import { useGetAvailableUsers } from "../hooks/message";
 import { TYPING_TIMEOUT_MS } from "constants/consts";
+import { getMessageInChat, sendMessageApi } from "../api/message";
 
 function MessageSection({
   user,
@@ -44,10 +43,27 @@ function MessageSection({
   const isUserActive = Boolean(activeUser);
 
   const queryClient = useQueryClient();
-  const { data, isPending } = useGetMessageInChat(chatId);
+  const { data, isPending } = useQuery({
+    queryKey: ["chat_messages", chatId],
+    queryFn: ({ queryKey }) => {
+      const [, chatId] = queryKey as [string, string];
+      return getMessageInChat(chatId);
+    },
+    enabled: !!chatId,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
 
   const messages: Message[] = data?.slice().reverse();
-  const sendMessageMutation = useSendMessage();
+  const sendMessageMutation = useMutation({
+    mutationFn: ({
+      chatId,
+      formData,
+    }: {
+      chatId: string;
+      formData: FormData;
+    }) => sendMessageApi(chatId, formData),
+  });
 
   const { data: chatUsers } = useGetAvailableUsers();
   const receiver =

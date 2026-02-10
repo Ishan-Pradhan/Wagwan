@@ -1,17 +1,21 @@
 import Button from "@components/custom-ui/Button";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import toast from "react-hot-toast";
 import Spinner from "@components/custom-ui/Spinner";
 import type { UserProfile } from "shared/features/user-profile/types/UserDetailsTypes";
+import { updateProfile } from "../api/edit-profile";
 
 function EditProfileForm({ profile }: { profile: UserProfile }) {
   const [bio, setBio] = useState(profile.bio);
   const [firstName, setFirstName] = useState(profile.firstName);
   const [lastName, setLastName] = useState(profile.lastName);
 
-  const updateProfileMutation = useUpdateProfile();
+  const updateProfileMutation = useMutation({
+    mutationFn: (formData: FormData) => {
+      return updateProfile(formData);
+    },
+  });
   const queryClient = useQueryClient();
 
   const handleSubmit = () => {
