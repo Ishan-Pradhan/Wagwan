@@ -13,8 +13,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAppSelector } from "stores/hooks";
 import type { Comment } from "shared/features/posts/types/CommentTypes";
-import { useLikeComment } from "./hooks/useLikeComment";
-import { useCommentDelete } from "./hooks/useCommentDelete";
+import { useLikeComment } from "./hooks/postHooks";
+import { useCommentDelete } from "./hooks/postHooks";
 import { formatTime } from "utils/formatTime";
 import type { Post } from "./types/FeedTypes";
 

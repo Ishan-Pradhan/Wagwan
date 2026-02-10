@@ -2,7 +2,7 @@ import { ChatsIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
 import type { Message } from "../../../shared/features/message/types/MessageType";
-import { useGetMessageInChat } from "./../hooks/useGetMessageInChat";
+import { useGetMessageInChat } from "../hooks/messageHooks";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { useSocket } from "context/socket/SocketContext";
 import {
@@ -13,7 +13,7 @@ import {
   TYPING_EVENT,
 } from "../../../shared/features/message/const/const";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSendMessage } from "../hooks/useSendMessage";
+import { useSendMessage } from "../hooks/messageHooks";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import toast from "react-hot-toast";
@@ -22,7 +22,7 @@ import MessageInput from "./MessageInput";
 import MessageUI from "./MessageUI";
 import MessageHeader from "./MessageHeader";
 import ReceiverInfo from "./ReceiverInfo";
-import { useGetAvailableUsers } from "../hooks/useGetAvailableUsers";
+import { useGetAvailableUsers } from "../hooks/messageHooks";
 import { TYPING_TIMEOUT_MS } from "constants/consts";
 
 function MessageSection({
@@ -50,10 +50,8 @@ function MessageSection({
   const sendMessageMutation = useSendMessage();
 
   const { data: chatUsers } = useGetAvailableUsers();
-  console.log(chatUsers);
   const receiver =
     chatUsers?.find((chatUser) => chatUser.username === activeUser) || null;
-  console.log(receiver);
 
   useEffect(() => {
     if (!chatId) return;

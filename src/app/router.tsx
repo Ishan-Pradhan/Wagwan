@@ -1,19 +1,19 @@
 import { createBrowserRouter, Outlet } from "react-router";
 import Layout from "./Layout";
-import FeedPage from "../features/feed/FeedPage";
-import LoginPage from "../features/login/LoginPage";
+import FeedPage from "../features/feeds/feed/FeedPage";
+import LoginPage from "../features/auth/login/LoginPage";
 import requireLogin from "./protectedRoutes/requireLogin";
-import ForgotPasswordPage from "features/forgot-password/ForgotPasswordPage";
-import SignUpPage from "features/signup/SignUpPage";
+import ForgotPasswordPage from "features/auth/forgot-password/ForgotPasswordPage";
+import SignUpPage from "features/auth/signup/SignUpPage";
 import UserProfile from "features/user/profile/UserProfile";
-import ResetPasswordPage from "features/reset-password/ResetPasswordPage";
+import ResetPasswordPage from "features/auth/reset-password/ResetPasswordPage";
 import NotFound from "features/error/NotFound";
-import VerifyEmailPage from "features/verify-email/VerifyEmailPage";
-import VerificationResultPage from "features/verification-result/VerificationResultPage";
-import SinglePostPage from "features/single-post/SinglePostPage";
-import TagsPage from "features/tags/TagsPage";
+import VerifyEmailPage from "features/auth/verify-email/VerifyEmailPage";
+import VerificationResultPage from "features/auth/verification-result/VerificationResultPage";
+import SinglePostPage from "features/feeds/single-post/SinglePostPage";
+import TagsPage from "features/feeds/tags/TagsPage";
 import EditProfile from "features/user/edit-profile/EditProfile";
-import StoryPage from "features/story/StoryPage";
+import StoryPage from "features/feeds/story/StoryPage";
 import MessagePage from "features/message/MessagePage";
 import ChangePassword from "features/user/change-password/ChangePassword";
 import RouteError from "features/error/RouteError";
@@ -22,7 +22,7 @@ import FeedsFallback from "features/error/FeedsFallback";
 import MessageFallback from "features/error/MessageFallback";
 import UserProfileFallback from "features/error/UserProfileFallback";
 import LottieLoading from "@components/custom-ui/LottieLoading";
-import isVerified from "./protectedRoutes/isVerified";
+import { isVerified } from "./protectedRoutes/isVerified";
 
 export const router = createBrowserRouter([
   {

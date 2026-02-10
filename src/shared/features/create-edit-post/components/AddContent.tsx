@@ -3,8 +3,8 @@ import toast from "react-hot-toast";
 import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import PostImagePreview from "./PostImagePreview";
-import { useCreatePost } from "../hooks/useCreatePost";
-import { useUpdatePost } from "../hooks/useUpdatePost";
+import { useCreatePost } from "../hooks/createEditPostHooks";
+import { useUpdatePost } from "../hooks/createEditPostHooks";
 import Button from "@components/custom-ui/Button";
 import type { AddContentPropTypes } from "../types/CreatePostTypes";
 

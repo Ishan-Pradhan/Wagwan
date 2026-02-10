@@ -15,9 +15,9 @@ import Spinner from "@components/custom-ui/Spinner";
 import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
 import type { CommentDialogProps } from "shared/features/posts/types/CommentTypes";
-import { useComment } from "./hooks/useComment";
+import { useComment } from "./hooks/postHooks";
 import type { Post } from "./types/FeedTypes";
-import { usePostComments } from "./hooks/usePostComments";
+import { usePostComments } from "./hooks/postHooks";
 import PostMenu from "../post-menu/PostMenu";
 import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 

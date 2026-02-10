@@ -3,7 +3,7 @@ import {
   useQueryClient,
   type InfiniteData,
 } from "@tanstack/react-query";
-import { follow } from "../../../../shared/features/user-profile/api/follow";
+import { follow } from "shared/features/user-profile/api/userProfileApi";
 import type {
   Followers,
   FollowersUserType,

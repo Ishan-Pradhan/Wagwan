@@ -16,8 +16,6 @@ function AddImage({
     setValue,
   } = useFormContext();
 
-  console.log(errors);
-
   const hasImages =
     mode === "edit" ? true : images.some((i) => i.type === "new");
 

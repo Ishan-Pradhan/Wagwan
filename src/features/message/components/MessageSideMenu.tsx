@@ -1,7 +1,7 @@
 import type { User } from "types/LoginTypes";
-import { useGetUsersList } from "../hooks/useGetUsersList";
+import { useGetUsersList } from "../hooks/messageHooks";
 import type { Chat } from "../../../shared/features/message/types/ChatType";
-import { useGetAvailableUsers } from "../hooks/useGetAvailableUsers";
+import { useGetAvailableUsers } from "../hooks/messageHooks";
 
 import {
   Combobox,
@@ -12,7 +12,7 @@ import {
   ComboboxList,
 } from "@components/ui/combobox";
 import type { ChatUserType } from "../types/ChatUserType";
-import { useCreateChat } from "../hooks/useCreateChat";
+import { useCreateChat } from "../hooks/messageHooks";
 import { useQueryClient } from "@tanstack/react-query";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import {
@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import { useDeleteChat } from "../hooks/useDeleteChat";
+import { useDeleteChat } from "../hooks/messageHooks";
 import { useNavigate, useSearchParams } from "react-router";
 import SkeletonLoading from "./SkeletonLoading";
 import type { RefObject } from "react";
