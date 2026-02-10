@@ -2,7 +2,7 @@ import { ChatsIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "react-router";
 import type { User } from "types/LoginTypes";
 import type { Message } from "../../../shared/features/message/types/MessageType";
-import { useGetMessageInChat } from "../hooks/messageHooks";
+import { useGetMessageInChat } from "../hooks/message";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { useSocket } from "context/socket/SocketContext";
 import {
@@ -13,16 +13,16 @@ import {
   TYPING_EVENT,
 } from "../../../shared/features/message/const/const";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSendMessage } from "../hooks/messageHooks";
+import { useSendMessage } from "../hooks/message";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 
 import toast from "react-hot-toast";
 import AttachmentPreview from "./AttachmentPreview";
 import MessageInput from "./MessageInput";
-import MessageUI from "./MessageUI";
+import MessageUI from "./Message";
 import MessageHeader from "./MessageHeader";
 import ReceiverInfo from "./ReceiverInfo";
-import { useGetAvailableUsers } from "../hooks/messageHooks";
+import { useGetAvailableUsers } from "../hooks/message";
 import { TYPING_TIMEOUT_MS } from "constants/consts";
 
 function MessageSection({

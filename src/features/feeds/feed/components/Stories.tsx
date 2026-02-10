@@ -1,4 +1,4 @@
-import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfileHooks";
+import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfile";
 import { useEffect, useRef } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";

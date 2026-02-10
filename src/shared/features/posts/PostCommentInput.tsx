@@ -1,7 +1,7 @@
 import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { usePostComments } from "./hooks/postHooks";
+import { usePostComments } from "./hooks/post";
 
 function PostCommentInput({ postId }: { postId: string }) {
   const [newComment, setNewComment] = useState("");

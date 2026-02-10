@@ -1,7 +1,7 @@
 import Spinner from "@components/custom-ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
-import { useComment } from "shared/features/posts/hooks/postHooks";
-import { usePostComments } from "shared/features/posts/hooks/postHooks";
+import { useComment } from "shared/features/posts/hooks/post";
+import { usePostComments } from "shared/features/posts/hooks/post";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { formatTime } from "utils/formatTime";

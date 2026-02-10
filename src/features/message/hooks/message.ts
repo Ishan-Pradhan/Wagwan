@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { createChat } from "../api/messageApi";
-import { deleteChat } from "../api/messageApi";
-import { sendMessage } from "../api/messageApi";
-import { deleteMessage } from "../api/messageApi";
+import { createChat } from "../api/message";
+import { deleteChat } from "../api/message";
+import { sendMessage } from "../api/message";
+import { deleteMessage } from "../api/message";
 import { useQuery } from "@tanstack/react-query";
 import type { ChatUserType } from "../types/ChatUserType";
-import { getAvailableUsers } from "../api/messageApi";
-import { getMessageInChat } from "../api/messageApi";
-import { getUsersList } from "../api/messageApi";
+import { getAvailableUsers } from "../api/message";
+import { getMessageInChat } from "../api/message";
+import { getUsersList } from "../api/message";
 import type { Chat } from "../../../shared/features/message/types/ChatType";
 
 export const useCreateChat = () => {

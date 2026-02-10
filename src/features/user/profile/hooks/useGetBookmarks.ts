@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { getBookmarks } from "shared/features/user-profile/api/userProfileApi";
+import { getBookmarks } from "shared/features/user-profile/api/userProfile";
 
 export const useGetBookmarks = () => {
   return useInfiniteQuery({

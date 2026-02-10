@@ -1,4 +1,4 @@
-import { useGetProfile } from "shared/features/user-profile/hooks/userProfileHooks";
+import { useGetProfile } from "shared/features/user-profile/hooks/userProfile";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 import EditProfileForm from "./components/EditProfileForm";
 import ChangeProfilePhoto from "./components/ChangeProfilePhoto";

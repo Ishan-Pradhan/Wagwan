@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { follow } from "../api/userProfileApi";
+import { follow } from "../api/userProfile";
 import type { UserProfile } from "../types/UserDetailsTypes";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getMyPosts } from "../api/userProfileApi";
-import { getUsersPosts } from "../api/userProfileApi";
+import { getMyPosts } from "../api/userProfile";
+import { getUsersPosts } from "../api/userProfile";
 import { useQuery } from "@tanstack/react-query";
-import { getMyProfile } from "../api/userProfileApi";
-import { getUsersProfile } from "../api/userProfileApi";
+import { getMyProfile } from "../api/userProfile";
+import { getUsersProfile } from "../api/userProfile";
 import { useAppSelector } from "stores/hooks";
 
 export const useFollow = (username: string | undefined) => {
@@ -57,8 +57,8 @@ export const useFollow = (username: string | undefined) => {
   });
 };
 
-import { getFollowers } from "../api/userProfileApi";
-import { getFollowing } from "../api/userProfileApi";
+import { getFollowers } from "../api/userProfile";
+import { getFollowing } from "../api/userProfile";
 
 export const useGetFollowersFollowing = ({
   username,

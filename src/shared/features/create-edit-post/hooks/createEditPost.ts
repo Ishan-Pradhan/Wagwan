@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { createPost } from "../api/createEditPostApi";
-import { updatePost } from "../api/createEditPostApi";
-import { deleteImage } from "../api/createEditPostApi";
+import { createPost } from "../api/createEditPost";
+import { updatePost } from "../api/createEditPost";
+import { deleteImage } from "../api/createEditPost";
 import type { DeleteImageVars } from "../types/CreatePostTypes";
 
 export const useCreatePost = () =>

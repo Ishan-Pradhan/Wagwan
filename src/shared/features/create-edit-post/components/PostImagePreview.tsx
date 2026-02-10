@@ -3,7 +3,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import { TrashIcon } from "@phosphor-icons/react";
 import toast from "react-hot-toast";
-import { useDeleteImage } from "../hooks/createEditPostHooks";
+import { useDeleteImage } from "../hooks/createEditPost";
 import { useQueryClient } from "@tanstack/react-query";
 import type {
   ImageItem,

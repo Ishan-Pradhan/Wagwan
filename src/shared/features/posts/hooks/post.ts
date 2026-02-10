@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { FeedData, Post } from "../types/FeedTypes";
-import { bookmarkPost } from "../api/postApi";
-import { postComments } from "../api/postApi";
+import { bookmarkPost } from "../api/post";
+import { postComments } from "../api/post";
 import toast from "react-hot-toast";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchComments } from "../api/postApi";
-import { deleteComment } from "../api/postApi";
-import { likePost } from "../api/postApi";
-import { likeComment } from "../api/postApi";
+import { fetchComments } from "../api/post";
+import { deleteComment } from "../api/post";
+import { likePost } from "../api/post";
+import { likeComment } from "../api/post";
 
 export const useBookmark = () => {
   const queryClient = useQueryClient();

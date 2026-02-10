@@ -1,8 +1,8 @@
 import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
-import { useGetPosts } from "shared/features/user-profile/hooks/userProfileHooks";
+import { useGetPosts } from "shared/features/user-profile/hooks/userProfile";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useRef } from "react";
-import { useGetProfile } from "shared/features/user-profile/hooks/userProfileHooks";
+import { useGetProfile } from "shared/features/user-profile/hooks/userProfile";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";

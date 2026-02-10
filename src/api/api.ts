@@ -9,25 +9,29 @@ const api = axios.create({
 
 // Tracks an ongoing token refresh so only one happens at a time
 let refreshPromise: Promise<void> | null = null;
+const persistRoot = localStorage.getItem("persist:root");
+const auth = persistRoot ? JSON.parse(JSON.parse(persistRoot).auth) : null;
 
 // Refresh the access token, log out if it fails
 const refreshAccessToken = async () => {
   if (refreshPromise) return refreshPromise; // Wait if refresh is already running
 
-  refreshPromise = (async () => {
-    try {
-      await axios.post(
-        "/api/v1/users/refresh-token",
-        {},
-        { withCredentials: true },
-      );
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      refreshPromise = null;
-    }
-  })();
+  if (auth?.user !== null) {
+    refreshPromise = (async () => {
+      try {
+        await axios.post(
+          "/api/v1/users/refresh-token",
+          {},
+          { withCredentials: true },
+        );
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        refreshPromise = null;
+      }
+    })();
+  }
 
   return refreshPromise;
 };
@@ -45,7 +49,9 @@ api.interceptors.response.use(
       originalRequest._retry = true; // Mark request as retried
       try {
         await refreshAccessToken();
-        return api(originalRequest);
+        if (auth?.user !== null) {
+          return api(originalRequest);
+        }
       } catch {
         return Promise.reject(error); // Reject if refresh fails
       }

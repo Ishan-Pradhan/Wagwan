@@ -8,8 +8,8 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { useTheme } from "context/Theme/ThemeContext";
 import type { Post } from "./types/FeedTypes";
-import { useLike } from "./hooks/postHooks";
-import { useBookmark } from "./hooks/postHooks";
+import { useLike } from "./hooks/post";
+import { useBookmark } from "./hooks/post";
 import { handleShare } from "utils/handleShare";
 
 function InteractionContainer({
