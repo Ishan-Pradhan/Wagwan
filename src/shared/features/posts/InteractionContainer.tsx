@@ -33,6 +33,7 @@ function InteractionContainer({
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["post", postId] });
         queryClient.invalidateQueries({ queryKey: ["tags"] });
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
       },
     });
   };

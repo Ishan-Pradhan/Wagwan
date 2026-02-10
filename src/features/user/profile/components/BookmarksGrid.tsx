@@ -4,6 +4,7 @@ import LottieLoading from "@components/custom-ui/LottieLoading";
 import { Link } from "react-router";
 import Spinner from "@components/custom-ui/Spinner";
 import { BookmarkIcon, ChatCircleIcon, HeartIcon } from "@phosphor-icons/react";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function BookmarksGrid() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -22,7 +23,7 @@ function BookmarksGrid() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {

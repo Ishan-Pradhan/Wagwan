@@ -1,7 +1,5 @@
 export function formatTime(isoDate: string): string {
-  const now = Date.now();
-  const then = new Date(isoDate).getTime();
-  const diff = Math.floor((now - then) / 1000);
+  const diff = Math.floor((Date.now() - new Date(isoDate).getTime()) / 1000);
 
   if (diff < 60) return "now";
 
@@ -15,11 +13,13 @@ export function formatTime(isoDate: string): string {
   if (days < 7) return `${days}d `;
 
   const weeks = Math.floor(days / 7);
-  if (weeks < 4) return `${weeks}w `;
+  if (weeks >= 1 && weeks < 5) return `${weeks}w`;
 
   const months = Math.floor(days / 30);
-  if (months < 12) return `${months}mo `;
+  if (months >= 1 && months < 12) return `${months}mo`;
 
   const years = Math.floor(days / 365);
-  return `${years}y `;
+  if (years >= 1) return `${years}y`;
+
+  return `${years}y`;
 }

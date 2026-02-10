@@ -11,6 +11,7 @@ import PostCardImage from "shared/features/posts/PostCardImage";
 import CommentSection from "shared/features/posts/CommentSection";
 import InteractionContainer from "shared/features/posts/InteractionContainer";
 import PostMenu from "shared/features/post-menu/PostMenu";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function SinglePostPage() {
   const { postId } = useParams();
@@ -39,7 +40,7 @@ function SinglePostPage() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {

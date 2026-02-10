@@ -7,6 +7,7 @@ import { useStory } from "context/story/StoryContext";
 import { useAppSelector } from "stores/hooks";
 import StoriesSkeletonLoading from "./StoriesSkeletonLoading";
 import type { Followers } from "shared/features/user-profile/types/UserDetailsTypes";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function Stories() {
   const { user } = useAppSelector((state) => state.auth);
@@ -30,7 +31,7 @@ function Stories() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {

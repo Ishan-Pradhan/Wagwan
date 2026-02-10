@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { logoutUser } from "stores/auth/authThunk";
 import SkeletonLoading from "./components/SkeletonLoading";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function UserProfile() {
   const { user } = useAppSelector((state) => state.auth);
@@ -34,7 +35,7 @@ function UserProfile() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {

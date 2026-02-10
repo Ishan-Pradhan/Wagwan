@@ -6,6 +6,7 @@ import FeedSkeletonLoading from "./FeedSkeletonLoading";
 import { SealCheckIcon } from "@phosphor-icons/react";
 import PostCard from "shared/features/posts/PostCard";
 import CommentDialog from "shared/features/posts/CommentDialog";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function Feeds() {
   const [activePost, setActivePost] = useState<Post | null>(null);
@@ -39,7 +40,7 @@ function Feeds() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {

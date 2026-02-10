@@ -79,6 +79,7 @@ function ChangeProfilePhoto({ user }: { user: User }) {
           ref={triggerInput}
           type="file"
           id="avatar"
+          accept="image/jpeg,image/png,image/webp"
           name="avatar"
           className="hidden"
           onChange={handleFileChange}

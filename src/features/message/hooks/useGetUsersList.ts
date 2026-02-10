@@ -7,6 +7,7 @@ export const useGetUsersList = () => {
     queryKey: ["chats"],
     queryFn: () => getUsersList(),
     staleTime: 1000 * 60 * 5,
+    refetchInterval: 60_000,
     refetchOnWindowFocus: false,
   });
 };

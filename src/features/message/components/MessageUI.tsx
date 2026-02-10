@@ -25,7 +25,7 @@ function MessageUI({
   user: User;
   chatId: string;
   isTyping: boolean;
-  activeChatUser: ChatUserType;
+  activeChatUser: ChatUserType | null;
 }) {
   const queryClient = useQueryClient();
   const deleteMessageMutation = useDeleteMessage();

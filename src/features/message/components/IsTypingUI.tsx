@@ -1,12 +1,16 @@
 import { CircleIcon } from "@phosphor-icons/react";
 import type { ChatUserType } from "../types/ChatUserType";
 
-function IsTypingUI({ activeChatUser }: { activeChatUser: ChatUserType }) {
+function IsTypingUI({
+  activeChatUser,
+}: {
+  activeChatUser: ChatUserType | null;
+}) {
   return (
     <div className="flex items-center gap-2">
       <img
-        src={activeChatUser.avatar.url}
-        alt={activeChatUser.username}
+        src={activeChatUser?.avatar.url}
+        alt={activeChatUser?.username}
         className="h-7 w-7 rounded-full border"
       />
       <div className="self-start rounded-full bg-gray-100 p-2 text-xs text-gray-500 italic">

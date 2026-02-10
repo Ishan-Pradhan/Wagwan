@@ -29,13 +29,9 @@ import type { RefObject } from "react";
 
 function MessageSideMenu({
   user,
-  onSelectUser,
-  setChatId,
   messageInputRef,
 }: {
   user: User;
-  onSelectUser: (user: ChatUserType) => void;
-  setChatId: (chatId: string) => void;
   messageInputRef: RefObject<HTMLInputElement | null>;
 }) {
   const { data: chats, isLoading: chatLoading } = useGetUsersList();
@@ -75,12 +71,12 @@ function MessageSideMenu({
                         queryClient.invalidateQueries({
                           queryKey: ["chats"],
                         });
-                        setChatId(data.data._id);
+                        navigate(
+                          `/message?chatId=${data.data._id}&user=${item.username}`,
+                        );
                       },
                     });
                     messageInputRef.current?.focus();
-                    navigate(`/message?user=${item?.username}`);
-                    onSelectUser(item);
                   }}
                 >
                   <div className="group flex items-center justify-between gap-2">
@@ -129,9 +125,9 @@ function MessageSideMenu({
                     key={chat._id}
                     className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver?.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
-                      onSelectUser(receiver);
-                      setChatId(chat._id);
-                      navigate(`/message?user=${receiver.username}`);
+                      navigate(
+                        `/message?chatId=${chat._id}&user=${receiver.username}`,
+                      );
                       messageInputRef.current?.focus();
 
                       queryClient.setQueryData(["activeChatId"], chat._id);
@@ -189,6 +185,16 @@ function MessageSideMenu({
                                     queryClient.invalidateQueries({
                                       queryKey: ["chats"],
                                     });
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["chat_messages", chat._id],
+                                    });
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["chat_messages"],
+                                    });
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["activeChatId"],
+                                    });
+                                    navigate(`/message`);
                                   },
                                 });
                               }}

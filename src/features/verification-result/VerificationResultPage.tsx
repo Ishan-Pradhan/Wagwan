@@ -55,7 +55,7 @@ function VerificationResultPage() {
 
         {status === "success" && (
           <div className="flex flex-col items-center justify-center gap-2">
-            <p className="body-m-bold">You’re all set!</p>
+            <p className="body-m-bold dark:text-gray-800">You’re all set!</p>
             <p className="body-m-regular text-center text-gray-600">
               Congratulations! Your email verification is complete. Please
               proceed to the login page to access your account.

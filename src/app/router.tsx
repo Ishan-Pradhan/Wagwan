@@ -22,6 +22,7 @@ import FeedsFallback from "features/error/FeedsFallback";
 import MessageFallback from "features/error/MessageFallback";
 import UserProfileFallback from "features/error/UserProfileFallback";
 import LottieLoading from "@components/custom-ui/LottieLoading";
+import isVerified from "./protectedRoutes/isVerified";
 
 export const router = createBrowserRouter([
   {
@@ -106,6 +107,7 @@ export const router = createBrowserRouter([
       { path: "story/:username", element: <StoryPage /> },
       {
         path: "message",
+        loader: isVerified,
         element: (
           <ErrorBoundary
             fallback={

@@ -33,6 +33,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "stores/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import CreateEditPost from "shared/features/create-edit-post/CreateEditPost";
+
 function SideMenu() {
   const { user } = useAppSelector((state) => state.auth);
   const [hasNewMessage, setHasNewMessage] = useState(false);
@@ -61,7 +62,6 @@ function SideMenu() {
         });
       }
 
-      // Update chats list cache globally
       const activeChatId = queryClient.getQueryData<string>(["activeChatId"]);
 
       queryClient.setQueryData<Chat[]>(["chats"], (old) =>

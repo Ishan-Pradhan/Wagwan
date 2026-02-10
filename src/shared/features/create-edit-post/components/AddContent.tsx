@@ -62,6 +62,8 @@ function AddContent({
         onClose();
         queryClient.invalidateQueries({ queryKey: ["feed"] });
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
+        queryClient.invalidateQueries({ queryKey: ["profile"] });
       },
     });
   };

@@ -12,6 +12,7 @@ import Spinner from "@components/custom-ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";
 import { useQueryClient } from "@tanstack/react-query";
 import type { FollowersFollowingDialogPropTypes } from "../../../../shared/features/user-profile/types/UserDetailsTypes";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function FollowersFollowingDialog({
   open,
@@ -61,7 +62,7 @@ function FollowersFollowingDialog({
       },
       {
         root: scrollContainerRef.current,
-        rootMargin: "200px",
+        rootMargin: INFINITE_SCROLL_MARGIN,
       },
     );
 

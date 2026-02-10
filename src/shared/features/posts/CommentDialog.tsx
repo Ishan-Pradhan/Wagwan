@@ -19,6 +19,7 @@ import { useComment } from "./hooks/useComment";
 import type { Post } from "./types/FeedTypes";
 import { usePostComments } from "./hooks/usePostComments";
 import PostMenu from "../post-menu/PostMenu";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 export default function CommentDialog({
   postId,
@@ -54,7 +55,7 @@ export default function CommentDialog({
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {

@@ -83,7 +83,7 @@ function AddImage({
             id="add-image"
             type="file"
             multiple
-            // accept="image/jpeg,image/png,image/webp"
+            accept="image/jpeg,image/png,image/webp"
             className="hidden"
             onChange={handleFileChange}
           />
@@ -122,6 +122,9 @@ function AddImage({
           </div>
         </>
       )}
+      <p className="text-sm text-red-500">
+        {errors?.images?.message as string}
+      </p>
 
       {errors.images && Array.isArray(errors.images) && (
         <div className="text-sm text-red-500">

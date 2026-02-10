@@ -9,6 +9,7 @@ import { SealCheckIcon } from "@phosphor-icons/react";
 import Spinner from "@components/custom-ui/Spinner";
 import PostCard from "shared/features/posts/PostCard";
 import CommentDialog from "shared/features/posts/CommentDialog";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function TagsPage() {
   const { tag } = useParams();
@@ -44,7 +45,7 @@ function TagsPage() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {
@@ -64,6 +65,8 @@ function TagsPage() {
   return (
     <div className="container mb-20 flex flex-col gap-6 py-5">
       <span className="body-l-medium">All results for Tag: {tag}</span>
+
+      {posts.length === 0 && <div>No posts found</div>}
 
       {posts.map((post: Post) => {
         return (
@@ -85,7 +88,7 @@ function TagsPage() {
         </div>
       )}
 
-      {!hasNextPage && (
+      {!hasNextPage && posts.length > 0 && (
         <div className="flex flex-col items-center justify-center gap-3">
           <SealCheckIcon weight="duotone" size={32} fill="green" />
           <span className="body-l-medium text-gray-500">
