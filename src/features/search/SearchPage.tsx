@@ -71,16 +71,16 @@ function SearchPage() {
 
   return (
     <div className="container mt-4 flex w-full flex-col items-center gap-5 lg:px-40">
-      <div className="focus-within:outline-primary-500 flex items-center rounded-full border border-gray-700 px-3 focus-within:outline-2 dark:border-gray-200">
-        <label htmlFor="search">
-          <MagnifyingGlassIcon />
+      <div className="focus-within:outline-primary-500 flex w-full items-center rounded-full border border-gray-700 px-3 focus-within:outline-2 dark:border-gray-200">
+        <label htmlFor="search" className="text-gray-500">
+          <MagnifyingGlassIcon size={24} />
         </label>
         <input
           id="search"
           type="search"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="w-full py-1 pl-2 focus:outline-none"
+          className="w-full py-4 pl-2 focus:outline-none"
           placeholder="Search with tags"
         />
       </div>
@@ -92,7 +92,7 @@ function SearchPage() {
       )}
 
       {!isFetching && !debounce && posts.length === 0 && input === "" && (
-        <div className="flex h-[80vh] w-full flex-col items-center justify-center gap-4 text-center">
+        <div className="flex h-[50vh] w-full flex-col items-center justify-center gap-4 text-center">
           <MagnifyingGlassIcon size={80} weight="duotone" />
           <span className="body-l-semibold text-gray-700">
             Search with tags
@@ -101,7 +101,7 @@ function SearchPage() {
       )}
 
       {debounce && !isFetching && posts.length === 0 && (
-        <div className="col-span-3 flex h-[80vh] w-full flex-col items-center justify-center gap-2 text-center">
+        <div className="col-span-3 flex h-[50vh] w-full flex-col items-center justify-center gap-2 text-center">
           <SmileyXEyesIcon size={80} weight="duotone" />
           <span className="body-l-semibold text-gray-700">
             No post found with tag:
