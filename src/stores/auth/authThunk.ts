@@ -9,6 +9,17 @@ export const fetchCurrentUser = createAsyncThunk<User | null>(
     if (!res) return null;
     return res.data.data as User;
   },
+  {
+    // Prevents duplicate API calls if a fetch is already in progress or user is already loaded
+    condition: (_, { getState }) => {
+      const { auth } = getState() as {
+        auth: { loading: boolean; user: User | null };
+      };
+      if (auth.loading || auth.user) {
+        return false;
+      }
+    },
+  },
 );
 
 export const logoutUser = createAsyncThunk<void>("auth/logout", async () => {

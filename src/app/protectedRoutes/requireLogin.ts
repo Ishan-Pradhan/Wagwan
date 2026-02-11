@@ -1,25 +1,29 @@
-import api from "api/api";
+import { store } from "stores/store";
+import { fetchCurrentUser } from "stores/auth/authThunk";
 import { redirect } from "react-router";
 
-// we can't use tanstack query in here because this is loader based route guard
-export default async function requireLogin({ request }: { request: Request }) {
-  const url = new URL(request.url);
-  const accessToken = url.searchParams.get("accessToken");
-  const refreshToken = url.searchParams.get("refreshToken");
+export default async function requireLogin() {
+  const state = store.getState();
+  const { user } = state.auth;
 
-  if (accessToken && refreshToken) {
-    document.cookie = `accessToken=${accessToken}; path=/; secure; samesite=none`;
-    document.cookie = `refreshToken=${refreshToken}; path=/; secure; samesite=none`;
-
-    return redirect(url.pathname);
-  }
+  // If user is already loaded, proceed
+  if (user) return null;
 
   try {
-    await api.get("/users/current-user", { withCredentials: true });
-    return null;
-  } catch {
+    // Attempt to fetch current user (thunk is deduplicated)
+    const resultAction = await store.dispatch(fetchCurrentUser());
+
+    // Check if the request was successful
+    if (fetchCurrentUser.fulfilled.match(resultAction)) {
+      if (resultAction.payload) {
+        return null;
+      }
+    }
+
+    // If not fulfilled or no user data, redirect to login
+    return redirect("/login");
+  } catch (error) {
+    console.error("Require login check failed:", error);
     return redirect("/login");
   }
-
-  return null;
 }

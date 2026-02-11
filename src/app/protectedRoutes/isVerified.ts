@@ -1,11 +1,12 @@
+import { store } from "stores/store";
 import { redirect } from "react-router";
 
 export function isVerified() {
-  const persistRoot = localStorage.getItem("persist:root");
-  const auth = persistRoot ? JSON.parse(JSON.parse(persistRoot).auth) : null;
-  if (!auth) return redirect("/login");
+  const state = store.getState();
+  const { user } = state.auth;
 
-  const user = auth.user;
+  if (!user) return redirect("/login");
+
   if (!user.isEmailVerified) {
     return redirect("/user/profile/edit-profile");
   }
