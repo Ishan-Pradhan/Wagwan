@@ -23,6 +23,7 @@ import MessageFallback from "features/error/MessageFallback";
 import UserProfileFallback from "features/error/UserProfileFallback";
 import LottieLoading from "@components/custom-ui/LottieLoading";
 import { isVerified } from "./protectedRoutes/isVerified";
+import SearchPage from "features/search/SearchPage";
 
 export const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ export const router = createBrowserRouter([
           { element: <EditProfile />, path: "profile/edit-profile" },
           { element: <ChangePassword />, path: "profile/change-password" },
         ],
+      },
+      {
+        path: "search",
+        element: <SearchPage />,
       },
     ],
   },

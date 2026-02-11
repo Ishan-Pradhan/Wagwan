@@ -55,7 +55,6 @@ function LoginForm() {
           icon: "👋",
         });
 
-        localStorage.setItem("user", JSON.stringify(data.data));
         navigate("/", { replace: true });
       },
     });

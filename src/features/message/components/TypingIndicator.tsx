@@ -11,7 +11,7 @@ function IsTypingUI({
       <img
         src={activeChatUser?.avatar.url}
         alt={activeChatUser?.username}
-        className="h-7 w-7 rounded-full border"
+        className="h-7 w-7 rounded-full border object-cover"
       />
       <div className="self-start rounded-full bg-gray-100 p-2 text-xs text-gray-500 italic">
         <div className="flex gap-2">

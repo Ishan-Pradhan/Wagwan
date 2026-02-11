@@ -91,7 +91,7 @@ function SinglePostPage() {
         <div className="flex items-center justify-between border-b border-gray-300 pb-4">
           <div className="flex items-center gap-2">
             <img
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 rounded-full object-cover"
               src={post?.author?.account.avatar.url}
               alt="user avatar"
             />
@@ -107,7 +107,7 @@ function SinglePostPage() {
         {/* comment section */}
         <div className="hidden gap-4 lg:flex">
           <img
-            className="h-10 w-10 rounded-full"
+            className="h-10 w-10 rounded-full object-cover"
             src={post?.author?.account?.avatar?.url}
             alt="user avatar"
           />

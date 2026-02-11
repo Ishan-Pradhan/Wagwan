@@ -16,7 +16,7 @@ function TagsPage() {
   const [activePost, setActivePost] = useState<Post | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: ["tags", tag],
       initialPageParam: 1,
@@ -36,6 +36,7 @@ function TagsPage() {
       refetchInterval: 60_000,
       refetchOnWindowFocus: true,
     });
+
   const openComments = (post: Post) => {
     setDialogOpen(true);
     setActivePost(post);
@@ -70,7 +71,7 @@ function TagsPage() {
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (!data) {
+  if (isLoading) {
     return (
       <div className="flex h-lvh items-center justify-center">
         <LottieLoading />

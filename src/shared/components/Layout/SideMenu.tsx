@@ -12,6 +12,7 @@ import {
   BookmarkSimpleIcon,
   HouseIcon,
   ListIcon,
+  MagnifyingGlassIcon,
   PaperPlaneTiltIcon,
   PlusIcon,
   PowerIcon,
@@ -112,17 +113,23 @@ function SideMenu() {
       tabIndex: 1,
     },
     {
+      menu: "search",
+      path: "search",
+      icon: MagnifyingGlassIcon,
+      tabIndex: 2,
+    },
+    {
       menu: "messages",
       path: `${user?.isEmailVerified ? "/message" : `/user/profile/edit-profile`}`,
       icon: PaperPlaneTiltIcon,
-      tabIndex: 2,
+      tabIndex: 3,
     },
 
     {
       menu: "profile",
       path: `/user/profile/${user?.username}`,
       icon: UserCircleIcon,
-      tabIndex: 4,
+      tabIndex: 5,
     },
   ];
 
@@ -139,10 +146,10 @@ function SideMenu() {
         <div className="hidden px-4 xl:flex">
           <Logo />
         </div>
-        <div className="hidden lg:flex xl:hidden">W</div>
+        <div className="hidden font-extrabold lg:flex xl:hidden">W</div>
 
         <ul
-          className={`grid w-full grid-cols-4 items-center gap-4 lg:grid-cols-1 lg:justify-center xl:justify-start`}
+          className={`grid w-full grid-cols-5 items-center gap-4 lg:grid-cols-1 lg:justify-center xl:justify-start`}
         >
           {menus.map((menu) => (
             <li
@@ -205,7 +212,7 @@ function SideMenu() {
                       toast.error("Please verify your email to Add posts");
                     }
               }
-              tabIndex={3}
+              tabIndex={4}
               className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md px-4 py-3 capitalize transition-colors duration-100 ease-in-out lg:p-3 lg:hover:bg-gray-100 xl:justify-start dark:lg:hover:bg-gray-700"
             >
               <PlusIcon weight={"regular"} className="text-2xl lg:text-xl" />
