@@ -48,7 +48,7 @@ function PostsGrid({
       ))}
 
       {hasNextPage && (
-        <div ref={observerRef} className="flex h-10 justify-center">
+        <div ref={observerRef} className="flex h-50 w-full justify-center">
           {isFetchingNextPage && <Spinner />}
         </div>
       )}

@@ -23,4 +23,5 @@ function MessageFallback({ onRetry }: { onRetry?: () => void }) {
     </div>
   );
 }
+
 export default MessageFallback;

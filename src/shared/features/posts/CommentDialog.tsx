@@ -15,10 +15,11 @@ import Spinner from "@components/custom-ui/Spinner";
 import InteractionContainer from "./InteractionContainer";
 import { useQueryClient } from "@tanstack/react-query";
 import type { CommentDialogProps } from "shared/features/posts/types/CommentTypes";
-import { useComment } from "./hooks/useComment";
+import { useComment } from "./hooks/post";
 import type { Post } from "./types/FeedTypes";
-import { usePostComments } from "./hooks/usePostComments";
+import { usePostComments } from "./hooks/post";
 import PostMenu from "../post-menu/PostMenu";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 export default function CommentDialog({
   postId,
@@ -54,7 +55,7 @@ export default function CommentDialog({
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {
@@ -107,7 +108,7 @@ export default function CommentDialog({
                 alt="user avatar"
               />
               <Link to="" className="body-m-semibold">
-                {post.author?.account.username}
+                {post.author?.account?.username}
               </Link>
             </div>
             <PostMenu post={post} />{" "}

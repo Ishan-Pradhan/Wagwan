@@ -9,14 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
 import Spinner from "@components/custom-ui/Spinner";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useAppSelector } from "stores/hooks";
 import type { Comment } from "shared/features/posts/types/CommentTypes";
-import { useLikeComment } from "./hooks/useLikeComment";
-import { useCommentDelete } from "./hooks/useCommentDelete";
 import { formatTime } from "utils/formatTime";
 import type { Post } from "./types/FeedTypes";
+import { deleteComment, likeComment } from "./api/post";
 
 function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
   const [commentLike, setCommentLike] = useState(comment.isLiked);
@@ -24,10 +23,19 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
 
   const { user } = useAppSelector((state) => state.auth);
 
-  const likeCommentMutation = useLikeComment(comment.postId);
+  const likeCommentMutation = useMutation({
+    mutationFn: (commentId: string) => likeComment(commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["comment", comment.postId],
+      });
+    },
+  });
 
   const queryClient = useQueryClient();
-  const deleteCommentMutation = useCommentDelete();
+  const deleteCommentMutation = useMutation({
+    mutationFn: deleteComment,
+  });
 
   const handleCommentLike = (commentId: string) => {
     setCommentLike(!commentLike);
@@ -50,7 +58,7 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
 
   return (
     <div className="group flex items-start gap-8 px-3">
-      <Link to={`/user/profile/${comment.author?.account.username}`}>
+      <Link to={`/user/profile/${comment.author?.account?.username}`}>
         <img
           src={comment.author.account.avatar.url}
           alt="user avatar"
@@ -60,10 +68,10 @@ function CommentSection({ comment, post }: { comment: Comment; post: Post }) {
       <div className="flex flex-1 flex-col gap-1">
         <p className={`body-s-regular`}>
           <Link
-            to={`/user/profile/${comment.author?.account.username}`}
+            to={`/user/profile/${comment.author?.account?.username}`}
             className="body-s-bold inline cursor-pointer"
           >
-            {comment.author?.account.username}&nbsp;
+            {comment.author?.account?.username}&nbsp;
           </Link>
           {comment.content}
         </p>

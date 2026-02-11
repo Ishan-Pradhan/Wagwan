@@ -5,7 +5,7 @@ import { ThemeProvider } from "context/Theme/ThemeProvider";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router";
 import { router } from "./router";
-import { useAppDispatch } from "stores/hooks";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { useEffect } from "react";
 import { fetchCurrentUser } from "stores/auth/authThunk";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -13,10 +13,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 function AppWrapper() {
   const queryClient = new QueryClient();
 
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchCurrentUser());
-  }, [dispatch]);
+    if (!user) dispatch(fetchCurrentUser());
+  }, [dispatch, user]);
 
   return (
     <>

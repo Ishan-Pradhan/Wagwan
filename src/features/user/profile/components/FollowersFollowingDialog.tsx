@@ -6,12 +6,13 @@ import {
   DialogTitle,
 } from "@components/ui/dialog";
 import { Link } from "react-router";
-import { useGetFollowersFollowing } from "../../../../shared/features/user-profile/hooks/useGetFollowFollowing";
+import { useGetFollowersFollowing } from "shared/features/user-profile/hooks/userProfileHooks";
 import { useEffect, useRef } from "react";
 import Spinner from "@components/custom-ui/Spinner";
 import { useFollowInDialog } from "../hooks/useFollowInDialog";
 import { useQueryClient } from "@tanstack/react-query";
 import type { FollowersFollowingDialogPropTypes } from "../../../../shared/features/user-profile/types/UserDetailsTypes";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function FollowersFollowingDialog({
   open,
@@ -61,7 +62,7 @@ function FollowersFollowingDialog({
       },
       {
         root: scrollContainerRef.current,
-        rootMargin: "200px",
+        rootMargin: INFINITE_SCROLL_MARGIN,
       },
     );
 
@@ -111,8 +112,8 @@ function FollowersFollowingDialog({
                     className="flex items-center justify-between"
                     key={user._id}
                   >
-                    <Link to={`/user/profile/${user.username}`}>
-                      {user.username}
+                    <Link to={`/user/profile/${user?.username}`}>
+                      {user?.username}
                     </Link>
                     <button
                       type="button"

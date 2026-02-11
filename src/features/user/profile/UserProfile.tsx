@@ -1,8 +1,8 @@
 import { BookmarkIcon, GridNineIcon } from "@phosphor-icons/react";
-import { useGetPosts } from "../../../shared/features/user-profile/hooks/useGetPosts";
+import { useGetPosts } from "shared/features/user-profile/hooks/userProfileHooks";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useRef } from "react";
-import { useGetProfile } from "../../../shared/features/user-profile/hooks/useGetProfile";
+import { useGetProfile } from "shared/features/user-profile/hooks/userProfileHooks";
 import UserDetail from "./components/UserDetail";
 import PostsGrid from "./components/PostsGrid";
 import BookmarksGrid from "./components/BookmarksGrid";
@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { logoutUser } from "stores/auth/authThunk";
 import SkeletonLoading from "./components/SkeletonLoading";
+import { INFINITE_SCROLL_MARGIN } from "constants/consts";
 
 function UserProfile() {
   const { user } = useAppSelector((state) => state.auth);
@@ -34,7 +35,7 @@ function UserProfile() {
           fetchNextPage();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: INFINITE_SCROLL_MARGIN },
     );
 
     if (observerRef.current) {
@@ -77,7 +78,7 @@ function UserProfile() {
         >
           <button
             type="button"
-            aria-label={`${profile?.account.username}'s post`}
+            aria-label={`${profile?.account?.username}'s post`}
             className={`flex w-full cursor-pointer items-center justify-center text-2xl lg:text-4xl`}
             onClick={() => setSearchParams({ tab: "posts" })}
             aria-current={activeTab === "posts" ? "true" : "false"}

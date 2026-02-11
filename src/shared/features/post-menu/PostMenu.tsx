@@ -1,8 +1,7 @@
 import { DotsThreeIcon } from "@phosphor-icons/react";
 
-import { usePostDelete } from "./hooks/useDeletePosts";
 import type { Post } from "shared/features/posts/types/FeedTypes";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useAppSelector } from "stores/hooks";
@@ -16,13 +15,16 @@ import {
 } from "@components/ui/dropdown-menu";
 import { handleShare } from "utils/handleShare";
 import { useNavigate } from "react-router";
+import { deletePosts } from "./api/deletePosts";
 
 function PostMenu({ post }: { post: Post }) {
   const { user } = useAppSelector((state) => state.auth);
   const [openEditPostDialog, setOpenEditPostDialog] = useState(false);
 
   const queryClient = useQueryClient();
-  const deletePostMutation = usePostDelete();
+  const deletePostMutation = useMutation({
+    mutationFn: deletePosts,
+  });
 
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ function PostMenu({ post }: { post: Post }) {
         queryClient.invalidateQueries({ queryKey: ["feed"] });
         queryClient.invalidateQueries({ queryKey: ["posts", "me"] });
         queryClient.invalidateQueries({ queryKey: ["posts"] });
-        navigate(`/user/profile/${post.author.account.username}`);
+        navigate(`/user/profile/${post.author.account?.username}`);
       },
     });
   };

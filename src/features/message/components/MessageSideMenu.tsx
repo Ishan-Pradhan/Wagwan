@@ -1,7 +1,6 @@
 import type { User } from "types/LoginTypes";
-import { useGetUsersList } from "../hooks/useGetUsersList";
 import type { Chat } from "../../../shared/features/message/types/ChatType";
-import { useGetAvailableUsers } from "../hooks/useGetAvailableUsers";
+import { useGetAvailableUsers } from "../hooks/message";
 
 import {
   Combobox,
@@ -12,8 +11,7 @@ import {
   ComboboxList,
 } from "@components/ui/combobox";
 import type { ChatUserType } from "../types/ChatUserType";
-import { useCreateChat } from "../hooks/useCreateChat";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { DotsThreeIcon } from "@phosphor-icons/react";
 import {
   DropdownMenu,
@@ -22,27 +20,36 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@components/ui/dropdown-menu";
-import { useDeleteChat } from "../hooks/useDeleteChat";
 import { useNavigate, useSearchParams } from "react-router";
 import SkeletonLoading from "./SkeletonLoading";
 import type { RefObject } from "react";
+import { createChat, deleteChat, getUsersList } from "../api/message";
 
 function MessageSideMenu({
   user,
-  onSelectUser,
-  setChatId,
   messageInputRef,
 }: {
   user: User;
-  onSelectUser: (user: ChatUserType) => void;
-  setChatId: (chatId: string) => void;
   messageInputRef: RefObject<HTMLInputElement | null>;
 }) {
-  const { data: chats, isLoading: chatLoading } = useGetUsersList();
+  const { data: chats, isLoading: chatLoading } = useQuery<Chat[]>({
+    queryKey: ["chats"],
+    queryFn: () => getUsersList(),
+    staleTime: 1000 * 60 * 5,
+    refetchInterval: 60_000,
+    refetchOnWindowFocus: false,
+  });
+
   const { data: chatUsers } = useGetAvailableUsers();
-  const createChatMutation = useCreateChat();
+
+  //create chat
+  const createChatMutation = useMutation({
+    mutationFn: (receiverId: string) => createChat(receiverId),
+  });
   const queryClient = useQueryClient();
-  const deleteMutation = useDeleteChat();
+  const deleteMutation = useMutation({
+    mutationFn: deleteChat,
+  });
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const activeUser = searchParams.get("user");
@@ -57,7 +64,7 @@ function MessageSideMenu({
         {/* Search */}
         <Combobox
           items={chatUsers}
-          itemToStringValue={(chatUser: ChatUserType) => chatUser.username}
+          itemToStringValue={(chatUser: ChatUserType) => chatUser?.username}
         >
           <ComboboxInput placeholder="Search User" />
 
@@ -75,22 +82,22 @@ function MessageSideMenu({
                         queryClient.invalidateQueries({
                           queryKey: ["chats"],
                         });
-                        setChatId(data.data._id);
+                        navigate(
+                          `/message?chatId=${data.data._id}&user=${item.username}`,
+                        );
                       },
                     });
                     messageInputRef.current?.focus();
-                    navigate(`/message?user=${item.username}`);
-                    onSelectUser(item);
                   }}
                 >
                   <div className="group flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <img
                         src={item.avatar.url}
-                        alt={item.username}
+                        alt={item?.username}
                         className="h-10 w-10 rounded-full object-cover"
                       />
-                      <span>{item.username}</span>
+                      <span>{item?.username}</span>
                     </div>
                   </div>
                 </ComboboxItem>
@@ -127,11 +134,11 @@ function MessageSideMenu({
                   <div
                     role="button"
                     key={chat._id}
-                    className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
+                    className={`group cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-600 ${activeUser === receiver?.username ? "bg-gray-200 dark:bg-gray-600" : ""}`}
                     onClick={() => {
-                      onSelectUser(receiver);
-                      setChatId(chat._id);
-                      navigate(`/message?user=${receiver.username}`);
+                      navigate(
+                        `/message?chatId=${chat._id}&user=${receiver.username}`,
+                      );
                       messageInputRef.current?.focus();
 
                       queryClient.setQueryData(["activeChatId"], chat._id);
@@ -150,14 +157,14 @@ function MessageSideMenu({
                         )}
                         <img
                           src={receiver.avatar.url}
-                          alt={receiver.username}
+                          alt={receiver?.username}
                           className="h-10 w-10 shrink-0 rounded-full object-cover"
                         />
 
                         <div className="flex flex-col">
                           {/* Username of the receiver */}
                           <span className="body-m-medium line-clamp-1 w-20 overflow-hidden text-start text-ellipsis">
-                            {receiver.username}
+                            {receiver?.username}
                           </span>
 
                           {/* Last message */}
@@ -189,6 +196,16 @@ function MessageSideMenu({
                                     queryClient.invalidateQueries({
                                       queryKey: ["chats"],
                                     });
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["chat_messages", chat._id],
+                                    });
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["chat_messages"],
+                                    });
+                                    queryClient.invalidateQueries({
+                                      queryKey: ["activeChatId"],
+                                    });
+                                    navigate(`/message`);
                                   },
                                 });
                               }}

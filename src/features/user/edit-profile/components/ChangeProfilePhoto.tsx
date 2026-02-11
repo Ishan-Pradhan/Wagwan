@@ -1,14 +1,18 @@
 import type { User } from "types/LoginTypes";
-import { useUpdatePhoto } from "../hooks/useUpdatePhoto";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Spinner from "@components/custom-ui/Spinner";
 import { useDispatch } from "react-redux";
 import { setUser } from "stores/auth/authSlice";
 import { useRef } from "react";
+import { updatePhoto } from "../api/edit-profile";
 
 function ChangeProfilePhoto({ user }: { user: User }) {
-  const updatePhotoMutation = useUpdatePhoto();
+  const updatePhotoMutation = useMutation({
+    mutationFn: (formData: FormData) => {
+      return updatePhoto(formData);
+    },
+  });
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
@@ -79,6 +83,7 @@ function ChangeProfilePhoto({ user }: { user: User }) {
           ref={triggerInput}
           type="file"
           id="avatar"
+          accept="image/jpeg,image/png,image/webp"
           name="avatar"
           className="hidden"
           onChange={handleFileChange}
