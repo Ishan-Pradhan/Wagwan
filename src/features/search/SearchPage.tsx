@@ -70,7 +70,7 @@ function SearchPage() {
     }) ?? [];
 
   return (
-    <div className="container mt-4 flex w-full flex-col items-center gap-5 px-40">
+    <div className="container mt-4 flex w-full flex-col items-center gap-5 lg:px-40">
       <div className="focus-within:outline-primary-500 flex items-center rounded-full border border-gray-700 px-3 focus-within:outline-2 dark:border-gray-200">
         <label htmlFor="search">
           <MagnifyingGlassIcon />
