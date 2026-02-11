@@ -5,16 +5,14 @@ import { useEffect } from "react";
 import { useAppSelector } from "stores/hooks";
 
 function LoginPage() {
-  const { user, loading } = useAppSelector((state) => state.auth);
+  const user = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && user) {
+    if (user) {
       navigate("/", { replace: true });
     }
-  }, [user, loading, navigate]);
-
-  if (loading) return null;
+  }, [user, navigate]);
 
   return (
     <div className="container my-10 mb-20 grid h-lvh grid-cols-1 items-center justify-center md:grid-cols-2 lg:my-0 lg:mb-0 xl:px-50">

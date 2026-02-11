@@ -1,7 +1,7 @@
 import Divider from "@components/ui/Divider";
 import Input from "@components/custom-ui/Input";
 import { FormProvider, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { LoginSchema, type LoginFormInput } from "../schema/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@components/custom-ui/Button";
@@ -28,8 +28,6 @@ function LoginForm() {
     mutationFn: login,
   });
 
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
 
   const onsubmit = (data: LoginFormInput) => {
@@ -54,8 +52,6 @@ function LoginForm() {
         toast(`Welcome back ${data.data.user.username}`, {
           icon: "👋",
         });
-
-        navigate("/", { replace: true });
       },
     });
   };
