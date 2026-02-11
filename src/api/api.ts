@@ -8,30 +8,46 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+// Helper to get current auth state from localStorage
+const getAuthState = () => {
+  try {
+    const persistRoot = localStorage.getItem("persist:root");
+    if (!persistRoot) return null;
+    const rootState = JSON.parse(persistRoot);
+    if (!rootState.auth) return null;
+    return JSON.parse(rootState.auth);
+  } catch (error) {
+    console.error("Error parsing auth state from localStorage:", error);
+    return null;
+  }
+};
+
 // Tracks an ongoing token refresh so only one happens at a time
 let refreshPromise: Promise<void> | null = null;
-const persistRoot = localStorage.getItem("persist:root");
-const auth = persistRoot ? JSON.parse(JSON.parse(persistRoot).auth) : null;
 
 // Refresh the access token, log out if it fails
 const refreshAccessToken = async () => {
   if (refreshPromise) return refreshPromise; // Wait if refresh is already running
 
-  if (auth?.user !== null) {
+  const auth = getAuthState();
+
+  if (auth?.user) {
     refreshPromise = (async () => {
       try {
         await axios.post(
-          "/api/v1/users/refresh-token",
+          `${import.meta.env.VITE_SERVER_URL || "/api/v1"}/users/refresh-token`,
           {},
           { withCredentials: true },
         );
       } catch (error) {
-        console.error(error);
+        console.error("Token refresh failed:", error);
         throw error;
       } finally {
         refreshPromise = null;
       }
     })();
+  } else {
+    return Promise.reject(new Error("No user found in auth state"));
   }
 
   return refreshPromise;
@@ -44,24 +60,34 @@ api.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
     };
-    if (!originalRequest) return Promise.reject(error); // Fail if no request info
 
+    if (!originalRequest) return Promise.reject(error);
+
+    // Handle 401 Unauthorized
     if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true; // Mark request as retried
+      originalRequest._retry = true;
       try {
         await refreshAccessToken();
-        if (auth?.user !== null) {
-          return api(originalRequest);
-        }
-      } catch {
-        return Promise.reject(error); // Reject if refresh fails
+        // If refresh was successful, retry the original request
+        return api(originalRequest);
+      } catch (refreshError) {
+        // If refresh fails, we'll let it fall through to the general error handler
+        // which might toast or redirect.
+        return Promise.reject(refreshError);
       }
     }
 
+    // General error handling for non-401 errors or failed retries
     if (axios.isAxiosError(error) && error.response?.data) {
-      const data = error.response.data as AxiosError;
-      toast.error(data.message);
-      console.error("API Error:", data.message);
+      const data = error.response.data as { message?: string };
+      const status = error.response.status;
+
+      // Don't show toast for 401 if we are about to handle it or if it's expected during logout
+      if (status !== 401) {
+        toast.error(data.message || "An error occurred");
+      }
+
+      console.error("API Error:", data.message || error.message);
       return Promise.reject(error.response.data);
     }
 
