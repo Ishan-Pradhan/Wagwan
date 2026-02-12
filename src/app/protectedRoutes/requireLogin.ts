@@ -2,9 +2,23 @@ import { store } from "stores/store";
 import { fetchCurrentUser } from "stores/auth/authThunk";
 import { redirect } from "react-router";
 
-export default async function requireLogin() {
+export default async function requireLogin({ request }: { request: Request }) {
   const state = store.getState();
   const { user } = state.auth;
+
+  const url = new URL(request.url);
+  const accessToken = url.searchParams.get("accessToken");
+  const refreshToken = url.searchParams.get("refreshToken");
+
+  // If OAuth tokens are present, store them and redirect to clean URL
+  if (accessToken && refreshToken) {
+    // Store tokens in cookies
+    document.cookie = `accessToken=${accessToken}; path=/; secure; samesite=none`;
+    document.cookie = `refreshToken=${refreshToken}; path=/; secure; samesite=none`;
+
+    // Redirect to clean URL (same path without query params)
+    return redirect(url.pathname);
+  }
 
   // If user is already loaded, proceed
   if (user) return null;
