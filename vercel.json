@@ -4,10 +4,6 @@
       "source": "/api/v1/(.*)",
       "destination": "https://social-media-backend-production-8e07.up.railway.app/api/v1/$1"
     },
-    {
-      "source": "/socket.io/(.*)",
-      "destination": "https://social-media-backend-production-8e07.up.railway.app/socket.io/$1"
-    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
