@@ -8,6 +8,7 @@ import {
   JOIN_CHAT_EVENT,
   LEAVE_CHAT_EVENT,
   MESSAGE_DELETE_EVENT,
+  MESSAGE_RECEIVED_EVENT,
   STOP_TYPING_EVENT,
   TYPING_EVENT,
 } from "../../../shared/features/message/const/const";
@@ -86,10 +87,10 @@ function MessageSection({
       );
     };
 
-    socket.on("MESSAGE_RECEIVED_EVENT", handleNewMessage);
+    socket.on(MESSAGE_RECEIVED_EVENT, handleNewMessage);
 
     return () => {
-      socket.off("MESSAGE_RECEIVED_EVENT", handleNewMessage);
+      socket.off(MESSAGE_RECEIVED_EVENT, handleNewMessage);
     };
   }, [chatId, socketRef, queryClient]);
 
@@ -101,11 +102,13 @@ function MessageSection({
 
     socket.emit(JOIN_CHAT_EVENT, chatId);
 
-    const handleTyping = (id: string) => {
+    const handleTyping = (data: string | { chatId: string }) => {
+      const id = typeof data === "string" ? data : data.chatId;
       if (id === chatId) setIsTyping(true);
     };
 
-    const handleStopTyping = (id: string) => {
+    const handleStopTyping = (data: string | { chatId: string }) => {
+      const id = typeof data === "string" ? data : data.chatId;
       if (id === chatId) setIsTyping(false);
     };
 
