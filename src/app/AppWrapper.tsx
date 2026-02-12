@@ -10,10 +10,10 @@ import { useEffect } from "react";
 import { fetchCurrentUser } from "stores/auth/authThunk";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
+const queryClient = new QueryClient();
 function AppWrapper() {
-  const queryClient = new QueryClient();
-
   const user = useAppSelector((state) => state.auth.user);
+  console.log(user);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (!user) dispatch(fetchCurrentUser());
