@@ -36,8 +36,8 @@ const refreshAccessToken = async () => {
       try {
         await axios.post(
           `${import.meta.env.VITE_SERVER_URL || "/api/v1"}/users/refresh-token`,
-          // {},
-          // { withCredentials: true },
+          {},
+          { withCredentials: true },
         );
       } catch (error) {
         console.error("Token refresh failed:", error);
@@ -72,7 +72,6 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         // If refresh fails, we'll let it fall through to the general error handler
-        // which might toast or redirect.
         return Promise.reject(refreshError);
       }
     }
