@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { useEffect } from "react";
 import { fetchCurrentUser } from "stores/auth/authThunk";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 function AppWrapper() {
   const queryClient = new QueryClient();
